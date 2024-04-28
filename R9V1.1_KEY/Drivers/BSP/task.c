@@ -20,7 +20,7 @@ void Hard_devInit(void)
 
 void ModbusKey (void)
 {
-    KeyScan();
+    
 	Modbuskey_Event();//Modbus事件处理函数(执行读或者写的判断)--从机地址011
 	
 }
@@ -30,6 +30,6 @@ void ModbusKey (void)
 
 void Led_control (void)
 {
-
+	KeyScan();
 	LedControl();
 }	

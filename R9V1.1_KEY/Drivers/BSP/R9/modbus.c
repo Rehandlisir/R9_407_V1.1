@@ -19,7 +19,7 @@
 
 UART_HandleTypeDef g_modbus_handler;     /* Modbus控制句柄(串口) */
 
-uint16_t KeyReg[100] ={0x0000
+uint16_t KeyReg[200] ={0
            };//reg是提前定义好的寄存器和寄存器数据，要读取和改写的部分内容
  
 

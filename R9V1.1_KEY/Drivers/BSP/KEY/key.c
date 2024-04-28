@@ -73,7 +73,7 @@ void key_init(void)
  */
 
 
-uint8_t key_scan1(void)
+void key_scan1(void)
 {
     if(KEY1 == 0)
     {
@@ -81,79 +81,79 @@ uint8_t key_scan1(void)
         if(KEY1== 0)
         {
 			KeyReg[1] = 0x0001;
-            return 1;   /* 按键按下了 */
+               /* 按键按下了 */
         }
     }
     else
     {  
 		KeyReg[1] = 0x0000;
-        return 0;   /* 按键没有按下 */
+           /* 按键没有按下 */
      }
    
 }
 
 
-uint8_t key_scan2(void)
+void key_scan2(void)
 {
     if(KEY2 == 0)
     {
         delay_ms(20);   /* 消抖 */
         if(KEY2== 0)
         {
-			KeyReg[2] = 0x0002;
-            return 1;   /* 按键按下了 */
+			KeyReg[2] = 0x0001;
+               /* 按键按下了 */
         }
     }
     else
     { 
 		KeyReg[2] = 0x0000;
-        return 0;   /* 按键没有按下 */
+           /* 按键没有按下 */
         }
    
 }
 
-uint8_t key_scan3(void)
+void key_scan3(void)
 {
     if(KEY3 == 0)
     {
         delay_ms(20);   /* 消抖 */
         if(KEY3== 0)
         {
-			KeyReg[3] = 0x0003;
-            return 1;   /* 按键按下了 */
+			KeyReg[3] = 0x0001;
+               /* 按键按下了 */
         }
     }
     else
     { 
         KeyReg[3] = 0x0000;
-		return 0;   /* 按键没有按下 */
+		   /* 按键没有按下 */
        
 	}
    
 }
 
 
-uint8_t key_scan4(void)
+void key_scan4(void)
 {
     if(KEY4 == 0)
     {
         delay_ms(20);   /* 消抖 */
         if(KEY4== 0)
         {
-			KeyReg[4] = 0x0004;
-            return 1;   /* 按键按下了 */
+			KeyReg[4] = 0x0001;
+               /* 按键按下了 */
         }
     }
     else
     { 
 		KeyReg[4] = 0x0000;
-        return 0;   /* 按键没有按下 */
+           /* 按键没有按下 */
         
 	}
    
 }
 
-uint8_t key_scan5(void)
+void key_scan5(void)
 {
     if(KEY5 == 0)
     {
@@ -161,19 +161,19 @@ uint8_t key_scan5(void)
         if(KEY5== 0)
         {
 			KeyReg[5] = 0x0005;
-            return 1;   /* 按键按下了 */
+               /* 按键按下了 */
         }
     }
     else
     { 
 		KeyReg[5] = 0x0000;
-        return 0;   /* 按键没有按下 */
+           /* 按键没有按下 */
        
 	}
    
 }
 
-uint8_t key_scan6(void)
+void key_scan6(void)
 {
     if(KEY6 == 0)
     {
@@ -181,19 +181,19 @@ uint8_t key_scan6(void)
         if(KEY6== 0)
         {
 			KeyReg[6] = 0x0006;
-            return 1;   /* 按键按下了 */
+               /* 按键按下了 */
         }
     }
     else
     { 
 		KeyReg[6] = 0x0000;
-        return 0;   /* 按键没有按下 */
+           /* 按键没有按下 */
         
 	}
    
 }
 
-uint8_t key_scan7(void)
+void key_scan7(void)
 {
     if(KEY7 == 0)
     {
@@ -201,19 +201,19 @@ uint8_t key_scan7(void)
         if(KEY7== 0)
         {
 			KeyReg[7] = 0x0007;
-            return 1;   /* 按键按下了 */
+               /* 按键按下了 */
         }
     }
     else
     { 
 		KeyReg[7] = 0x0000;
-        return 0;   /* 按键没有按下 */
+           /* 按键没有按下 */
         
 	}
    
 }
 
-uint8_t key_scan8(void)
+void key_scan8(void)
 {
     if(KEY8 == 0)
     {
@@ -221,19 +221,19 @@ uint8_t key_scan8(void)
         if(KEY8== 0)
         {
 			KeyReg[8] = 0x0008;
-            return 1;   /* 按键按下了 */
+               /* 按键按下了 */
         }
     }
     else
     { 
 		KeyReg[8] = 0x0000;
-        return 0;   /* 按键没有按下 */
+           /* 按键没有按下 */
         
 	}
    
 }
 
-uint8_t key_scan9(void)
+void key_scan9(void)
 {
     if(KEY9 == 0)
     {
@@ -241,19 +241,19 @@ uint8_t key_scan9(void)
         if(KEY9== 0)
         {
 			KeyReg[9] = 0x0009;
-            return 1;   /* 按键按下了 */
+               /* 按键按下了 */
         }
     }
     else
     { 
 		KeyReg[9] = 0x0000;
-        return 0;   /* 按键没有按下 */
+           /* 按键没有按下 */
         
 	}
    
 }
 
-uint8_t key_scan10(void)
+void key_scan10(void)
 {
     if(KEY10 == 0)
     {
@@ -261,13 +261,13 @@ uint8_t key_scan10(void)
         if(KEY10== 0)
         {
 			KeyReg[10] = 0x000A;
-            return 1;   /* 按键按下了 */
+               /* 按键按下了 */
         }
     }
     else
     { 
 		KeyReg[10] = 0x0000;
-        return 0;   /* 按键没有按下 */
+           /* 按键没有按下 */
     }
    
 }

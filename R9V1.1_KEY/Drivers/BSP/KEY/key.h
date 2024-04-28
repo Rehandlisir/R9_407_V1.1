@@ -91,16 +91,16 @@
 
 
 void key_init(void);                /* 按键初始化函数 */
-uint8_t key_scan1(void);
-uint8_t key_scan2(void);
-uint8_t key_scan3(void);
-uint8_t key_scan4(void);
-uint8_t key_scan5(void);
-uint8_t key_scan6(void);
-uint8_t key_scan7(void);
-uint8_t key_scan8(void);
-uint8_t key_scan9(void);
-uint8_t key_scan10(void);
+void key_scan1(void);
+void key_scan2(void);
+void key_scan3(void);
+void key_scan4(void);
+void key_scan5(void);
+void key_scan6(void);
+void key_scan7(void);
+void key_scan8(void);
+void key_scan9(void);
+void key_scan10(void);
 void KeyScan(void);
 #endif
 
