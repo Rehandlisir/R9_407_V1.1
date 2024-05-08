@@ -100,7 +100,7 @@ void key_scan2(void)
         delay_ms(20);   /* 消抖 */
         if(KEY2== 0)
         {
-			KeyReg[2] = 0x0001;
+			KeyReg[2] = 0x0002;
                /* 按键按下了 */
         }
     }
@@ -119,7 +119,7 @@ void key_scan3(void)
         delay_ms(20);   /* 消抖 */
         if(KEY3== 0)
         {
-			KeyReg[3] = 0x0001;
+			KeyReg[3] = 0x0003;
                /* 按键按下了 */
         }
     }
@@ -140,7 +140,7 @@ void key_scan4(void)
         delay_ms(20);   /* 消抖 */
         if(KEY4== 0)
         {
-			KeyReg[4] = 0x0001;
+			KeyReg[4] = 0x0004;
                /* 按键按下了 */
         }
     }

@@ -128,20 +128,20 @@ void Led_Init(void)
  */
 void LedControl(void)
 {
-	 if (KeyReg[0X0091] == 1)
+	 if (KeyReg[0X0091] == 0)
 	 {
 		LED1G(1);
 		LED1R(0);
 		LED1B(0);
 		
 	 }
-	 else if (KeyReg[0X0091] == 2)
+	 else if (KeyReg[0X0091] == 1)
 	 {
 		LED1G(1);
 		LED1R(1);
 		LED1B(0);
 	 }
-	 else if (KeyReg[0X0091] == 3)
+	 else if (KeyReg[0X0091] == 2)
 	 {
 		LED1G(0);
 		LED1R(1);
@@ -155,19 +155,19 @@ void LedControl(void)
 	 };
 	 
 
-	 if (KeyReg[0X0092] == 1)
+	 if (KeyReg[0X0092] == 0)
 	 {
 		LED2G(1);
 		LED2R(0);
 		LED2B(0);
 	 }
-	 else if (KeyReg[0X0092] == 2)
+	 else if (KeyReg[0X0092] == 1)
 	 {
 		LED2G(1);
 		LED2R(1);
 		LED2B(0);
 	 }
-	 else if (KeyReg[0X0092] == 3)
+	 else if (KeyReg[0X0092] == 2)
 	 {
 		LED2G(0);
 		LED2R(1);
@@ -180,19 +180,19 @@ void LedControl(void)
 		LED2B(0);
 	 };
 
-	 if (KeyReg[0X0093] == 1)
+	 if (KeyReg[0X0093] == 0)
 	 {
 		LED3G(1);
 		LED3R(0);
 		LED3B(0);
 	 }
-	 else if (KeyReg[0X0093] == 2)
+	 else if (KeyReg[0X0093] == 1)
 	 {
 		LED3G(1);
 		LED3R(1);
 		LED3B(0);
 	 }
-	 else if (KeyReg[0X0093] == 3)
+	 else if (KeyReg[0X0093] == 2)
 	 {
 		LED3G(0);
 		LED3R(1);
@@ -206,19 +206,19 @@ void LedControl(void)
 
 	 };
 
-	 if (KeyReg[0X0094] == 1)
+	 if (KeyReg[0X0094] == 0)
 	 {
 		LED4G(1);
 		LED4R(0);
 		LED4B(0);
 	 }
-	 else if (KeyReg[0X0094] == 2)
+	 else if (KeyReg[0X0094] == 1)
 	 {
 		LED4G(1);
 		LED4R(1);
 		LED4B(0);
 	 }
-	 else if (KeyReg[0X0094] == 3)
+	 else if (KeyReg[0X0094] == 2)
 	 {
 		LED4G(0);
 		LED4R(1);
@@ -231,19 +231,19 @@ void LedControl(void)
 		LED4B(0);
 	 };
 
-	 if (KeyReg[0X0095] == 1)
+	 if (KeyReg[0X0095] == 0)
 	 {
 		LED5G(1);
 		LED5R(0);
 		LED5B(0);
 	 }
-	 else if (KeyReg[0X0095] == 2)
+	 else if (KeyReg[0X0095] == 1)
 	 {
 		LED5G(1);
 		LED5R(1);
 		LED5B(0);
 	 }
-	 else if (KeyReg[0X0095] == 3)
+	 else if (KeyReg[0X0095] == 2)
 	 {
 		LED5G(0);
 		LED5R(1);
