@@ -113,7 +113,7 @@ MODBUS modbus; // 结构体变量
 //  Modbus初始化函数
 void Host_Modbuskey_Init(void)
 {
-	Host_ModbusKeyUART2_init(9600);
+	Host_ModbusKeyUART2_init(115200);
 
 	modbus.timrun = 0; // modbus定时器停止计算
 }

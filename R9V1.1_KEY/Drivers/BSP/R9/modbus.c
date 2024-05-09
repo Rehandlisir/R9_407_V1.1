@@ -122,7 +122,7 @@ MODBUS modbus;//结构体变量
 // Modbus初始化函数
 void Modbuskey_Init(void)
 {
-  ModbusKeyUART6_init(9600);
+  ModbusKeyUART6_init(115200);
   modbus.myadd = 0x11; //从机设备地址为11
   modbus.timrun = 0;    //modbus定时器停止计算
   
