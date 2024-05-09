@@ -21,7 +21,7 @@
 /*  */
 
 #define LED1G_GPIO_PORT GPIOE
-#define LED1G_GPIO_PIN GPIO_PIN_1
+#define LED1G_GPIO_PIN GPIO_PIN_15
 #define LED1G_GPIO_CLK_ENABLE()        \
     do                                \
     {                                 \
@@ -30,7 +30,7 @@
 
 	
 #define LED1R_GPIO_PORT GPIOE
-#define LED1R_GPIO_PIN GPIO_PIN_0
+#define LED1R_GPIO_PIN GPIO_PIN_14
 #define LED1R_GPIO_CLK_ENABLE()        \
     do                                \
     {                                 \
@@ -38,39 +38,39 @@
     } while (0) /*  */
 
 
-#define LED1B_GPIO_PORT GPIOD
-#define LED1B_GPIO_PIN GPIO_PIN_2
+#define LED1B_GPIO_PORT GPIOE
+#define LED1B_GPIO_PIN GPIO_PIN_12
 #define LED1B_GPIO_CLK_ENABLE()        \
     do                                \
     {                                 \
-        __HAL_RCC_GPIOD_CLK_ENABLE(); \
+        __HAL_RCC_GPIOE_CLK_ENABLE(); \
     } while (0) /*  */
 	
 	
-#define LED2G_GPIO_PORT GPIOD
-#define LED2G_GPIO_PIN GPIO_PIN_4
+#define LED2G_GPIO_PORT GPIOB
+#define LED2G_GPIO_PIN GPIO_PIN_14
 #define LED2G_GPIO_CLK_ENABLE()        \
     do                                \
     {                                 \
-        __HAL_RCC_GPIOD_CLK_ENABLE(); \
+        __HAL_RCC_GPIOB_CLK_ENABLE(); \
     } while (0) /*  */
 
 	
-#define LED2R_GPIO_PORT GPIOD
-#define LED2R_GPIO_PIN GPIO_PIN_5
+#define LED2R_GPIO_PORT GPIOB
+#define LED2R_GPIO_PIN GPIO_PIN_13
 #define LED2R_GPIO_CLK_ENABLE()        \
     do                                \
     {                                 \
-        __HAL_RCC_GPIOD_CLK_ENABLE(); \
+        __HAL_RCC_GPIOB_CLK_ENABLE(); \
     } while (0) /*  */
 
 
-#define LED2B_GPIO_PORT GPIOD
-#define LED2B_GPIO_PIN GPIO_PIN_6
+#define LED2B_GPIO_PORT GPIOB
+#define LED2B_GPIO_PIN GPIO_PIN_12
 #define LED2B_GPIO_CLK_ENABLE()        \
     do                                \
     {                                 \
-        __HAL_RCC_GPIOD_CLK_ENABLE(); \
+        __HAL_RCC_GPIOB_CLK_ENABLE(); \
     } while (0) /*  */	
 	
 	
@@ -127,26 +127,26 @@
     } while (0) /*  */	
 	
 	
-#define LED5G_GPIO_PORT GPIOA
-#define LED5G_GPIO_PIN GPIO_PIN_1
+#define LED5G_GPIO_PORT GPIOC
+#define LED5G_GPIO_PIN GPIO_PIN_8
 #define LED5G_GPIO_CLK_ENABLE()        \
     do                                \
     {                                 \
-        __HAL_RCC_GPIOA_CLK_ENABLE(); \
+        __HAL_RCC_GPIOC_CLK_ENABLE(); \
     } while (0) /*  */
 
 	
-#define LED5R_GPIO_PORT GPIOA
-#define LED5R_GPIO_PIN GPIO_PIN_2
+#define LED5R_GPIO_PORT GPIOC
+#define LED5R_GPIO_PIN GPIO_PIN_9
 #define LED5R_GPIO_CLK_ENABLE()        \
     do                                \
     {                                 \
-        __HAL_RCC_GPIOA_CLK_ENABLE(); \
+        __HAL_RCC_GPIOC_CLK_ENABLE(); \
     } while (0) /*  */
 
 
 #define LED5B_GPIO_PORT GPIOA
-#define LED5B_GPIO_PIN GPIO_PIN_3
+#define LED5B_GPIO_PIN GPIO_PIN_8
 #define LED5B_GPIO_CLK_ENABLE()        \
     do                                \
     {                                 \
