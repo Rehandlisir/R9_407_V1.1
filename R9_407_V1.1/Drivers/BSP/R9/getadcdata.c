@@ -12,7 +12,8 @@
  * (1)  摇杆数据采集         PA2 PA3
  * (2)  抱闸 数据监测        PA4 PA5
  * (3)  底盘电机电流检测     PA6 PA7
- * (4) 电池电压             PC4
+ * (4) 电池电压 /充电状态检测            PC4 PC5
+ 
 
  * 二、   ADC3 数据采集  包含
  * (1) 推杆1~6  位置检测  PF5 PF3 PF4 PF6 PF8 PF7
@@ -20,7 +21,7 @@
  * 
  ****************************************************************************************************
  */
-#define ADC1_DMA_BUF_SIZE        10 * 7     /* ADC1 DMA采集 BUF大小, 应等于ADC通道数的整数倍 */
+#define ADC1_DMA_BUF_SIZE        10 * 8     /* ADC1 DMA采集 BUF大小, 应等于ADC通道数的整数倍 */
 uint16_t g_adc1_dma_buf[ADC1_DMA_BUF_SIZE];   /* ADC DMA BUF */
 
 extern uint8_t g_adc1_dma_sta;               /* DMA传输状态标志, 0, 未完成; 1, 已完成 */
@@ -59,15 +60,15 @@ void getadc1Data(void)
     uint16_t adc1_alldata;
     uint32_t sum;
     float temp;
-	            /* 循环显示通道0~通道5的结果 */
-	for(j = 0; j < 7; j++)  /* 遍历6个通道 */
+	            /* 循环显示通道1~通道8的结果 */
+	for(j = 0; j < 8; j++)  /* 遍历8个通道 */
 	{
 		sum = 0; /* 清零 */
-		for (i = 0; i < ADC1_DMA_BUF_SIZE / 7; i++)  /* 每个通道采集了10次数据,进行10次累加 */
+		for (i = 0; i < ADC1_DMA_BUF_SIZE / 8; i++)  /* 每个通道采集了10次数据,进行10次累加 */
 		{
-			sum += g_adc1_dma_buf[(7 * i) + j];  /* 相同通道的转换数据累加 */
+			sum += g_adc1_dma_buf[(8 * i) + j];  /* 相同通道的转换数据累加 */
 		}
-		adc1_alldata = sum / (ADC1_DMA_BUF_SIZE / 7);    /* 取平均值 */
+		adc1_alldata = sum / (ADC1_DMA_BUF_SIZE / 8);    /* 取平均值 */
 
 		if ( j == 0  )   
 		{
@@ -101,7 +102,12 @@ void getadc1Data(void)
 		if ( j == 6 )
 		{
 			adcdata.bat_v = adc1_alldata;
-		}   
+
+		}  
+		if (j == 7)
+		{
+			adcdata.chargeI_adc = adc1_alldata;
+		}
 			  
 	 }
 	g_adc1_dma_sta = 0;  /* 清除DMA采集完成状态标志 */
@@ -202,6 +208,11 @@ void Datareset(void)
 	adcdata.legangle_pos =0;
 	adcdata.leglength_pos =0;
 	adcdata.support_pos =0;	
+//	adcdata.l_brakcurrent = 0;
+//	adcdata.r_brakcurrent = 0;
+//	adcdata.l_brakcurrent = 0;
+//	adcdata.r_brakcurrent = 0;
+	
 }
 
 

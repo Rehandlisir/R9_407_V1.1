@@ -12,22 +12,22 @@
  * 默认是针对Modbus2的.
  * 注意: 通过修改这10个宏定义, 可以支持UART1~UART7任意一个串口.
  */
-#define Modbus_RE_GPIO_PORT                  GPIOF
-#define Modbus_RE_GPIO_PIN                   GPIO_PIN_12
-#define Modbus_RE_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOF_CLK_ENABLE(); }while(0)   /*  */
+#define Modbus_RE_GPIO_PORT                  GPIOD
+#define Modbus_RE_GPIO_PIN                   GPIO_PIN_10
+#define Modbus_RE_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOD_CLK_ENABLE(); }while(0)   /*  */
 
-#define Modbus_TX_GPIO_PORT                  GPIOD
-#define Modbus_TX_GPIO_PIN                   GPIO_PIN_5
-#define Modbus_TX_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOD_CLK_ENABLE(); }while(0)   /*  */
+#define Modbus_TX_GPIO_PORT                  GPIOC
+#define Modbus_TX_GPIO_PIN                   GPIO_PIN_10
+#define Modbus_TX_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)   /*  */
 
-#define Modbus_RX_GPIO_PORT                  GPIOD
-#define Modbus_RX_GPIO_PIN                   GPIO_PIN_6
-#define Modbus_RX_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOA_CLK_ENABLE(); }while(0)   /* */
+#define Modbus_RX_GPIO_PORT                  GPIOC
+#define Modbus_RX_GPIO_PIN                   GPIO_PIN_11
+#define Modbus_RX_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)   /* */
 
-#define Modbus_UX                            USART2
-#define Modbus_UX_IRQn                       USART2_IRQn
-#define ModbusKey_UX_IRQHandler              USART2_IRQHandler
-#define Modbus_UX_CLK_ENABLE()               do{ __HAL_RCC_USART2_CLK_ENABLE(); }while(0)  /* USART2时钟使能 */
+#define Modbus_UX                            USART3
+#define Modbus_UX_IRQn                       USART3_IRQn
+#define ModbusKey_UX_IRQHandler              USART3_IRQHandler
+#define Modbus_UX_CLK_ENABLE()               do{ __HAL_RCC_USART3_CLK_ENABLE(); }while(0)  /* USART3时钟使能 */
 
 
 /******************************************************************************************/
@@ -71,7 +71,7 @@ extern uint16_t KeyReg[];
 
 extern uint16_t KeyStateRecive[200];
 
-void Host_ModbusKeyUART2_init(uint32_t baudrate);
+void Host_ModbusKeyUART3_init(uint32_t baudrate);
 void Host_Modbuskey_send_data(uint8_t *buf, uint8_t len);
 void Host_Modbuskey_Init(void);
 uint16_t  Host_Modbuskey_CRC16( uint8_t *puchMsg, uint16_t usDataLen );

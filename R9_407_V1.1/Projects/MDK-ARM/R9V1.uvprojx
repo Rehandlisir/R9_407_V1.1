@@ -436,11 +436,6 @@
           <GroupName>Driver/BSP</GroupName>
           <Files>
             <File>
-              <FileName>beep.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\BEEP\beep.c</FilePath>
-            </File>
-            <File>
               <FileName>key.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\BSP\KEY\key.c</FilePath>

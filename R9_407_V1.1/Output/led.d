@@ -70,5 +70,4 @@
 ..\..\output\led.o: ..\..\Drivers\CMSIS\Include\core_cm4.h
 ..\..\output\led.o: ..\..\Drivers\./BSP/KEY/key.h
 ..\..\output\led.o: ..\..\Drivers\./SYSTEM/delay/delay.h
-..\..\output\led.o: ..\..\Drivers\./BSP/BEEP/beep.h
 ..\..\output\led.o: ..\..\Drivers\./BSP/R9/Slavemodbus.h

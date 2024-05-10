@@ -31,66 +31,29 @@
 
 /*********************************以下是通用定时器PWM输出实验相关宏定义*************************************/
 
-/* TIMX PWM输出定义
- * 这里输出的PWM控制LED0(RED)的亮度
- * 默认是针对TIM2~TIM5
- * 注意: 通过修改这几个宏定义,可以支持TIM1~TIM8任意一个定时器,任意一个IO口输出PWM
- */
-// #define GTIM_TIMX_PWM_CHY_GPIO_PORTA         GPIOA
-// #define GTIM_TIMX_PWM_CHY_GPIO_PIN6          GPIO_PIN_6
-// #define GTIM_TIMX_PWM_CHY_GPIO_PIN7          GPIO_PIN_7
-
-// #define GTIM_TIMX_PWM_CHY_GPIO_PORTB         GPIOB
-// #define GTIM_TIMX_PWM_CHY_GPIO_PIN0          GPIO_PIN_0
-// #define GTIM_TIMX_PWM_CHY_GPIO_PIN1         GPIO_PIN_1
-
-// #define GTIM_TIMX_PWM_CHY_GPIOA_CLK_ENABLE() do{ __HAL_RCC_GPIOA_CLK_ENABLE(); }while(0)  /* PA口时钟使能 */
-// #define GTIM_TIMX_PWM_CHY_GPIOB_CLK_ENABLE() do{ __HAL_RCC_GPIOB_CLK_ENABLE(); }while(0)  /* PB口时钟使能 */
-
-// #define GTIM_TIMX_PWM_CHY_GPIO_AF           GPIO_AF2_TIM3                               /* 端口复用到TIM3 */
-
-// /* TIMX REMAP设置
-//  * 开启TIM3的重映射功能, 才能将TIM3_CH1 TIM3_CH2 TIM3_CH3 TIM3_CH4 输出到PA6 PA7 PB0 PB1上
-//  */
-
-// #define GTIM_TIMX_PWM                       TIM3                                       /* TIM3 */
-// #define GTIM_TIMX_PWM_CH1                   TIM_CHANNEL_1                                /* 通道Y,  1<= Y <=4 */
-// #define GTIM_TIMX_PWM_CH2                   TIM_CHANNEL_2                                /* 通道Y,  1<= Y <=4 */
-// #define GTIM_TIMX_PWM_CH3                   TIM_CHANNEL_3                                /* 通道Y,  1<= Y <=4 */
-// #define GTIM_TIMX_PWM_CH4                   TIM_CHANNEL_4                                /* 通道Y,  1<= Y <=4 */
-
-// #define GTIM_TIMX_PWM_CH1_CCRX              TIM3->CCR1                                  /* 通道Y的输出比较寄存器 */
-// #define GTIM_TIMX_PWM_CH2_CCRX              TIM3->CCR2                                  /* 通道Y的输出比较寄存器 */
-// #define GTIM_TIMX_PWM_CH3_CCRX              TIM3->CCR3                                  /* 通道Y的输出比较寄存器 */
-// #define GTIM_TIMX_PWM_CH4_CCRX              TIM3->CCR4                                  /* 通道Y的输出比较寄存器 */
-
-// #define GTIM_TIMX_PWM_CHY_CLK_ENABLE()      do{ __HAL_RCC_TIM3_CLK_ENABLE(); }while(0)  /* TIM3 时钟使能 */
-
-/****************************************************************************************************/
-
-/* // /*********************************底盘电机驱动输出 及 推杆电机 驱动输出  *************************************/
+/**********************************底盘电机驱动输出 及 推杆电机 驱动输出  *************************************/
 
 /* 底盘L 电机1 驱动输出 TIME5*/
 /* TIMX REMAP设置* 开启TIM5的重映射功能, 将TIM5_CH1 及 TIM5_CH2 输出到PA0 PA1 上*/
-#define GTIM_TIM5_PWM_CHY_GPIO_PORTA GPIOA
-#define GTIM_TIM5_PWM_CHY_GPIO_PIN0 GPIO_PIN_0
-#define GTIM_TIM5_PWM_CHY_GPIO_PIN1 GPIO_PIN_1
-#define GTIM_TIM5_PWM TIM5						/* TIM5 */
-#define GTIM_TIM5_PWM_CH1 TIM_CHANNEL_1			/* 通道Y,  1<= Y <=4 */
-#define GTIM_TIM5_PWM_CH2 TIM_CHANNEL_2			/* 通道Y,  1<= Y <=4 */
-#define GTIM_TIM5_PWM_CH1_CCRX TIM5->CCR1		/* 通道1的输出比较寄存器 */
-#define GTIM_TIM5_PWM_CH2_CCRX TIM5->CCR2		/* 通道2的输出比较寄存器 */
-#define GTIM_TIM5_PWM_CHY_GPIO_AF GPIO_AF2_TIM5 /* 端口复用到TIM5 */
-#define GTIM_TIM5_PWM_CHY_GPIOA_CLK_ENABLE() \
+#define GTIM_TIM3_PWM_CHY_GPIO_PORTB GPIOB
+#define GTIM_TIM3_PWM_CHY_GPIO_PIN0 GPIO_PIN_0
+#define GTIM_TIM3_PWM_CHY_GPIO_PIN1 GPIO_PIN_1
+#define GTIM_TIM3_PWM TIM3						/* TIM3 */
+#define GTIM_TIM3_PWM_CH3 TIM_CHANNEL_3			/* 通道Y,  1<= Y <=4 */
+#define GTIM_TIM3_PWM_CH4 TIM_CHANNEL_4			/* 通道Y,  1<= Y <=4 */
+#define GTIM_TIM3_PWM_CH3_CCRX TIM3->CCR3		/* 通道1的输出比较寄存器 */
+#define GTIM_TIM3_PWM_CH4_CCRX TIM3->CCR4		/* 通道2的输出比较寄存器 */
+#define GTIM_TIM3_PWM_CHY_GPIO_AF GPIO_AF2_TIM3 /* 端口复用到TIM3 */
+#define GTIM_TIM3_PWM_CHY_GPIOB_CLK_ENABLE() \
 	do                                       \
 	{                                        \
-		__HAL_RCC_GPIOA_CLK_ENABLE();        \
+		__HAL_RCC_GPIOB_CLK_ENABLE();        \
 	} while (0) /* PA口时钟使能 */
-#define GTIM_TIM5_PWM_CHY_CLK_ENABLE() \
+#define GTIM_TIM3_PWM_CHY_CLK_ENABLE() \
 	do                                 \
 	{                                  \
-		__HAL_RCC_TIM5_CLK_ENABLE();   \
-	} while (0) /* TIM5 时钟使能 */
+		__HAL_RCC_TIM3_CLK_ENABLE();   \
+	} while (0) /* TIM3 时钟使能 */
 
 /*底盘R 电机2驱动输出 TIME9 */
 /* TIMX REMAP设置* 开启TIM9的重映射功能, 将TIM9_CH1  TIM9_CH2 输出到PE5 PE6 上*/
@@ -118,13 +81,13 @@
 /* TIMX REMAP设置* 开启TIM1的重映射功能, 将TIM1_CH1 TIM1_CH2 输出到PA8 PA9 上，*/
 /*推杆电机 1 输出*/
 #define GTIM_TIM1_PWM_CHY_GPIO_PORTA GPIOA
-#define GTIM_TIM1_PWM_CHY_GPIO_PIN8 GPIO_PIN_8
-#define GTIM_TIM1_PWM_CHY_GPIO_PIN9 GPIO_PIN_9
+#define GTIM_TIM1_PWM_CHY_GPIO_PIN10 GPIO_PIN_10
+#define GTIM_TIM1_PWM_CHY_GPIO_PIN11 GPIO_PIN_11
 #define GTIM_TIM1_PWM TIM1						/* TIM1 */
-#define GTIM_TIM1_PWM_CH1 TIM_CHANNEL_1			// T1                          /* 通道Y,  1<= Y <=4 */
-#define GTIM_TIM1_PWM_CH2 TIM_CHANNEL_2			/* 通道Y,  1<= Y <=4 */
-#define GTIM_TIM1_PWM_CH1_CCRX TIM1->CCR1		/* 通道1的输出比较寄存器 */
-#define GTIM_TIM1_PWM_CH2_CCRX TIM1->CCR2		/* 通道2的输出比较寄存器 */
+#define GTIM_TIM1_PWM_CH3 TIM_CHANNEL_3			// T1                          /* 通道Y,  1<= Y <=4 */
+#define GTIM_TIM1_PWM_CH4 TIM_CHANNEL_4		/* 通道Y,  1<= Y <=4 */
+#define GTIM_TIM1_PWM_CH3_CCRX TIM1->CCR3		/* 通道1的输出比较寄存器 */
+#define GTIM_TIM1_PWM_CH4_CCRX TIM1->CCR4		/* 通道2的输出比较寄存器 */
 #define GTIM_TIM1_PWM_CHY_GPIO_AF GPIO_AF1_TIM1 /* 端口复用到TIM1 */
 #define GTIM_TIM1_PWM_CHY_GPIOA_CLK_ENABLE() \
 	do                                       \
@@ -234,7 +197,7 @@
 #define SEAT_LIFTDROPRATIO 0.819   // 座板角度B2/B1底盘举升
 
 /*************************电机驱动变量*****************************/
-extern TIM_HandleTypeDef g_time5_pwm_chy_handle;  /* 底盘L电机 1 函数句柄*/
+extern TIM_HandleTypeDef g_time3_pwm_chy_handle;  /* 底盘L电机 1 函数句柄*/
 extern TIM_HandleTypeDef g_time9_pwm_chy_handle;  /* 底盘R电机 2 函数句柄*/
 extern TIM_HandleTypeDef g_time1_pwm_chy_handle;  /* 推杆1 （举升）  TIME1 函数句柄*/
 extern TIM_HandleTypeDef g_time8_pwm_chy_handle;  /* 推杆2 （座板）    推杆3 （靠背） TIME8 函数句柄*/

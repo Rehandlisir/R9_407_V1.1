@@ -10,22 +10,22 @@
  * 默认是针对SlaveModbus2的.
  * 注意: 通过修改这10个宏定义, 可以支持UART1~UART7任意一个串口.
  */
-#define SlaveModbus_RE_GPIO_PORT                  GPIOF
-#define SlaveModbus_RE_GPIO_PIN                   GPIO_PIN_13
-#define SlaveModbus_RE_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOF_CLK_ENABLE(); }while(0)   /* PD口时钟使能 */
+#define SlaveModbus_RE_GPIO_PORT                  GPIOG
+#define SlaveModbus_RE_GPIO_PIN                   GPIO_PIN_0
+#define SlaveModbus_RE_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOG_CLK_ENABLE(); }while(0)   /* PD口时钟使能 */
 
-#define SlaveModbus_TX_GPIO_PORT                  GPIOC
-#define SlaveModbus_TX_GPIO_PIN                   GPIO_PIN_10
-#define SlaveModbus_TX_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)   /* PA口时钟使能 */
+#define SlaveModbus_TX_GPIO_PORT                  GPIOG
+#define SlaveModbus_TX_GPIO_PIN                   GPIO_PIN_14
+#define SlaveModbus_TX_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOG_CLK_ENABLE(); }while(0)   /* PA口时钟使能 */
 
-#define SlaveModbus_RX_GPIO_PORT                  GPIOC
-#define SlaveModbus_RX_GPIO_PIN                   GPIO_PIN_11
-#define SlaveModbus_RX_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)   /* PA口时钟使能 */
+#define SlaveModbus_RX_GPIO_PORT                  GPIOG
+#define SlaveModbus_RX_GPIO_PIN                   GPIO_PIN_9
+#define SlaveModbus_RX_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOG_CLK_ENABLE(); }while(0)   /* PA口时钟使能 */
 
-#define SlaveModbus_UX                            USART3
-#define SlaveModbus_UX_IRQn                       USART3_IRQn
-#define SlaveModbus_UX_IRQHandler                 USART3_IRQHandler
-#define SlaveModbus_UX_CLK_ENABLE()               do{ __HAL_RCC_USART3_CLK_ENABLE(); }while(0)  /* USART3 时钟使能 */
+#define SlaveModbus_UX                            USART6
+#define SlaveModbus_UX_IRQn                       USART6_IRQn
+#define SlaveModbus_UX_IRQHandler                 USART6_IRQHandler
+#define SlaveModbus_UX_CLK_ENABLE()               do{ __HAL_RCC_USART6_CLK_ENABLE(); }while(0)  /* USART3 时钟使能 */
 
 
 /******************************************************************************************/
@@ -61,7 +61,7 @@ typedef struct
 
 extern SLAVEMODBUS slavemodbus;
 extern uint16_t Reg[];
-void SlavemodbusUART2_init(uint32_t baudrate);
+void SlavemodbusUART6_init(uint32_t baudrate);
 void SlaveModbus_send_data(uint8_t *buf, uint8_t len);
 void SlaveModbus_Init(void);
 void SlaveModbus_Func3(void);//读寄存器数据

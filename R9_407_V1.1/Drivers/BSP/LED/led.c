@@ -25,7 +25,7 @@
 #include "./BSP/LED/led.h"
 #include "./BSP/KEY/key.h"
 #include "./SYSTEM/delay/delay.h"
-#include "./BSP/BEEP/beep.h"
+//#include "./BSP/BEEP/beep.h"
 #include "./BSP/R9/Slavemodbus.h"
 
 /**
@@ -136,7 +136,7 @@ void led_bling(void)
 		
 	// }
 
-	if (key_scan4() == 1 ) 
+	if (0)//key_scan4() == 1 ) 
 	{
 
 		KEY3_PRES_contes++;
@@ -157,7 +157,7 @@ void led_bling(void)
 
 
 	/*左转向控制*/
-	if (key_scan2() == 1)
+	if (0)//key_scan2() == 1)
 	{
 
 		KEY2_PRES_contes++;
@@ -178,7 +178,7 @@ void led_bling(void)
 	}
 
 	/*右转向控制 */
-	if (key_scan3() == 1)
+	if (0)//key_scan3() == 1)
 	{
 
 		KEY0_PRES_contes++;
@@ -198,7 +198,7 @@ void led_bling(void)
 		}
 	}
 	/*双闪控制*/
-	if (key_scan6() == 1)
+	if (0)//key_scan6() == 1)
 	{
 
 		KEY1_PRES_contes++;
@@ -222,8 +222,8 @@ void led_bling(void)
 	{
 	case idle_state:
 
-		LED0(1);
-		LED1(1);
+		// LED0(1);
+		// LED1(1);
 		LEFT_FRONT_TURE(0);
 		RIGHT_FRONT_TURE(0);
 		FRONT_MAIN(0);
@@ -234,8 +234,8 @@ void led_bling(void)
 		break;
 
 	case open_leftbling:
-		LED0_TOGGLE();
-		LED1(1);
+		// LED0_TOGGLE();
+		// LED1(1);
 		LEFT_FRONT_TURE_TOGGLE();
 		RIGHT_FRONT_TURE(0);
 
@@ -245,14 +245,14 @@ void led_bling(void)
 		break;
 
 	case close_leftbling:
-		LED0(1);
+		// LED0(1);
 		LEFT_FRONT_TURE(0);
 		LEFT_BACK_TURE(0);
 		break;
 
 	case open_rightbling:
-		LED1_TOGGLE();
-		LED0(1);
+		// LED1_TOGGLE();
+		// LED0(1);
 		RIGHT_FRONT_TURE_TOGGLE();
 		LEFT_FRONT_TURE(0);
 
@@ -262,7 +262,7 @@ void led_bling(void)
 		break;
 
 	case close_rightbling:
-		LED1(1);
+		// LED1(1);
 		RIGHT_FRONT_TURE(0);
 		RIGHT_BACK_TURE(0);
 
@@ -275,8 +275,8 @@ void led_bling(void)
 		RIGHT_BACK_TURE(1);
 		if (doubleflingflage)
 		{
-			LED0(1);
-			LED1(1);
+			// LED0(1);
+			// LED1(1);
 			LEFT_FRONT_TURE(0);
 			RIGHT_FRONT_TURE(0);
 			FRONT_MAIN(0);
@@ -285,8 +285,8 @@ void led_bling(void)
 		else
 		{
 			doubleflingflage = 1;
-			LED0(0);
-			LED1(0);
+			// LED0(0);
+			// LED1(0);
 			FRONT_MAIN(0);
 			LEFT_FRONT_TURE(1);
 			RIGHT_FRONT_TURE(1);
@@ -302,8 +302,8 @@ void led_bling(void)
 		break;
 
 	case close_doublebling:
-		LED0(1);
-		LED1(1);
+		// LED0(1);
+		// LED1(1);
 		LEFT_FRONT_TURE(0);
 		RIGHT_FRONT_TURE(0);
 
@@ -355,12 +355,12 @@ void led_bling(void)
 	}
 
 	//  喇叭 控制
-	if (key_scan7() == 1)
-	{
-		BEEP(1);
-	}
-	else
-	{
-		BEEP(0);
-	}
+	if (0)//key_scan7() == 1)
+		{
+//			BEEP(1);
+		}
+	 else
+	 {
+//			BEEP(0);
+	 }
 }

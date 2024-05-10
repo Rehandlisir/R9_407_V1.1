@@ -11,10 +11,11 @@
  *
  *
  * 针对 R9系统的所有ADC 数据采集 ，
- *  一 、ADC1 采集10通道数据 包含   
+ *  一 、ADC1 采集10通道数据 包含
  * (1)  摇杆数据采集         PA2 PA3
  * (2)  抱闸 数据监测        PA4 PA5
  * (3)  底盘电机电流检测     PA6 PA7
+ * (4)  电池电压             PC4
 
  * 二、   ADC3 数据采集  包含
  * (1) 推杆1~6  位置检测  PF5 PF3 PF4 PF6 PF8 PF7
@@ -35,7 +36,7 @@
 #define ADC_ADC1_CHY_CLK_ENABLE()           do{ __HAL_RCC_ADC1_CLK_ENABLE(); }while(0)      /* ADC1 时钟使能 */
 
 
-#define ADC1_CH_NUM                          7                                               /* 需要转换的通道数目 */
+#define ADC1_CH_NUM                          8                                               /* 需要转换的通道数目 */
 
 /* ADC1 多通道 DMA2 Stream4 采集 DMA数据流相关 定义
  * 注意: 这里我们的通道还是使用上面的定义.

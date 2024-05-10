@@ -36,12 +36,9 @@ void Hard_devInit(void)
     delay_init(168);                        /*初始化延时时钟频率*/
     usart_init(115200);                     /* 串口通讯波特率 115200 */
     led_init();                             /* 转向灯初始化 */
-   // lcd_init();                             /* LCD初始化 */
-    // getjoysticInit();                       /*摇杆初始化*/
-	key_init();								/*按键初始化*/
+	//key_init();								/*按键初始化*/
 	btim_timx_int_init(10 - 1, 8400 - 1);   /*定时器中断初始化 产生固定 1ms 的定时器中断 */
     brake_init();                           /*抱闸初始化*/   
-    beep_init();                            /*蜂鸣器初始化*/
 	currentproInit();
 	getadcDataInit();                      /*ADC数据采集初始化*/
 	MPU_Init();                            /*陀螺仪初始化*/
@@ -65,14 +62,14 @@ void LedFlash(void)
 
 void Beep_run(void) 
 {
-	if (velocity_pout.runstate == backward || velocity_pout.runstate == back_left || velocity_pout.runstate == back_right)
-	{
-		BEEP_TOGGLE();
-	}
-	else
-	{
-		BEEP(0);
-	}
+//	if (velocity_pout.runstate == backward || velocity_pout.runstate == back_left || velocity_pout.runstate == back_right)
+//	{
+//		BEEP_TOGGLE();
+//	}
+//	else
+//	{
+//		BEEP(0);
+//	}
 }
 /* 针对 R9系统的所有ADC 数据采集 ，
  *  一 、ADC1 采集7通道数据 包含   
@@ -145,8 +142,8 @@ void UnderpanDrive(void)
 	rpwmvaBl = 200 * (1.0 - velocity_pout.B_IN1);
 	rpwmvaB2 = 200 * (1.0 - velocity_pout.B_IN2);
 
-	__HAL_TIM_SET_COMPARE(&g_time5_pwm_chy_handle, GTIM_TIM5_PWM_CH1, rpwmvaAl);
-	__HAL_TIM_SET_COMPARE(&g_time5_pwm_chy_handle, GTIM_TIM5_PWM_CH2, rpwmvaA2);
+	__HAL_TIM_SET_COMPARE(&g_time3_pwm_chy_handle, GTIM_TIM3_PWM_CH3, rpwmvaAl);
+	__HAL_TIM_SET_COMPARE(&g_time3_pwm_chy_handle, GTIM_TIM3_PWM_CH4, rpwmvaA2);
 	__HAL_TIM_SET_COMPARE(&g_time9_pwm_chy_handle, GTIM_TIM9_PWM_CH1, rpwmvaBl);
 	__HAL_TIM_SET_COMPARE(&g_time9_pwm_chy_handle, GTIM_TIM9_PWM_CH2, rpwmvaB2);
 	

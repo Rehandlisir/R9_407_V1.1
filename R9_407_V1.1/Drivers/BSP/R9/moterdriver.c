@@ -15,7 +15,7 @@
  * none
  * none
  * 定时器描述：
- *     底盘 L  - gtim_tim5_pwm_chy_init - CH1 CH2 ----------
+ *     底盘 L  - gtim_tim3_pwm_chy_init - CH3 CH4 ----------
  *     底盘 R  - gtim_tim9_pwm_chy_init - CH1 CH2
  *     推杆1 （举升） gtim_tim1_pwm_chy_init - CH1 CH2
  *     推杆2 （座板） gtim_tim8_pwm_chy_init -  CH1 CH2
@@ -34,29 +34,37 @@
  */
 
 #include "./BSP/R9/moterdriver.h"
-TIM_HandleTypeDef g_time5_pwm_chy_handle ;  /* 底盘L电机 1 函数句柄*/
+ 
+TIM_HandleTypeDef g_time3_pwm_chy_handle ;  /* 底盘L电机 1 函数句柄*/
 TIM_HandleTypeDef g_time9_pwm_chy_handle ;  /* 底盘R电机 2 函数句柄*/
 TIM_HandleTypeDef g_time1_pwm_chy_handle ;  /* 推杆1 （举升）  TIME1 函数句柄*/
 TIM_HandleTypeDef g_time8_pwm_chy_handle ;  /* 推杆2 （座板）    推杆3 （靠背） TIME8 函数句柄*/
 TIM_HandleTypeDef g_time4_pwm_chy_handle ;  /* 推杆4 （脚踏旋转） 推杆5 （脚踏伸长）TIME1 函数句柄*/
 TIM_HandleTypeDef g_time12_pwm_chy_handle ;  /*推杆6 （前支撑轮） TIME12 函数句柄*/
 
+
+    // MoterL_pwm_chy_init(100 - 1, 42 - 1);    //* 84 000 000 / 100*42      L 20khz频率的PWM 波形*  /  
+	// MoterR_pwm_chy_init(200 - 1, 42 - 1);    //* 168 000 000 / 200*42     R  20khz频率的PWM 波形*/
+	// MoterLift_pwm_chy_init(200 - 1, 42 - 1);    //* 168 000 000 / 200*42     T1  20khz频率的PWM 波形*/
+	// MoterPedestal_Backboard_pwm_chy_init(200 - 1, 42 - 1);//                   T2&T3
+	// MoterLeg_pwm_chy_init(100 - 1, 42 - 1);               //                   T4&T5
+    // MoterSupport_pwm_chy_init(100 - 1, 42 - 1);   //* 84 000 000 / 100*42      T6  20khz频率的PWM 波形*  /  
 void MoterL_pwm_chy_init(uint16_t arr, uint16_t psc)  // 左轮电机
 {
     /*左右轮电机*/
-    TIM_OC_InitTypeDef tim5_oc_pwm_chy = {0};                       /* 定时器5输出句柄 */
-    g_time5_pwm_chy_handle.Instance = GTIM_TIM5_PWM;                 /* 定时器x */
-    g_time5_pwm_chy_handle.Init.Prescaler = psc;                      /* 预分频系数 */
-    g_time5_pwm_chy_handle.Init.CounterMode = TIM_COUNTERMODE_UP;    /* 递增计数模式 */
-    g_time5_pwm_chy_handle.Init.Period = arr;                        /* 自动重装载值 */
-    HAL_TIM_PWM_Init(&g_time5_pwm_chy_handle);                       /* 初始化PWM */
-    tim5_oc_pwm_chy.OCMode = TIM_OCMODE_PWM1;                       /* 模式选择PWM1 */
-    tim5_oc_pwm_chy.Pulse = 0;                                /* 设置比较值,此值用来确定占空比 */
-    tim5_oc_pwm_chy.OCPolarity = TIM_OCPOLARITY_LOW;                                        /* 输出比较极性为低 */
-    HAL_TIM_PWM_ConfigChannel(&g_time5_pwm_chy_handle, &tim5_oc_pwm_chy, GTIM_TIM5_PWM_CH1); /* 配置TIMx通道y */
-    HAL_TIM_PWM_Start(&g_time5_pwm_chy_handle, GTIM_TIM5_PWM_CH1);                           /* 开启对应PWM通道 */
-	HAL_TIM_PWM_ConfigChannel(&g_time5_pwm_chy_handle, &tim5_oc_pwm_chy, GTIM_TIM5_PWM_CH2); /* 配置TIMx通道y */
-    HAL_TIM_PWM_Start(&g_time5_pwm_chy_handle, GTIM_TIM5_PWM_CH2);                           /* 开启对应PWM通道 */
+    TIM_OC_InitTypeDef tim3_oc_pwm_chy = {0};                       /* 定时器3输出句柄 */
+    g_time3_pwm_chy_handle.Instance = GTIM_TIM3_PWM;                 /* 定时器x */
+    g_time3_pwm_chy_handle.Init.Prescaler = psc;                      /* 预分频系数 */
+    g_time3_pwm_chy_handle.Init.CounterMode = TIM_COUNTERMODE_UP;    /* 递增计数模式 */
+    g_time3_pwm_chy_handle.Init.Period = arr;                        /* 自动重装载值 */
+    HAL_TIM_PWM_Init(&g_time3_pwm_chy_handle);                       /* 初始化PWM */
+    tim3_oc_pwm_chy.OCMode = TIM_OCMODE_PWM1;                       /* 模式选择PWM1 */
+    tim3_oc_pwm_chy.Pulse = 0;                                /* 设置比较值,此值用来确定占空比 */
+    tim3_oc_pwm_chy.OCPolarity = TIM_OCPOLARITY_LOW;                                        /* 输出比较极性为低 */
+    HAL_TIM_PWM_ConfigChannel(&g_time3_pwm_chy_handle, &tim3_oc_pwm_chy, GTIM_TIM3_PWM_CH3); /* 配置TIMx通道y */
+    HAL_TIM_PWM_Start(&g_time3_pwm_chy_handle, GTIM_TIM3_PWM_CH3);                           /* 开启对应PWM通道 */
+	HAL_TIM_PWM_ConfigChannel(&g_time3_pwm_chy_handle, &tim3_oc_pwm_chy, GTIM_TIM3_PWM_CH4); /* 配置TIMx通道y */
+    HAL_TIM_PWM_Start(&g_time3_pwm_chy_handle, GTIM_TIM3_PWM_CH4);                           /* 开启对应PWM通道 */
 }
 void  MoterR_pwm_chy_init(uint16_t arr, uint16_t psc) // 右轮电机
 {
@@ -88,10 +96,10 @@ void  MoterLift_pwm_chy_init(uint16_t arr, uint16_t psc) // 电动推杆 1
     tim1_oc_pwm_chy.OCMode = TIM_OCMODE_PWM1;                       /* 模式选择PWM1 */
     tim1_oc_pwm_chy.Pulse = 0;                                /* 设置比较值,此值用来确定占空比 */
     tim1_oc_pwm_chy.OCPolarity = TIM_OCPOLARITY_LOW;                                        /* 输出比较极性为低 */
-    HAL_TIM_PWM_ConfigChannel(&g_time1_pwm_chy_handle, &tim1_oc_pwm_chy, GTIM_TIM1_PWM_CH1); /* 配置TIMx通道y */
-    HAL_TIM_PWM_Start(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH1);                           /* 开启对应PWM通道 */
-	HAL_TIM_PWM_ConfigChannel(&g_time1_pwm_chy_handle, &tim1_oc_pwm_chy, GTIM_TIM1_PWM_CH2); /* 配置TIMx通道y */
-    HAL_TIM_PWM_Start(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH2);                           /* 开启对应PWM通道 */
+    HAL_TIM_PWM_ConfigChannel(&g_time1_pwm_chy_handle, &tim1_oc_pwm_chy, GTIM_TIM1_PWM_CH3); /* 配置TIMx通道y */
+    HAL_TIM_PWM_Start(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3);                           /* 开启对应PWM通道 */
+	HAL_TIM_PWM_ConfigChannel(&g_time1_pwm_chy_handle, &tim1_oc_pwm_chy, GTIM_TIM1_PWM_CH4); /* 配置TIMx通道y */
+    HAL_TIM_PWM_Start(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4);                           /* 开启对应PWM通道 */
 }
 
 void  MoterPedestal_Backboard_pwm_chy_init(uint16_t arr, uint16_t psc) // 电动推杆 2&3 
@@ -168,17 +176,17 @@ void MoterSupport_pwm_chy_init(uint16_t arr, uint16_t psc) // 电动推杆 6
  */
 void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
 {
-    if (htim->Instance == GTIM_TIM5_PWM)
+    if (htim->Instance == GTIM_TIM3_PWM)
     {   // 左轮
-        GPIO_InitTypeDef gpio_init_structA;
-		GTIM_TIM5_PWM_CHY_GPIOA_CLK_ENABLE();                            /* 开启通道y的GPIO时钟 */
-        GTIM_TIM5_PWM_CHY_CLK_ENABLE();                                 /* 使能定时器时钟 */
-        gpio_init_structA.Pin = GTIM_TIM5_PWM_CHY_GPIO_PIN0 | GTIM_TIM5_PWM_CHY_GPIO_PIN1;              /* 通道1 2的CPIO口 */
-        gpio_init_structA.Mode = GPIO_MODE_AF_PP;                        /* 复用推完输出 */
-        gpio_init_structA.Pull = GPIO_PULLUP;                            /* 上拉 */
-        gpio_init_structA.Speed = GPIO_SPEED_FREQ_HIGH;                  /* 高速 */
-        gpio_init_structA.Alternate = GTIM_TIM5_PWM_CHY_GPIO_AF;         /* IO口REMAP设置, 是否必要查看头文件配置的说明! */
-        HAL_GPIO_Init(GTIM_TIM5_PWM_CHY_GPIO_PORTA, &gpio_init_structA);
+        GPIO_InitTypeDef gpio_init_structB;
+		GTIM_TIM3_PWM_CHY_GPIOB_CLK_ENABLE();                            /* 开启通道y的GPIO时钟 */
+        GTIM_TIM3_PWM_CHY_CLK_ENABLE();                                 /* 使能定时器时钟 */
+        gpio_init_structB.Pin = GTIM_TIM3_PWM_CHY_GPIO_PIN0 | GTIM_TIM3_PWM_CHY_GPIO_PIN1;              /* 通道1 2的CPIO口 */
+        gpio_init_structB.Mode = GPIO_MODE_AF_PP;                        /* 复用推完输出 */
+        gpio_init_structB.Pull = GPIO_PULLUP;                            /* 上拉 */
+        gpio_init_structB.Speed = GPIO_SPEED_FREQ_HIGH;                  /* 高速 */
+        gpio_init_structB.Alternate = GTIM_TIM3_PWM_CHY_GPIO_AF;         /* IO口REMAP设置, 是否必要查看头文件配置的说明! */
+        HAL_GPIO_Init(GTIM_TIM3_PWM_CHY_GPIO_PORTB, &gpio_init_structB);
 
     }
     if (htim->Instance == GTIM_TIM9_PWM)
@@ -201,7 +209,7 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
         GPIO_InitTypeDef gpio_init_structA;
 		GTIM_TIM1_PWM_CHY_GPIOA_CLK_ENABLE();                            /* 开启通道y的GPIO时钟 */
         GTIM_TIM1_PWM_CHY_CLK_ENABLE();                                 /* 使能定时器时钟 */
-        gpio_init_structA.Pin = GTIM_TIM1_PWM_CHY_GPIO_PIN8 | GTIM_TIM1_PWM_CHY_GPIO_PIN9;              /* 通道1 2的CPIO口 */
+        gpio_init_structA.Pin = GTIM_TIM1_PWM_CHY_GPIO_PIN10 | GTIM_TIM1_PWM_CHY_GPIO_PIN11;              /* 通道1 2的CPIO口 */
         gpio_init_structA.Mode = GPIO_MODE_AF_PP;                        /* 复用推完输出 */
         gpio_init_structA.Pull = GPIO_PULLUP;                            /* 上拉 */
         gpio_init_structA.Speed = GPIO_SPEED_FREQ_HIGH;                  /* 高速 */
@@ -312,8 +320,8 @@ void linearactuatorTest(void)
     //     T5_IN2 = 100 * (1.0 - 0.7);	
     //     T6_IN1 = 100 * (1.0 - 0);
     //     T6_IN2 = 100 * (1.0 - 0.7);	
-    //     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH1, T1_IN1);
-    //     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH2, T1_IN2);
+    //     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T1_IN1);
+    //     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T1_IN2);
 
     //     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH3, T2_IN1);
     //     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH4, T2_IN2);
@@ -355,8 +363,8 @@ void linearactuatorTest(void)
     //     T5_IN1 = 100 * (1.0 - 0.7);	
     //     T6_IN2 = 100 * (1.0 - 0);
     //     T6_IN1 = 100 * (1.0 - 0.7);		
-    //     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH1, T1_IN1);
-    //     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH2, T1_IN2);
+    //     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T1_IN1);
+    //     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T1_IN2);
 
     //     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH3, T2_IN1);
     //     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH4, T2_IN2);
@@ -389,8 +397,8 @@ void linearactuatorTest(void)
     //     T5_IN2 = 100 * (1.0 - 0);	
     //     T6_IN1 = 100 * (1.0 - 0); // 前支撑轮
     //     T6_IN2 = 100 * (1.0 - 0);	   
-    //     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH1, T1_IN1);
-    //     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH2, T1_IN2);
+    //     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T1_IN1);
+    //     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T1_IN2);
 
     //     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH3, T2_IN1);
     //     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH4, T2_IN2);
@@ -469,8 +477,8 @@ void linearactuatorTest(void)
         T2_IN1 = 200 * (1.0 - 0);
         T2_IN2 = 200 * (1.0 - 0);	
     }
-    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH1, T1_IN1);
-    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH2, T1_IN2);
+    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T1_IN1);
+    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T1_IN2);
 
     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH3, T2_IN1);
     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH4, T2_IN2);
@@ -638,8 +646,8 @@ void OverallFB(void)
         T1_IN1 = 0;
         T1_IN2 = 0;	   
     }
-    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH1, T1_IN1);
-    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH2, T1_IN2);
+    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T1_IN1);
+    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T1_IN2);
 }
 
 /*腿托上下旋转调节*/

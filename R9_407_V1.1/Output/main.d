@@ -74,7 +74,6 @@
 ..\..\output\main.o: ..\..\Drivers\./SYSTEM/delay/delay.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/LED/led.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/KEY/key.h
-..\..\output\main.o: ..\..\Drivers\./BSP/BEEP/beep.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/R9/underpanControl.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/R9/moterdriver.h
 ..\..\output\main.o: ..\..\Drivers\./BSP/R9/Hostmodbus.h

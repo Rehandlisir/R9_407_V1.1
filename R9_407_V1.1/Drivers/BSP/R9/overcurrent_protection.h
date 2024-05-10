@@ -4,9 +4,9 @@
 #include "./SYSTEM/sys/sys.h"
 
 
-#define D_MOTOR_PROTECT_POART                 	   GPIOD
-#define D_MOTOR_PROTECT_GPIO_PIN                   GPIO_PIN_10
-#define D_MOTOR_PROTECT_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOD_CLK_ENABLE(); }while(0)             /* 电机1&2的软件过流保护（初始化高电平，低电平动作） */
+#define D_MOTOR_PROTECT_POART                 	   GPIOE
+#define D_MOTOR_PROTECT_GPIO_PIN                   GPIO_PIN_0
+#define D_MOTOR_PROTECT_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOE_CLK_ENABLE(); }while(0)             /* 电机1&2的软件过流保护（初始化高电平，低电平动作） */
 
 #define D_MOTOR1_SLEEP_POART                 	    GPIOB
 #define D_MOTOR1_SLEEP_GPIO_PIN                           GPIO_PIN_12
@@ -18,9 +18,9 @@
 #define D_MOTOR2_SLEEP_GPIO_CLK_ENABLET()                      do{ __HAL_RCC_GPIOB_CLK_ENABLE(); }while(0)             /* 电机2 驱动IC启动（高电平启动，低电平关闭） */
 
 
-#define T_MOTOR_PROTECT_GPIO_PORT                  GPIOC
-#define T_MOTOR_PROTECT_GPIO_PIN                   GPIO_PIN_12
-#define T_MOTOR_PROTECT_CLK_ENABLE()          	   do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)             /* 推杆过流保护（初始化为高，低电平时保护） */
+#define T_MOTOR_PROTECT_GPIO_PORT                  GPIOD
+#define T_MOTOR_PROTECT_GPIO_PIN                   GPIO_PIN_7
+#define T_MOTOR_PROTECT_CLK_ENABLE()          	   do{ __HAL_RCC_GPIOD_CLK_ENABLE(); }while(0)             /* 推杆过流保护（初始化为高，低电平时保护） */
 
 
 /******************************************************************************************/

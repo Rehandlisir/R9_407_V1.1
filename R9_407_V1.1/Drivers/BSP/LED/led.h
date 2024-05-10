@@ -54,12 +54,12 @@
         __HAL_RCC_GPIOC_CLK_ENABLE();     \
     } while (0) /* PC13 ????? */
 
-#define RIGHT_FRONT_TURE_GPIO_PORT GPIOE
-#define RIGHT_FRONT_TURE_GPIO_PIN GPIO_PIN_0
+#define RIGHT_FRONT_TURE_GPIO_PORT GPIOD
+#define RIGHT_FRONT_TURE_GPIO_PIN GPIO_PIN_4
 #define RIGHT_FRONT_TURE_GPIO_CLK_ENABLE() \
     do                                     \
     {                                      \
-        __HAL_RCC_GPIOE_CLK_ENABLE();      \
+        __HAL_RCC_GPIOD_CLK_ENABLE();      \
     } while (0)
 
 #define FRONT_MAIN_GPIO_PORT GPIOE

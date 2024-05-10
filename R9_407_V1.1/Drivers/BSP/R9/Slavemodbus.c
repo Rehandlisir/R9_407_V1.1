@@ -63,7 +63,7 @@ void SlaveModbus_UX_IRQHandler(void)
  * @param       baudrate: 波特率, 根据自己需要设置波特率值
  * @retval      无
  */
-void SlavemodbusUART2_init(uint32_t baudrate)
+void SlavemodbusUART6_init(uint32_t baudrate)
 {
     /* IO 及 时钟配置 */
     SlaveModbus_RE_GPIO_CLK_ENABLE(); /* 使能 SlaveModbus_RE 脚时钟 */
@@ -76,7 +76,7 @@ void SlavemodbusUART2_init(uint32_t baudrate)
     gpio_initure.Mode = GPIO_MODE_AF_PP;
     gpio_initure.Pull = GPIO_PULLUP;
     gpio_initure.Speed = GPIO_SPEED_FREQ_HIGH;
-    gpio_initure.Alternate = GPIO_AF7_USART2;               /* 复用为串口2 */
+    gpio_initure.Alternate = GPIO_AF8_USART6;               /* 复用为串口2 */
     HAL_GPIO_Init(SlaveModbus_TX_GPIO_PORT, &gpio_initure);       /* 串口TX 脚 模式设置 */
 
     gpio_initure.Pin = SlaveModbus_RX_GPIO_PIN;
@@ -131,7 +131,7 @@ SLAVEMODBUS slavemodbus;//结构体变量
 // SlaveModbus初始化函数
 void SlaveModbus_Init()
 {
-  SlavemodbusUART2_init(9600);
+  SlavemodbusUART6_init(9600);
   slavemodbus.myadd = 0x01; //从机设备地址为1
   slavemodbus.timrun = 0;    //slavemodbus定时器停止计算
   

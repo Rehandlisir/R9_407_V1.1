@@ -74,7 +74,6 @@
 ..\..\output\api_schedule.o: ..\..\Drivers\./SYSTEM/delay/delay.h
 ..\..\output\api_schedule.o: ..\..\Drivers\./BSP/LED/led.h
 ..\..\output\api_schedule.o: ..\..\Drivers\./BSP/KEY/key.h
-..\..\output\api_schedule.o: ..\..\Drivers\./BSP/BEEP/beep.h
 ..\..\output\api_schedule.o: ..\..\Drivers\./BSP/R9/underpanControl.h
 ..\..\output\api_schedule.o: ..\..\Drivers\./BSP/R9/moterdriver.h
 ..\..\output\api_schedule.o: ..\..\Drivers\./BSP/R9/Hostmodbus.h

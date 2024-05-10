@@ -45,6 +45,7 @@ typedef struct
     int32_t leglength_pos;
     int32_t support_pos;
     int32_t bat_v;
+	int32_t chargeI_adc;
 } ADCDATA;
 
 void Datareset(void);

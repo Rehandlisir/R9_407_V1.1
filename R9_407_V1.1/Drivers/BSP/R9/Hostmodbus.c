@@ -48,7 +48,7 @@ void ModbusKey_UX_IRQHandler(void)
  * @param       baudrate: 波特率, 根据自己需要设置波特率值
  * @retval      无
  */
-void Host_ModbusKeyUART2_init(uint32_t baudrate)
+void Host_ModbusKeyUART3_init(uint32_t baudrate)
 {
 	/* IO 及 时钟配置 */
 	Modbus_RE_GPIO_CLK_ENABLE(); /* 使能 Modbus_RE 脚时钟 */
@@ -61,7 +61,7 @@ void Host_ModbusKeyUART2_init(uint32_t baudrate)
 	gpio_initure.Mode = GPIO_MODE_AF_PP;
 	gpio_initure.Pull = GPIO_PULLUP;
 	gpio_initure.Speed = GPIO_SPEED_FREQ_HIGH;
-	gpio_initure.Alternate = GPIO_AF7_USART2;		   /* 复用为串口6 */
+	gpio_initure.Alternate = GPIO_AF7_USART3;		   /* 复用为串口6 */
 	HAL_GPIO_Init(Modbus_TX_GPIO_PORT, &gpio_initure); /* 串口TX 脚 模式设置 */
 
 	gpio_initure.Pin = Modbus_RX_GPIO_PIN;
@@ -113,7 +113,7 @@ MODBUS modbus; // 结构体变量
 //  Modbus初始化函数
 void Host_Modbuskey_Init(void)
 {
-	Host_ModbusKeyUART2_init(115200);
+	Host_ModbusKeyUART3_init(115200);
 
 	modbus.timrun = 0; // modbus定时器停止计算
 }

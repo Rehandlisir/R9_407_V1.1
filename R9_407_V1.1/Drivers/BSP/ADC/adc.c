@@ -12,7 +12,8 @@
  * (1)  摇杆数据采集         PA2 PA3
  * (2)  抱闸 数据监测        PA4 PA5
  * (3)  底盘电机电流检测     PA6 PA7
- * (4)  电池电压            PC5
+ * (4)  电池电压            PC4
+ * (5)  充电电流检测接口    PC5
  *
  * 二、   ADC3 数据采集  包含
  * (1) 推杆1~6  位置检测  PF5 PF3 PF4 PF6 PF8 PF7
@@ -90,7 +91,8 @@ void adc1_nch_dma_init(uint32_t mar)
     adc_channel_set(&g_adc1_nch_dma_handle, ADC_CHANNEL_6, 5, ADC_SAMPLETIME_480CYCLES);
     adc_channel_set(&g_adc1_nch_dma_handle, ADC_CHANNEL_7, 6, ADC_SAMPLETIME_480CYCLES);
     adc_channel_set(&g_adc1_nch_dma_handle, ADC_CHANNEL_14, 7, ADC_SAMPLETIME_480CYCLES);
-
+	adc_channel_set(&g_adc1_nch_dma_handle, ADC_CHANNEL_15, 8, ADC_SAMPLETIME_480CYCLES);
+	
     HAL_NVIC_SetPriority(ADC_ADC1_DMASx_IRQn, 2, 1);                   /* 设置DMA中断优先级为3，子优先级为3 */
     HAL_NVIC_EnableIRQ(ADC_ADC1_DMASx_IRQn);                           /* 使能DMA中断 */
     HAL_ADC_Start_DMA(&g_adc1_nch_dma_handle, &mar, sizeof(uint16_t)); /* 开始DMA数据传输 */
@@ -119,7 +121,7 @@ void adc1_nch_dma_gpio_init(void)
     GPIO_InitTypeDef gpioC_init_struct;
     __HAL_RCC_GPIOC_CLK_ENABLE(); /* 开启GPIOC引脚时钟 */
     /* AD采集引脚模式设置,模拟输入 */
-    gpioC_init_struct.Pin = GPIO_PIN_4; /* GPIOA2~7 */
+    gpioC_init_struct.Pin = GPIO_PIN_4|GPIO_PIN_5; /* GPIOA2~7 */
     gpioC_init_struct.Mode = GPIO_MODE_ANALOG;
     gpioC_init_struct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOC, &gpioC_init_struct);

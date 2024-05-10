@@ -6,7 +6,6 @@
 "..\..\output\delay.o"
 "..\..\output\sys.o"
 "..\..\output\usart.o"
-"..\..\output\beep.o"
 "..\..\output\key.o"
 "..\..\output\led.o"
 "..\..\output\adc.o"

@@ -15,17 +15,6 @@
  * none
  * none
  *
-   KEY1: 姿态 1
-   KEY2: 左转向
-   KEY3: 右转向
-   KEY4: 调速增
-   KEY5: 姿态2
-   KEY6: 双闪
-   KEY7: 喇叭 
-   KEY8: 调速减
-   KEY9: 360V iew
-   KEY10: 主灯
-   KEY11 :调试预留
  *
  ****************************************************************************************************
  */
@@ -76,43 +65,43 @@ void key_init(void)
     gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
     HAL_GPIO_Init(KEY5_GPIO_PORT, &gpioE_init_struct);           /* KEY5引脚模式设置,上拉输入 */
 
-    gpioG_init_struct.Pin = KEY6_GPIO_PIN;                       /* KEY6引脚 */
-    gpioG_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
-    gpioG_init_struct.Pull = GPIO_NOPULL;                        /* 上拉 */
-    gpioG_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
-    HAL_GPIO_Init(KEY6_GPIO_PORT, &gpioG_init_struct);           /* KEY6引脚模式设置,上拉输入 */
+//    gpioG_init_struct.Pin = KEY6_GPIO_PIN;                       /* KEY6引脚 */
+//    gpioG_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
+//    gpioG_init_struct.Pull = GPIO_NOPULL;                        /* 上拉 */
+//    gpioG_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
+//    HAL_GPIO_Init(KEY6_GPIO_PORT, &gpioG_init_struct);           /* KEY6引脚模式设置,上拉输入 */
 
-    gpioG_init_struct.Pin = KEY7_GPIO_PIN;                       /* KEY7引脚 */
-    gpioG_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
-    gpioG_init_struct.Pull = GPIO_NOPULL;                        /* 上拉 */
-    gpioG_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
-    HAL_GPIO_Init(KEY7_GPIO_PORT, &gpioG_init_struct);           /* KEY7引脚模式设置,上拉输入 */
+//    gpioG_init_struct.Pin = KEY7_GPIO_PIN;                       /* KEY7引脚 */
+//    gpioG_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
+//    gpioG_init_struct.Pull = GPIO_NOPULL;                        /* 上拉 */
+//    gpioG_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
+//    HAL_GPIO_Init(KEY7_GPIO_PORT, &gpioG_init_struct);           /* KEY7引脚模式设置,上拉输入 */
 
-    gpioE_init_struct.Pin = KEY8_GPIO_PIN;                       /* KEY8引脚 */
-    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
-    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* 上拉 */
-    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
-    HAL_GPIO_Init(KEY8_GPIO_PORT, &gpioE_init_struct);           /* KEY8引脚模式设置,上拉输入 */
+//    gpioE_init_struct.Pin = KEY8_GPIO_PIN;                       /* KEY8引脚 */
+//    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
+//    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* 上拉 */
+//    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
+//    HAL_GPIO_Init(KEY8_GPIO_PORT, &gpioE_init_struct);           /* KEY8引脚模式设置,上拉输入 */
 
-    gpioB_init_struct.Pin = KEY9_GPIO_PIN;                       /* KEY9引脚 */
-    gpioB_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
-    gpioB_init_struct.Pull = GPIO_NOPULL;                        /* 上拉 */
-    gpioB_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
-    HAL_GPIO_Init(KEY9_GPIO_PORT, &gpioB_init_struct);           /* KEY9引脚模式设置,上拉输入 */
+//    gpioB_init_struct.Pin = KEY9_GPIO_PIN;                       /* KEY9引脚 */
+//    gpioB_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
+//    gpioB_init_struct.Pull = GPIO_NOPULL;                        /* 上拉 */
+//    gpioB_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
+//    HAL_GPIO_Init(KEY9_GPIO_PORT, &gpioB_init_struct);           /* KEY9引脚模式设置,上拉输入 */
 
-    gpioB_init_struct.Pin = KEY10_GPIO_PIN;                       /* KEY10引脚 */
-    gpioB_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
-    gpioB_init_struct.Pull = GPIO_NOPULL;                        /* 上拉 */
-    gpioB_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
-    HAL_GPIO_Init(KEY10_GPIO_PORT, &gpioB_init_struct);           /* KEY10引脚模式设置,上拉输入 */
+//    gpioB_init_struct.Pin = KEY10_GPIO_PIN;                       /* KEY10引脚 */
+//    gpioB_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
+//    gpioB_init_struct.Pull = GPIO_NOPULL;                        /* 上拉 */
+//    gpioB_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
+//    HAL_GPIO_Init(KEY10_GPIO_PORT, &gpioB_init_struct);           /* KEY10引脚模式设置,上拉输入 */
 
- 
+// 
 
-    gpioE_init_struct.Pin = KEY11_GPIO_PIN;                       /* KEY11引脚 */
-    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
-    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* 上拉 */
-    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
-    HAL_GPIO_Init(KEY11_GPIO_PORT, &gpioE_init_struct);           /* KEY11引脚模式设置,上拉输入 */        
+//    gpioE_init_struct.Pin = KEY11_GPIO_PIN;                       /* KEY11引脚 */
+//    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* 输入 */
+//    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* 上拉 */
+//    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* 高速 */
+//    HAL_GPIO_Init(KEY11_GPIO_PORT, &gpioE_init_struct);           /* KEY11引脚模式设置,上拉输入 */        
 }
 
 /**
@@ -222,110 +211,110 @@ uint8_t key_scan5(void)
    
 }
 
-uint8_t key_scan6(void)
-{
-    if(KEY6 == 0)
-    {
-        delay_ms(20);   /* 消抖 */
-        if(KEY6== 0)
-        {
-            while(KEY6 == 0);  /* 等待按键松开 */
-            return 1;   /* 按键按下了 */
-        }
-    }
-    else
-    { 
-        return 0;   /* 按键没有按下 */
-        }
-   
-}
+//uint8_t key_scan6(void)
+//{
+//    if(KEY6 == 0)
+//    {
+//        delay_ms(20);   /* 消抖 */
+//        if(KEY6== 0)
+//        {
+//            while(KEY6 == 0);  /* 等待按键松开 */
+//            return 1;   /* 按键按下了 */
+//        }
+//    }
+//    else
+//    { 
+//        return 0;   /* 按键没有按下 */
+//        }
+//   
+//}
 
-uint8_t key_scan7(void)
-{
-    if(KEY7 == 0)
-    {
-        delay_ms(20);   /* 消抖 */
-        if(KEY7== 0)
-        {
-            //while(KEY7 == 0);  /* 等待按键松开 */
-            return 1;   /* 按键按下了 */
-        }
-    }
-    else
-    { 
-        return 0;   /* 按键没有按下 */
-        }
-   
-}
+//uint8_t key_scan7(void)
+//{
+//    if(KEY7 == 0)
+//    {
+//        delay_ms(20);   /* 消抖 */
+//        if(KEY7== 0)
+//        {
+//            //while(KEY7 == 0);  /* 等待按键松开 */
+//            return 1;   /* 按键按下了 */
+//        }
+//    }
+//    else
+//    { 
+//        return 0;   /* 按键没有按下 */
+//        }
+//   
+//}
 
-uint8_t key_scan8(void)
-{
-    if(KEY8 == 0)
-    {
-        delay_ms(20);   /* 消抖 */
-        if(KEY8== 0)
-        {
-            while(KEY8 == 0);  /* 等待按键松开 */
-            return 1;   /* 按键按下了 */
-        }
-    }
-    else
-    { 
-        return 0;   /* 按键没有按下 */
-        }
-   
-}
+//uint8_t key_scan8(void)
+//{
+//    if(KEY8 == 0)
+//    {
+//        delay_ms(20);   /* 消抖 */
+//        if(KEY8== 0)
+//        {
+//            while(KEY8 == 0);  /* 等待按键松开 */
+//            return 1;   /* 按键按下了 */
+//        }
+//    }
+//    else
+//    { 
+//        return 0;   /* 按键没有按下 */
+//        }
+//   
+//}
 
-uint8_t key_scan9(void)
-{
-    if(KEY9 == 0)
-    {
-        delay_ms(20);   /* 消抖 */
-        if(KEY9== 0)
-        {
-            while(KEY9 == 0);  /* 等待按键松开 */
-            return 1;   /* 按键按下了 */
-        }
-    }
-    else
-    { 
-        return 0;   /* 按键没有按下 */
-        }
-   
-}
+//uint8_t key_scan9(void)
+//{
+//    if(KEY9 == 0)
+//    {
+//        delay_ms(20);   /* 消抖 */
+//        if(KEY9== 0)
+//        {
+//            while(KEY9 == 0);  /* 等待按键松开 */
+//            return 1;   /* 按键按下了 */
+//        }
+//    }
+//    else
+//    { 
+//        return 0;   /* 按键没有按下 */
+//        }
+//   
+//}
 
-uint8_t key_scan10(void)
-{
-    if(KEY10 == 0)
-    {
-        delay_ms(20);   /* 消抖 */
-        if(KEY10== 0)
-        {
-            //while(KEY10 == 0);  /* 等待按键松开 */
-            return 1;   /* 按键按下了 */
-        }
-    }
-    else
-    { 
-        return 0;   /* 按键没有按下 */
-    }
-   
-}
+//uint8_t key_scan10(void)
+//{
+//    if(KEY10 == 0)
+//    {
+//        delay_ms(20);   /* 消抖 */
+//        if(KEY10== 0)
+//        {
+//            //while(KEY10 == 0);  /* 等待按键松开 */
+//            return 1;   /* 按键按下了 */
+//        }
+//    }
+//    else
+//    { 
+//        return 0;   /* 按键没有按下 */
+//    }
+//   
+//}
 
-uint8_t key_scan11(void)
-{
-    if(KEY11 == 0)
-    {
-        delay_ms(20);   /* 消抖 */
-        if(KEY11== 0)
-        {
-            while(KEY11 == 0);  /* 等待按键松开 */
-            return 1;   /* 按键按下了 */
-        }
-    }
-    else
-    { 
-        return 0;   /* 按键没有按下 */
-        }
-   
-}
+//uint8_t key_scan11(void)
+//{
+//    if(KEY11 == 0)
+//    {
+//        delay_ms(20);   /* 消抖 */
+//        if(KEY11== 0)
+//        {
+//            while(KEY11 == 0);  /* 等待按键松开 */
+//            return 1;   /* 按键按下了 */
+//        }
+//    }
+//    else
+//    { 
+//        return 0;   /* 按键没有按下 */
+//        }
+//   
+//}
