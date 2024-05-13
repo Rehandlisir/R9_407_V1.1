@@ -20,57 +20,37 @@ short gyrox,gyroy,gyroz ;
 short aacx,aacy,aacz ;
 float pitch,roll,yaw;  			//欧拉角
 
-//uint8_t rs485buf[8] = {ID,READ,REGISTERADRR1,REGISTERADRR2,REGISTERnum1,REGISTERnum2,CHECK1,CHECK2}; /*485发指令*/
-
-//extern uint8_t g_RS485_rx_buf[RS485_REC_LEN];
-//extern uint8_t g_RS485_rx_cnt;
-
-extern MLX90393Data mlxdata;
 /*************************主任务列表*****************************/
 void Hard_devInit(void)
 {
-	
-	HAL_Init();                                 //* 初始化HAl库 */
-	MoterdriveInit();
-    sys_stm32_clock_init(336, 8, 2, 7);     /* 初始化时钟频率,168Mhz 主时钟*/
-    delay_init(168);                        /*初始化延时时钟频率*/
-    usart_init(115200);                     /* 串口通讯波特率 115200 */
-    led_init();                             /* 转向灯初始化 */
-	//key_init();								/*按键初始化*/
-	btim_timx_int_init(10 - 1, 8400 - 1);   /*定时器中断初始化 产生固定 1ms 的定时器中断 */
-    brake_init();                           /*抱闸初始化*/   
-	currentproInit();
-	getadcDataInit();                      /*ADC数据采集初始化*/
-	MPU_Init();                            /*陀螺仪初始化*/
-	mpu_dmp_init();
-//	rs485_init(115200);                    /*超声波测距*/
-    //SlaveModbus_Init();                  /*与RK3588作为从机通讯*/
 
-	 Host_Modbuskey_Init();
-	//vSetUpMlx90393();
-	iwdg_init(IWDG_PRESCALER_64, 500);      /* 预分频数为64,重载值为500,溢出时间约为1s */
-	
-	//printf("IWDG溢出\n");
-	
-	//Reg[0] = 0x68;
+		HAL_Init();                                 //* 初始化HAl库 */
+		MoterdriveInit();
+		sys_stm32_clock_init(336, 8, 2, 7);     /* 初始化时钟频率,168Mhz 主时钟*/
+		delay_init(168);                        /*初始化延时时钟频率*/
+		usart_init(115200);                     /* 串口通讯波特率 115200 */
+		led_init();                             /* 转向灯初始化 */
+		key_init();								/*按键初始化*/
+		btim_timx_int_init(10 - 1, 8400 - 1);   /*定时器中断初始化 产生固定 1ms 的定时器中断 */
+		brake_init();                           /*抱闸初始化*/   
+		currentproInit();
+		getadcDataInit();                      /*ADC数据采集初始化*/
+		MPU_Init();                            /*陀螺仪初始化*/
+		mpu_dmp_init();
+		Host_ModbusDap21_Init();              /*与DYPA21通讯*/
+		SlaveModbus_Init();                  /*与RK3588作为从机通讯*/
+		Host_Modbuskey_Init();
+		iwdg_init(IWDG_PRESCALER_64, 500);      /* 预分频数为64,重载值为500,溢出时间约为1s */
+		g_slaveReg[0] = 0x68;//本机设备作为Modbus从机时的设备ID
 }
 
 void LedFlash(void)
 {
-	led_bling();
+	led_beepControl();
+	LED0_TOGGLE();
+
 }
 
-void Beep_run(void) 
-{
-//	if (velocity_pout.runstate == backward || velocity_pout.runstate == back_left || velocity_pout.runstate == back_right)
-//	{
-//		BEEP_TOGGLE();
-//	}
-//	else
-//	{
-//		BEEP(0);
-//	}
-}
 /* 针对 R9系统的所有ADC 数据采集 ，
  *  一 、ADC1 采集7通道数据 包含   
  * (1)  摇杆数据采集         PA2 PA3
@@ -88,8 +68,9 @@ void GetADC_AllData(void)
 	getadcData();
    // printf("%d\t\n",adcdata.lift_pos);
 	//  printf("%d,%d,%d,%d,%d,%d\n",adcdata.lift_pos,adcdata.pedestal_pos,adcdata.backboard_pos,adcdata.legangle_pos,adcdata.leglength_pos,adcdata.support_pos);
-	//  printf("%d,%d,%d,%d,%d,%d\n",adcdata.lift_current,adcdata.pedestal_current,adcdata.backboard_current,adcdata.legangle_current,adcdata.leglength_current,adcdata.support_current);
+	  //printf("%d,%d,%d,%d,%d,%d\n",adcdata.lift_current,adcdata.pedestal_current,adcdata.backboard_current,adcdata.legangle_current,adcdata.leglength_current,adcdata.support_current);
 	//  printf("adcdata.l_current :%d, adcdata.r_current %d\n",adcdata.l_current,adcdata.r_current);
+	//printf("Xbase:%d,Ybase:%d,xdata:%d,ydata:%d\t\n",adcdata.adc_xbase,adcdata.adc_ybase,adcdata.adc_x,adcdata.adc_y);
 }
 
 
@@ -173,28 +154,64 @@ void gyroscopeData(void)
 		    
 
 }
-
-void DypA21 (void)
+void ModbusSlaveExecute (void)
 {
-//	uint16_t dyplength;
-//	uint8_t bufre[7];
-//	uint8_t len;
-//	uint8_t buf[2];
-//    rs485_send_data(rs485buf, 8);   /* 发送8个字节 */
-//	rs485_receive_data(bufre,&len);
-//    //低八位和高八位组合为 16位 数据转换输出
-//    buf[0] =bufre[4];// g_RS485_rx_buf[4];
-//    buf[1] =bufre[3];// g_RS485_rx_buf[3];
-//    dyplength = ((*((uint8_t *)buf+ 1)<< 8))| *(uint8_t *)buf;
-//	printf("%d,%d\r\n",dyplength,g_RS485_rx_cnt);	
 	
-	//SlaveModbus_Event();//Modbus事件处理函数(执行读或者写的判断)--从机地址01
-	if(modbus.Host_time_flag)//每1s发送一次数据
+	SlaveModbus_Event();//Modbus事件处理函数(执行读或者写的判断)--从机地址0x01
+	
+}
+
+
+
+void ultrasonicreadExecute (void)
+{
+		if(modbus_dap21.Host_time_flag)//每1s发送一次数据
 		{
-				
-			
-			//01-读取从机数据测试
-			//参数1：查看第i个从机数据
+			HostDap21_Read03_slave(0x01,0x0101,0x0001);//参数1从机地址，参数2起始地址，参数3寄存器个数
+			if(modbus_dap21.Host_send_flag)
+			{
+				modbus_dap21.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
+				modbus_dap21.Host_time_flag=0;//发送数据标志位清零
+				modbus_dap21.Host_send_flag=0;//清空发送结束数据标志位
+
+				HOST_ModbusDap21RX();//接收数据进行处理
+			}	
+//			HostDap21_Read03_slave(0x02,0x0101,0x0001);//参数1从机地址，参数2起始地址，参数3寄存器个数
+//			if(modbus_dap21.Host_send_flag)
+//			{
+//				modbus_dap21.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
+//				modbus_dap21.Host_time_flag=0;//发送数据标志位清零
+//				modbus_dap21.Host_send_flag=0;//清空发送结束数据标志位
+
+//				HOST_ModbusDap21RX();//接收数据进行处理
+//			}	
+//			HostDap21_Read03_slave(0x03,0x0101,0x0001);//参数1从机地址，参数2起始地址，参数3寄存器个数
+//			if(modbus_dap21.Host_send_flag)
+//			{
+//				modbus_dap21.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
+//				modbus_dap21.Host_time_flag=0;//发送数据标志位清零
+//				modbus_dap21.Host_send_flag=0;//清空发送结束数据标志位
+
+//				HOST_ModbusDap21RX();//接收数据进行处理
+//			}
+//			
+//			HostDap21_Read03_slave(0x04,0x0101,0x0001);//参数1从机地址，参数2起始地址，参数3寄存器个数
+//			if(modbus_dap21.Host_send_flag)
+//			{
+//				modbus_dap21.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
+//				modbus_dap21.Host_time_flag=0;//发送数据标志位清零
+//				modbus_dap21.Host_send_flag=0;//清空发送结束数据标志位
+
+//				HOST_ModbusDap21RX();//接收数据进行处理
+//			}
+		}	
+		printf("distence: %d\n",dap21Data.dyplength1);
+}
+
+void Modbuskeyread_execute(void)
+{
+		if(modbus.Host_time_flag)//每1s发送一次数据
+		{
 			Host_Read03_slave(0x11,0x0000,0x000B);//参数1从机地址，参数2起始地址，参数3寄存器个数
 			if(modbus.Host_send_flag)
 			{
@@ -204,18 +221,14 @@ void DypA21 (void)
 
 				HOST_ModbusRX();//接收数据进行处理
 			}	
-	}
-
-	printf("%d ,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n",KeyStateRecive[0],KeyStateRecive[1],KeyStateRecive[2],KeyStateRecive[3],KeyStateRecive[4],KeyStateRecive[5],KeyStateRecive[6],KeyStateRecive[7],KeyStateRecive[8],KeyStateRecive[9],KeyStateRecive[10]);
+		}
+		// printf("%d ,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n",KeyStateRecive[0],KeyStateRecive[1],KeyStateRecive[2],KeyStateRecive[3],KeyStateRecive[4],KeyStateRecive[5],KeyStateRecive[6],KeyStateRecive[7],KeyStateRecive[8],KeyStateRecive[9],KeyStateRecive[10]);
 }
-void Tmxl90393(void)    
+	
+
+void Modbuskeywrite_execute(void)
 {
-	// int32_t mlx_xdata,mlx_ydata;
-	// vInMeasurementNormal();
-	// // // printf("ucMlx90393ErroType:%d\n  Xdata:%d\n Ydata:%d\n Xbase:%d\n Ybase:%d\n",mlxdata.ucMlx90393ErroType,mlxdata.xdata-16800,mlxdata.ydata-16500,mlxdata.basex,mlxdata.basey);
-	// mlx_xdata = mlxdata.xdata-16800;
-	// mlx_ydata = mlxdata.ydata-16500;  
-	// printf("%d,%d\r\n",mlx_xdata,mlx_ydata);
+	
 	Host_write06_slave(0x11,0x06,0x0091,0X02);
 	if(modbus.Host_send_flag)
 	{
@@ -224,7 +237,5 @@ void Tmxl90393(void)
 		modbus.Host_send_flag=0;//清空发送结束数据标志位
 		Host_Func6();//从机返回数据处理
 	}  
-}
-
-
 	
+}	

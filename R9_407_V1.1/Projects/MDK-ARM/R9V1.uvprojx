@@ -10,8 +10,8 @@
       <TargetName>R9V1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pArmCC>5060750::V5.06 update 6 (build 750)::.\ARMCC</pArmCC>
-      <pCCUsed>5060750::V5.06 update 6 (build 750)::.\ARMCC</pCCUsed>
+      <pArmCC>5060960::V5.06 update 7 (build 960)::.\ARMCC</pArmCC>
+      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -315,7 +315,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>2</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -331,7 +331,7 @@
             <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>3</v6Lang>
-            <v6LangP>1</v6LangP>
+            <v6LangP>5</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
@@ -451,21 +451,6 @@
               <FilePath>..\..\Drivers\BSP\ADC\adc.c</FilePath>
             </File>
             <File>
-              <FileName>lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\LCD\lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>joystic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\R9\joystic.c</FilePath>
-            </File>
-            <File>
-              <FileName>underpanControl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\R9\underpanControl.c</FilePath>
-            </File>
-            <File>
               <FileName>moterdriver.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\BSP\R9\moterdriver.c</FilePath>
@@ -501,11 +486,6 @@
               <FilePath>..\..\Drivers\BSP\R9\overcurrent_protection.c</FilePath>
             </File>
             <File>
-              <FileName>hallcap.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\R9\hallcap.c</FilePath>
-            </File>
-            <File>
               <FileName>stmflash.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\BSP\R9\stmflash.c</FilePath>
@@ -526,11 +506,6 @@
               <FilePath>..\..\Drivers\BSP\R9\myiic.c</FilePath>
             </File>
             <File>
-              <FileName>test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\test.c</FilePath>
-            </File>
-            <File>
               <FileName>inv_mpu.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\BSP\R9\inv_mpu.c</FilePath>
@@ -544,11 +519,6 @@
               <FileName>rs485.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\BSP\R9\rs485.c</FilePath>
-            </File>
-            <File>
-              <FileName>mlx90393.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\R9\mlx90393.c</FilePath>
             </File>
             <File>
               <FileName>wdg.c</FileName>
@@ -569,6 +539,11 @@
               <FileName>WheelSpeedMap.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\BSP\R9\WheelSpeedMap.c</FilePath>
+            </File>
+            <File>
+              <FileName>hostdap21.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Drivers\BSP\DAP21\hostdap21.c</FilePath>
             </File>
           </Files>
         </Group>

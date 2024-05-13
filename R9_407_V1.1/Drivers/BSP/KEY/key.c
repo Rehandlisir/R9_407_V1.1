@@ -4,12 +4,12 @@
  * @author      Lisir
  * @version     V1.0
  * @date        2021-10-14
- * @brief       °´¼üÊäÈë Çý¶¯´úÂë
- * @license     Copyright (c) 2024, ÉîÛÚ¸´³ÉÒ½ÁÆ¿Æ¼¼ÓÐÏÞ¹«Ë¾
+ * @brief       ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @license     Copyright (c) 2024, ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½Ò½ï¿½Æ¿Æ¼ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾
  ****************************************************************************************************
  * @attention
  *
- * ÊµÑéÆ½Ì¨:F407¿ª·¢°å
+ * Êµï¿½ï¿½Æ½Ì¨:F407ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * none
  * none
  * none
@@ -21,118 +21,62 @@
 
 #include "./BSP/KEY/key.h"
 #include "./SYSTEM/delay/delay.h"
-
+#include "./BSP/R9/Slavemodbus.h"
 
 /**
- * @brief       °´¼ü³õÊ¼»¯º¯Êý
- * @param       ÎÞ
- * @retval      ÎÞ
+ * @brief       ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @param       ï¿½ï¿½
+ * @retval      ï¿½ï¿½
  */
 void key_init(void)
 {
-    GPIO_InitTypeDef gpioE_init_struct;                          /* GPIOÅäÖÃ²ÎÊý´æ´¢±äÁ¿ */
-    GPIO_InitTypeDef gpioB_init_struct;                          /* GPIOÅäÖÃ²ÎÊý´æ´¢±äÁ¿ */
-    GPIO_InitTypeDef gpioG_init_struct;                          /* GPIOÅäÖÃ²ÎÊý´æ´¢±äÁ¿ */
+    GPIO_InitTypeDef gpioE_init_struct;                          /* GPIOï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ */
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+    gpioE_init_struct.Pin = KEY1_GPIO_PIN;                       /* KEY1ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ï¿½ï¿½ï¿½ï¿½ */
+    HAL_GPIO_Init(KEY1_GPIO_PORT, &gpioE_init_struct);           /* KEY1ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 
+    gpioE_init_struct.Pin = KEY2_GPIO_PIN;                       /* KEY2ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ï¿½ï¿½ï¿½ï¿½ */
+    HAL_GPIO_Init(KEY2_GPIO_PORT, &gpioE_init_struct);           /* KEY2ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 
-    gpioE_init_struct.Pin = KEY1_GPIO_PIN;                       /* KEY1Òý½Å */
-    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* ÊäÈë */
-    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* ÉÏÀ­ */
-    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ¸ßËÙ */
-    HAL_GPIO_Init(KEY1_GPIO_PORT, &gpioE_init_struct);           /* KEY1Òý½ÅÄ£Ê½ÉèÖÃ,ÉÏÀ­ÊäÈë */
+    gpioE_init_struct.Pin = KEY3_GPIO_PIN;                       /* KEY3ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ï¿½ï¿½ï¿½ï¿½ */
+    HAL_GPIO_Init(KEY3_GPIO_PORT, &gpioE_init_struct);           /* KEY3ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 
-    gpioE_init_struct.Pin = KEY2_GPIO_PIN;                       /* KEY2Òý½Å */
-    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* ÊäÈë */
-    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* ÉÏÀ­ */
-    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ¸ßËÙ */
-    HAL_GPIO_Init(KEY2_GPIO_PORT, &gpioE_init_struct);           /* KEY2Òý½ÅÄ£Ê½ÉèÖÃ,ÉÏÀ­ÊäÈë */
+    gpioE_init_struct.Pin = KEY4_GPIO_PIN;                       /* KEY4ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ï¿½ï¿½ï¿½ï¿½ */
+    HAL_GPIO_Init(KEY4_GPIO_PORT, &gpioE_init_struct);           /* KEY4ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 
-    gpioE_init_struct.Pin = KEY3_GPIO_PIN;                       /* KEY3Òý½Å */
-    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* ÊäÈë */
-    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* ÉÏÀ­ */
-    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ¸ßËÙ */
-    HAL_GPIO_Init(KEY3_GPIO_PORT, &gpioE_init_struct);           /* KEY3Òý½ÅÄ£Ê½ÉèÖÃ,ÉÏÀ­ÊäÈë */
-
-    gpioE_init_struct.Pin = KEY4_GPIO_PIN;                       /* KEY4Òý½Å */
-    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* ÊäÈë */
-    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* ÉÏÀ­ */
-    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ¸ßËÙ */
-    HAL_GPIO_Init(KEY4_GPIO_PORT, &gpioE_init_struct);           /* KEY4Òý½ÅÄ£Ê½ÉèÖÃ,ÉÏÀ­ÊäÈë */
-
-    gpioE_init_struct.Pin = KEY5_GPIO_PIN;                       /* KEY5Òý½Å */
-    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* ÊäÈë */
-    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* ÉÏÀ­ */
-    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ¸ßËÙ */
-    HAL_GPIO_Init(KEY5_GPIO_PORT, &gpioE_init_struct);           /* KEY5Òý½ÅÄ£Ê½ÉèÖÃ,ÉÏÀ­ÊäÈë */
-
-//    gpioG_init_struct.Pin = KEY6_GPIO_PIN;                       /* KEY6Òý½Å */
-//    gpioG_init_struct.Mode = GPIO_MODE_INPUT;                    /* ÊäÈë */
-//    gpioG_init_struct.Pull = GPIO_NOPULL;                        /* ÉÏÀ­ */
-//    gpioG_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ¸ßËÙ */
-//    HAL_GPIO_Init(KEY6_GPIO_PORT, &gpioG_init_struct);           /* KEY6Òý½ÅÄ£Ê½ÉèÖÃ,ÉÏÀ­ÊäÈë */
-
-//    gpioG_init_struct.Pin = KEY7_GPIO_PIN;                       /* KEY7Òý½Å */
-//    gpioG_init_struct.Mode = GPIO_MODE_INPUT;                    /* ÊäÈë */
-//    gpioG_init_struct.Pull = GPIO_NOPULL;                        /* ÉÏÀ­ */
-//    gpioG_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ¸ßËÙ */
-//    HAL_GPIO_Init(KEY7_GPIO_PORT, &gpioG_init_struct);           /* KEY7Òý½ÅÄ£Ê½ÉèÖÃ,ÉÏÀ­ÊäÈë */
-
-//    gpioE_init_struct.Pin = KEY8_GPIO_PIN;                       /* KEY8Òý½Å */
-//    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* ÊäÈë */
-//    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* ÉÏÀ­ */
-//    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ¸ßËÙ */
-//    HAL_GPIO_Init(KEY8_GPIO_PORT, &gpioE_init_struct);           /* KEY8Òý½ÅÄ£Ê½ÉèÖÃ,ÉÏÀ­ÊäÈë */
-
-//    gpioB_init_struct.Pin = KEY9_GPIO_PIN;                       /* KEY9Òý½Å */
-//    gpioB_init_struct.Mode = GPIO_MODE_INPUT;                    /* ÊäÈë */
-//    gpioB_init_struct.Pull = GPIO_NOPULL;                        /* ÉÏÀ­ */
-//    gpioB_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ¸ßËÙ */
-//    HAL_GPIO_Init(KEY9_GPIO_PORT, &gpioB_init_struct);           /* KEY9Òý½ÅÄ£Ê½ÉèÖÃ,ÉÏÀ­ÊäÈë */
-
-//    gpioB_init_struct.Pin = KEY10_GPIO_PIN;                       /* KEY10Òý½Å */
-//    gpioB_init_struct.Mode = GPIO_MODE_INPUT;                    /* ÊäÈë */
-//    gpioB_init_struct.Pull = GPIO_NOPULL;                        /* ÉÏÀ­ */
-//    gpioB_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ¸ßËÙ */
-//    HAL_GPIO_Init(KEY10_GPIO_PORT, &gpioB_init_struct);           /* KEY10Òý½ÅÄ£Ê½ÉèÖÃ,ÉÏÀ­ÊäÈë */
-
-// 
-
-//    gpioE_init_struct.Pin = KEY11_GPIO_PIN;                       /* KEY11Òý½Å */
-//    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* ÊäÈë */
-//    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* ÉÏÀ­ */
-//    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ¸ßËÙ */
-//    HAL_GPIO_Init(KEY11_GPIO_PORT, &gpioE_init_struct);           /* KEY11Òý½ÅÄ£Ê½ÉèÖÃ,ÉÏÀ­ÊäÈë */        
+    gpioE_init_struct.Pin = KEY5_GPIO_PIN;                       /* KEY5ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Mode = GPIO_MODE_INPUT;                    /* ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Pull = GPIO_NOPULL;                        /* ï¿½ï¿½ï¿½ï¿½ */
+    gpioE_init_struct.Speed = GPIO_SPEED_FREQ_HIGH;              /* ï¿½ï¿½ï¿½ï¿½ */
+    HAL_GPIO_Init(KEY5_GPIO_PORT, &gpioE_init_struct);           /* KEY5ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 }
-
-/**
- * @brief       °´¼üÉ¨Ãèº¯Êý
- * @note        ¸Ãº¯ÊýÓÐÏìÓ¦ÓÅÏÈ¼¶(Í¬Ê±°´ÏÂ¶à¸ö°´¼ü): WK_UP > KEY2 > KEY1 > KEY0!!
- * @param       mode:0 / 1, ¾ßÌåº¬ÒåÈçÏÂ:
- *   @arg       0,  ²»Ö§³ÖÁ¬Ðø°´(µ±°´¼ü°´ÏÂ²»·ÅÊ±, Ö»ÓÐµÚÒ»´Îµ÷ÓÃ»á·µ»Ø¼üÖµ,
- *                  ±ØÐëËÉ¿ªÒÔºó, ÔÙ´Î°´ÏÂ²Å»á·µ»ØÆäËû¼üÖµ)
- *   @arg       1,  Ö§³ÖÁ¬Ðø°´(µ±°´¼ü°´ÏÂ²»·ÅÊ±, Ã¿´Îµ÷ÓÃ¸Ãº¯Êý¶¼»á·µ»Ø¼üÖµ)
- * @retval      ¼üÖµ, ¶¨ÒåÈçÏÂ:
- *              KEY0_PRES, 1, KEY0°´ÏÂ
- *              KEY1_PRES, 2, KEY1°´ÏÂ
- *              KEY2_PRES, 3, KEY2°´ÏÂ
- *              WKUP_PRES, 4, WKUP°´ÏÂ
- */
-
 
 uint8_t key_scan1(void)
 {
     if(KEY1 == 0)
     {
-        delay_ms(20);   /* Ïû¶¶ */
+        delay_ms(10);   /* ï¿½ï¿½ï¿½ï¿½ */
         if(KEY1== 0)
         {
-           // while(KEY_T1PUSH == 0);  /* µÈ´ý°´¼üËÉ¿ª */
-            return 1;   /* °´¼ü°´ÏÂÁË */
+       
+            return 1;   /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         }
     }
     else
     { 
-        return 0;   /* °´¼üÃ»ÓÐ°´ÏÂ */
+        return 0 ;   /* ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð°ï¿½ï¿½ï¿½ */
         }
    
 }
@@ -142,17 +86,17 @@ uint8_t key_scan2(void)
 {
     if(KEY2 == 0)
     {
-        delay_ms(20);   /* Ïû¶¶ */
+        delay_ms(10);   /* ï¿½ï¿½ï¿½ï¿½ */
         if(KEY2== 0)
         {
-            while(KEY2 == 0);  /* µÈ´ý°´¼üËÉ¿ª */
-            return 1;   /* °´¼ü°´ÏÂÁË */
+            while(KEY2 == 0);  /* ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½ */
+            return 1;   /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         }
     }
     else
     { 
-        return 0;   /* °´¼üÃ»ÓÐ°´ÏÂ */
-        }
+        return 0;   /* ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð°ï¿½ï¿½ï¿½ */
+    }
    
 }
 
@@ -160,16 +104,16 @@ uint8_t key_scan3(void)
 {
     if(KEY3 == 0)
     {
-        delay_ms(20);   /* Ïû¶¶ */
+        delay_ms(10);   /* ï¿½ï¿½ï¿½ï¿½ */
         if(KEY3== 0)
         {
-            while(KEY3 == 0);  /* µÈ´ý°´¼üËÉ¿ª */
-            return 1;   /* °´¼ü°´ÏÂÁË */
+            while(KEY3 == 0);  /* ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½ */
+            return 1;   /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         }
     }
     else
     { 
-        return 0;   /* °´¼üÃ»ÓÐ°´ÏÂ */
+        return 0;   /* ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð°ï¿½ï¿½ï¿½ */
         }
    
 }
@@ -179,17 +123,17 @@ uint8_t key_scan4(void)
 {
     if(KEY4 == 0)
     {
-        delay_ms(20);   /* Ïû¶¶ */
+        delay_ms(10);   /* ï¿½ï¿½ï¿½ï¿½ */
         if(KEY4== 0)
         {
-            while(KEY4 == 0);  /* µÈ´ý°´¼üËÉ¿ª */
-            return 1;   /* °´¼ü°´ÏÂÁË */
+            while(KEY4 == 0);  /* ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½ */
+            return 1;   /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         }
     }
     else
     { 
-        return 0;   /* °´¼üÃ»ÓÐ°´ÏÂ */
-        }
+        return 0;   /* ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð°ï¿½ï¿½ï¿½ */
+    }
    
 }
 
@@ -197,124 +141,94 @@ uint8_t key_scan5(void)
 {
     if(KEY5 == 0)
     {
-        delay_ms(20);   /* Ïû¶¶ */
+        delay_ms(10);   /* ï¿½ï¿½ï¿½ï¿½ */
         if(KEY5== 0)
         {
-            //while(KEY_T1PUSH == 0);  /* µÈ´ý°´¼üËÉ¿ª */
-            return 1;   /* °´¼ü°´ÏÂÁË */
+            while(KEY5 == 0);  /* ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½ */
+            return 1;   /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         }
     }
     else
     { 
-        return 0;   /* °´¼üÃ»ÓÐ°´ÏÂ */
-        }
+        return 0;   /* ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð°ï¿½ï¿½ï¿½ */
+    }
    
 }
 
-//uint8_t key_scan6(void)
-//{
-//    if(KEY6 == 0)
-//    {
-//        delay_ms(20);   /* Ïû¶¶ */
-//        if(KEY6== 0)
-//        {
-//            while(KEY6 == 0);  /* µÈ´ý°´¼üËÉ¿ª */
-//            return 1;   /* °´¼ü°´ÏÂÁË */
-//        }
-//    }
-//    else
-//    { 
-//        return 0;   /* °´¼üÃ»ÓÐ°´ÏÂ */
-//        }
-//   
-//}
+uint8_t key_scandouble(void)
+{
+    if(KEY2 == 0 && KEY3 == 0)
+     {
 
-//uint8_t key_scan7(void)
-//{
-//    if(KEY7 == 0)
-//    {
-//        delay_ms(20);   /* Ïû¶¶ */
-//        if(KEY7== 0)
-//        {
-//            //while(KEY7 == 0);  /* µÈ´ý°´¼üËÉ¿ª */
-//            return 1;   /* °´¼ü°´ÏÂÁË */
-//        }
-//    }
-//    else
-//    { 
-//        return 0;   /* °´¼üÃ»ÓÐ°´ÏÂ */
-//        }
-//   
-//}
+        delay_ms(10);
+        if (KEY2 == 0 && KEY3 == 0)
+        {
+            while(KEY2 == 0 && KEY3 == 0);
+            return 1;   /* Ë«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+        }
 
-//uint8_t key_scan8(void)
-//{
-//    if(KEY8 == 0)
-//    {
-//        delay_ms(20);   /* Ïû¶¶ */
-//        if(KEY8== 0)
-//        {
-//            while(KEY8 == 0);  /* µÈ´ý°´¼üËÉ¿ª */
-//            return 1;   /* °´¼ü°´ÏÂÁË */
-//        }
-//    }
-//    else
-//    { 
-//        return 0;   /* °´¼üÃ»ÓÐ°´ÏÂ */
-//        }
-//   
-//}
 
-//uint8_t key_scan9(void)
-//{
-//    if(KEY9 == 0)
-//    {
-//        delay_ms(20);   /* Ïû¶¶ */
-//        if(KEY9== 0)
-//        {
-//            while(KEY9 == 0);  /* µÈ´ý°´¼üËÉ¿ª */
-//            return 1;   /* °´¼ü°´ÏÂÁË */
-//        }
-//    }
-//    else
-//    { 
-//        return 0;   /* °´¼üÃ»ÓÐ°´ÏÂ */
-//        }
-//   
-//}
+     }
+    else
+    {
+        return 0; 
+    }
+}
 
-//uint8_t key_scan10(void)
-//{
-//    if(KEY10 == 0)
-//    {
-//        delay_ms(20);   /* Ïû¶¶ */
-//        if(KEY10== 0)
-//        {
-//            //while(KEY10 == 0);  /* µÈ´ý°´¼üËÉ¿ª */
-//            return 1;   /* °´¼ü°´ÏÂÁË */
-//        }
-//    }
-//    else
-//    { 
-//        return 0;   /* °´¼üÃ»ÓÐ°´ÏÂ */
-//    }
-//   
-//}
+uint16_t  keycmdbulb(void)  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+{
 
-//uint8_t key_scan11(void)
-//{
-//    if(KEY11 == 0)
-//    {
-//        delay_ms(20);   /* Ïû¶¶ */
-//        if(KEY11== 0)
-//        {
-//            while(KEY11 == 0);  /* µÈ´ý°´¼üËÉ¿ª */
-//            return 1;   /* °´¼ü°´ÏÂÁË */
-//        }
-//    }
-//    else
-//    { 
-//        return 0;   /* °´¼üÃ»ÓÐ°´ÏÂ */
-//        }
-//   
-//}
+    if (g_slaveReg[117] == 1)
+    {
+         delay_ms(5); 
+         if (g_slaveReg[117] == 1)
+         {
+            while(g_slaveReg[117] == 1); // ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½
+             return 1; 
+         }
+        
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+
+uint16_t  keycmdleftbulb(void)  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+{
+
+    if (g_slaveReg[114] == 1)
+    {
+         delay_ms(5); 
+         if (g_slaveReg[114] == 1)
+         {
+            while(g_slaveReg[114] == 1); // ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½
+             return 1; 
+         }    
+    }
+    else
+    {
+        return 0;
+    }
+    
+
+}
+
+uint8_t  keycmdrightbulb(void)  
+{
+    if (g_slaveReg[115] == 1)
+    {
+         delay_ms(5); 
+         if (g_slaveReg[115] == 1)
+         {
+            while(g_slaveReg[115] == 1); // ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½
+             return 1; 
+         }
+        
+    }
+    else
+    {
+        return 0;
+    }
+}

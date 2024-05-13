@@ -5,7 +5,7 @@
 #include "./BSP/BEEP/beep.h"
 #include "./SYSTEM/delay/delay.h"
 #include "./BSP/Common/common.h"
-// #include "./BSP/R9/joystic.h"
+#include "./BSP/R9/Slavemodbus.h"
 #include "./BSP/R9/getadcdata.h"
 
 VELOCITY_POUT velocity_pout;
@@ -77,10 +77,6 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 		}
 		if (velocity_pout.steering_angle > 0 && velocity_pout.underpanVelocity < 0) /*向左后转向 */
 		{
-			velocity_pout.A_IN1 = (fabs(velocity_pout.R_Dutycycle) - 0.5) * 0.75 + 0.5;
-			velocity_pout.A_IN2 = 0;
-			velocity_pout.B_IN1 = 0;
-			velocity_pout.B_IN2 = (fabs(velocity_pout.L_Dutycycle) - 0.5) * 0.75 + 0.5;
 			velocity_pout.runstate = back_left;
 			drivestate = back_left;
 		}
@@ -111,6 +107,9 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 		/*左右轮目标线速度 m/s*/
 	velocity_pout.L_Velocity = velocity_pout.acceleration_coeff * (straight_k * velPlanIn.adcy / (yadc_max - yadc_Dim) + steering_k * velPlanIn.adcx / (xadc_max - xadc_Dim));
 	velocity_pout.R_Velocity = velocity_pout.acceleration_coeff * (straight_k * velPlanIn.adcy / (yadc_max - yadc_Dim) - steering_k * velPlanIn.adcx / (xadc_max - xadc_Dim));
+	velocity_pout.presentation_velocity = (velocity_pout.L_Velocity + velocity_pout.R_Velocity)/2.0 * MPS_TO_KMPH;
+	g_slaveReg[3] = velocity_pout.presentation_velocity; // RK3588 接受车速信息KM/H
+
 	/*左右目标轮线速度 转换为 占空比*/
 	velocity_pout.L_Dutycycle = fabs(velocity_pout.L_Velocity / MPS_TO_DUTY) * 0.5 + 0.5; /*占空比大于50% 方可驱动电机启动 */
 	velocity_pout.R_Dutycycle = fabs(velocity_pout.R_Velocity / MPS_TO_DUTY) * 0.5 + 0.5;

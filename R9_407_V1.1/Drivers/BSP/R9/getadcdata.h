@@ -53,5 +53,6 @@ void getadcDataInit(void);
 void getadcData(void);
 void getadc1Data(void);
 void getadc3Data(void);
-void joysticDatacalibrationInit(void);
+void joysticData_calculateInit(void);
+void joysticData_calculate(void);
 #endif

@@ -4,7 +4,7 @@
 ..\..\output\btim.o: ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 ..\..\output\btim.o: ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h
 ..\..\output\btim.o: ..\..\Drivers\CMSIS\Include\core_cm4.h
-..\..\output\btim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\btim.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\..\output\btim.o: ..\..\Drivers\CMSIS\Include\cmsis_version.h
 ..\..\output\btim.o: ..\..\Drivers\CMSIS\Include\cmsis_compiler.h
 ..\..\output\btim.o: ..\..\Drivers\CMSIS\Include\cmsis_armcc.h
@@ -16,7 +16,7 @@
 ..\..\output\btim.o: ..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h
 ..\..\output\btim.o: ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 ..\..\output\btim.o: ..\..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy/stm32_hal_legacy.h
-..\..\output\btim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+..\..\output\btim.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 ..\..\output\btim.o: ..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h
 ..\..\output\btim.o: ..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_exti.h
 ..\..\output\btim.o: ..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h
@@ -72,3 +72,4 @@
 ..\..\output\btim.o: ..\..\Drivers\./BSP/API_Schedule.h
 ..\..\output\btim.o: ..\..\Drivers\./BSP/R9/Slavemodbus.h
 ..\..\output\btim.o: ..\..\Drivers\./BSP/R9/Hostmodbus.h
+..\..\output\btim.o: ..\..\Drivers\./BSP/DAP21/hostdap21.h

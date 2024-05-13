@@ -22,21 +22,24 @@
 #include "./BSP/R9/inv_mpu.h"
 #include "./BSP/R9/inv_mpu_dmp_motion_driver.h" 
 
-#include "./BSP/R9/rs485.h"
-#include "./BSP/R9/mlx90393.h"
-#include "./BSP/R9/Slavemodbus.h"
+//#include "./BSP/R9/rs485.h"
+//#include "./BSP/R9/mlx90393.h"
+
 #include "./BSP/WDG/wdg.h"
+#include "./BSP/DAP21/hostdap21.h"
+#include "./BSP/R9/Hostmodbus.h"
+#include "./BSP/R9/Slavemodbus.h"
+
 //任务列表
-void LedFlash(void);
-void UnderpanDrive(void);
 void Hard_devInit(void);
-void Beep_run(void);
-void linearactuatorDrive(void);
+void LedFlash(void);
 void GetADC_AllData(void);
-// void flashwriteandred(void);
-// void GetjoysticData(void);
+void UnderpanDrive(void);
+void linearactuatorDrive(void);
 void gyroscopeData(void);
-void DypA21 (void);
-void Tmxl90393(void);
+void ModbusSlaveExecute (void);
+void ultrasonicreadExecute (void);
+void Modbuskeyread_execute(void);
+void Modbuskeywrite_execute(void);
 
 #endif

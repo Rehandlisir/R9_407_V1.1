@@ -27,6 +27,7 @@
 #include "./BSP/API_Schedule.h"
 #include "./BSP/R9/Slavemodbus.h"
 #include "./BSP/R9/Hostmodbus.h"
+#include "./BSP/DAP21/hostdap21.h"
 
 TIM_HandleTypeDef g_timx_handler;         /* 定时器参数句柄 */
 
@@ -92,39 +93,63 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     if (htim->Instance == BTIM_TIMX_INT)
     {
 
-	 	OS_IT_RUN();
-		
-//		Modbus 从机
-		if(slavemodbus.timrun != 0)//运行时间！=0表明
-		 {
-		  slavemodbus.timout++;
-		  if(slavemodbus.timout >=8)
-		  {
-		   slavemodbus.timrun = 0;
-			 slavemodbus.reflag = 1;//接收数据完毕
-		  }
-			  
-		 }
-	
-//		Modbus 主机
-		if(modbus.timrun != 0)//运行时间！=0表明
-		 {
-		  modbus.timout++;
-		  if(modbus.timout >=8)
-		  {
-		   modbus.timrun = 0;
-			 modbus.reflag = 1;//接收数据完毕
-		  }
-			
-		 }
-		 
-		 modbus.Host_Sendtime++;//发送完上一帧后的时间计数
-		 
-		if(modbus.Host_Sendtime>50)//距离发送上一帧数据1s了
-			{
-				//1s时间到
-				modbus.Host_time_flag=1;//发送数据标志位置1
+				OS_IT_RUN();
 				
-			}
+		//		Modbus 从机被RK3588读写
+				if(slavemodbus.timrun != 0)//运行时间！=0表明
+				 {
+					slavemodbus.timout++;
+					if(slavemodbus.timout >=8)
+					{
+					 slavemodbus.timrun = 0;
+					 slavemodbus.reflag = 1;//接收数据完毕
+					}
+						
+				 }
+			
+		//		Modbus 主机读取按键板状态
+				if(modbus.timrun != 0)//运行时间！=0表明
+				 {
+					modbus.timout++;
+					if(modbus.timout >=8)
+					{
+					 modbus.timrun = 0;
+					 modbus.reflag = 1;//接收数据完毕
+					}
+					
+				 }
+				 
+				 modbus.Host_Sendtime++;//发送完上一帧后的时间计数
+				 
+				if(modbus.Host_Sendtime>50)//距离发送上一帧数据1s了
+					{
+						//1s时间到
+						modbus.Host_time_flag=1;//发送数据标志位置1
+						
+					}
+				//		Modbus 主机读取DAP21数据
+
+				if(modbus_dap21.timrun != 0)//运行时间！=0表明
+				 {
+					modbus_dap21.timout++;
+					if(modbus_dap21.timout >=8)
+					{
+					 modbus_dap21.timrun = 0;
+					 modbus_dap21.reflag = 1;//接收数据完毕
+					}
+					
+				 }
+				 
+				 modbus_dap21.Host_Sendtime++;//发送完上一帧后的时间计数
+				 
+				if(modbus_dap21.Host_Sendtime>100)//距离发送上一帧数据1s了
+					{
+						//1s时间到
+						modbus_dap21.Host_time_flag=1;//发送数据标志位置1
+						
+					}			
     }
+
+		
+		
 }

@@ -56,11 +56,8 @@ typedef struct
 	uint8_t  sendbuf[100]; //modbus接发送缓冲区
 }SLAVEMODBUS;
 
-
-
-
 extern SLAVEMODBUS slavemodbus;
-extern uint16_t Reg[];
+extern uint16_t g_slaveReg[];
 void SlavemodbusUART6_init(uint32_t baudrate);
 void SlaveModbus_send_data(uint8_t *buf, uint8_t len);
 void SlaveModbus_Init(void);

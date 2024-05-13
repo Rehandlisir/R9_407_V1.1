@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "underpancontrol.h": "c",
+        "cstdint": "c",
+        "sys.h": "c"
+    }
+}

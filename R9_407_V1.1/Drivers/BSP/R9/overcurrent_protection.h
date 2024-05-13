@@ -4,9 +4,9 @@
 #include "./SYSTEM/sys/sys.h"
 
 
-#define D_MOTOR_PROTECT_POART                 	   GPIOE
-#define D_MOTOR_PROTECT_GPIO_PIN                   GPIO_PIN_0
-#define D_MOTOR_PROTECT_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOE_CLK_ENABLE(); }while(0)             /* 电机1&2的软件过流保护（初始化高电平，低电平动作） */
+//#define D_MOTOR_PROTECT_POART                 	   GPIOE
+//#define D_MOTOR_PROTECT_GPIO_PIN                   GPIO_PIN_0
+//#define D_MOTOR_PROTECT_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOE_CLK_ENABLE(); }while(0)             /* 作为输入使用 */
 
 #define D_MOTOR1_SLEEP_POART                 	    GPIOB
 #define D_MOTOR1_SLEEP_GPIO_PIN                           GPIO_PIN_12

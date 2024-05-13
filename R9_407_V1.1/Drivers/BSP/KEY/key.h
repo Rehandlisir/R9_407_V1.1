@@ -92,6 +92,11 @@ uint8_t key_scan2(void);// KEY2-  PE14
 uint8_t key_scan3(void);// KEY3-  PE13  
 uint8_t key_scan4(void);// KEY4 -PE12 
 uint8_t key_scan5(void);// KEY5-PE11: 
+uint8_t key_scandouble(void);
+
+uint16_t  keycmdbulb(void); 
+uint16_t  keycmdleftbulb(void);  // 来自主机下发的左转向灯指令
+uint8_t  keycmdrightbulb(void);  // 来自主机下发的右左转向灯指令
 //uint8_t key_scan6(void);//  KEY6-PG0: 双闪
 //uint8_t key_scan7(void);// KEY7-PG1: 喇叭 
 //uint8_t key_scan8(void);//  KEY8-PE7: 调速减

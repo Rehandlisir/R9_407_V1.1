@@ -28,8 +28,7 @@
 
 UART_HandleTypeDef g_slavemodbus_handler;     /* Modbus控制句柄(串口) */
 
-uint16_t Reg[5000] ={0x0000
-           };//reg是提前定义好的寄存器和寄存器数据，要读取和改写的部分内容
+uint16_t g_slaveReg[5000] ={0x0000};//g_slaveReg是提前定义好的寄存器和寄存器数据，要读取和改写的部分内容
  
 
 void SlaveModbus_UX_IRQHandler(void)
@@ -153,9 +152,9 @@ void SlaveModbus_Func3()
 	slavemodbus.sendbuf[i++] = ((Reglen*2)%256);   //返回字节个数
 	for(j=0;j<Reglen;j++)                    //返回数据
 	{
-		//reg是提前定义好的16位数组（模仿寄存器）
-	  slavemodbus.sendbuf[i++] = Reg[Regadd+j]/256;//高位数据
-	  slavemodbus.sendbuf[i++] = Reg[Regadd+j]%256;//低位数据
+		//g_slaveReg是提前定义好的16位数组（模仿寄存器）
+	  slavemodbus.sendbuf[i++] = g_slaveReg[Regadd+j]/256;//高位数据
+	  slavemodbus.sendbuf[i++] = g_slaveReg[Regadd+j]%256;//低位数据
 	}
 	crc = SlaveModbus_CRC16(slavemodbus.sendbuf,i);    //计算要返回数据的CRC
 	slavemodbus.sendbuf[i++] = crc/256;//校验位高位
@@ -183,7 +182,7 @@ void SlaveModbus_Func6()
 	i=0;
 	Regadd=slavemodbus.rcbuf[2]*256+slavemodbus.rcbuf[3];  //得到要修改的地址 
 	val=slavemodbus.rcbuf[4]*256+slavemodbus.rcbuf[5];     //修改后的值（要写入的数据）
-	Reg[Regadd]=val;  //修改本设备相应的寄存器
+	g_slaveReg[Regadd]=val;  //修改本设备相应的寄存器
 	
 	//以下为回应主机
 	slavemodbus.sendbuf[i++]=slavemodbus.myadd;//本设备地址
@@ -217,7 +216,7 @@ void SlaveModbus_Func16()
 		for(i=0;i<Reglen;i++)//往寄存器中写入数据
 		{
 			//接收数组的第七位开始是数据
-			Reg[Regadd+i]=slavemodbus.rcbuf[7+i*2]*256+slavemodbus.rcbuf[8+i*2];//对寄存器一次写入数据
+			g_slaveReg[Regadd+i]=slavemodbus.rcbuf[7+i*2]*256+slavemodbus.rcbuf[8+i*2];//对寄存器一次写入数据
 		}
 		//写入数据完毕，接下来需要进行打包回复数据了
 		

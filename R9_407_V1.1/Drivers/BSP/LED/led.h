@@ -192,6 +192,6 @@ typedef enum
 
 /* �ⲿ�ӿں���*/
 void led_init(void);
-void led_bling(void); /* ��ʼ�� */
+void led_beepControl(void); /* ��ʼ�� */
 
 #endif /*��ת��ƿ��ￄ1�7*/

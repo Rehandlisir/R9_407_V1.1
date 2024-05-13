@@ -269,13 +269,13 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
 
 void MoterdriveInit(void)
 {
-    MoterL_pwm_chy_init(100 - 1, 42 - 1);    //* 84 000 000 / 100*42      L 20khz频率的PWM 波形*  /  
-	MoterR_pwm_chy_init(200 - 1, 42 - 1);    //* 168 000 000 / 200*42     R  20khz频率的PWM 波形*/
-	MoterLift_pwm_chy_init(200 - 1, 42 - 1);    //* 168 000 000 / 200*42     T1  20khz频率的PWM 波形*/
-	MoterPedestal_Backboard_pwm_chy_init(200 - 1, 42 - 1);//                   T2&T3
-	MoterLeg_pwm_chy_init(100 - 1, 42 - 1);               //                   T4&T5
-    MoterSupport_pwm_chy_init(100 - 1, 42 - 1);   //* 84 000 000 / 100*42      T6  20khz频率的PWM 波形*  /  
-}
+    MoterL_pwm_chy_init(100 - 1, 42 - 1);    												  //* 84 000 000 / 100*42      L 20khz频率的PWM 波形*  /  
+	MoterR_pwm_chy_init(200 - 1, 42 - 1);   												  //* 168 000 000 / 200*42     R  20khz频率的PWM 波形*/
+	MoterLift_pwm_chy_init(200 - 1, 42 - 1);  												  //* 168 000 000 / 200*42     T1  20khz频率的PWM 波形*/
+	MoterPedestal_Backboard_pwm_chy_init(200 - 1, 42 - 1);									  //                   T2&T3
+	MoterLeg_pwm_chy_init(100 - 1, 42 - 1);              									  //                   T4&T5
+    MoterSupport_pwm_chy_init(100 - 1, 42 - 1);  											  //* 84 000 000 / 100*42      T6  20khz频率的PWM 波形*  /  
+} 
 // 推杆测试程序
 void linearactuatorTest(void)
 {
