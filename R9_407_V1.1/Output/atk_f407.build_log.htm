@@ -27,7 +27,32 @@ Project File Date:  05/14/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'R9V1'
-"..\..\Output\atk_f407.axf" - 0 Error(s), 0 Warning(s).
+compiling key.c...
+..\..\Drivers\BSP\KEY\key.c(82): warning:  #940-D: missing return statement at end of non-void function "key_scan1" 
+  }
+..\..\Drivers\BSP\KEY\key.c(101): warning:  #940-D: missing return statement at end of non-void function "key_scan2" 
+  }
+..\..\Drivers\BSP\KEY\key.c(119): warning:  #940-D: missing return statement at end of non-void function "key_scan3" 
+  }
+..\..\Drivers\BSP\KEY\key.c(138): warning:  #940-D: missing return statement at end of non-void function "key_scan4" 
+  }
+..\..\Drivers\BSP\KEY\key.c(156): warning:  #940-D: missing return statement at end of non-void function "key_scan5" 
+  }
+..\..\Drivers\BSP\KEY\key.c(176): warning:  #940-D: missing return statement at end of non-void function "key_scandouble" 
+  }
+..\..\Drivers\BSP\KEY\key.c(195): warning:  #940-D: missing return statement at end of non-void function "keycmdbulb" 
+  }
+..\..\Drivers\BSP\KEY\key.c(216): warning:  #940-D: missing return statement at end of non-void function "keycmdleftbulb" 
+  }
+..\..\Drivers\BSP\KEY\key.c(234): warning:  #1-D: last line of file ends without a newline
+  }
+..\..\Drivers\BSP\KEY\key.c(234): warning:  #940-D: missing return statement at end of non-void function "keycmdrightbulb" 
+  }
+..\..\Drivers\BSP\KEY\key.c: 10 warnings, 0 errors
+linking...
+Program Size: Code=42812 RO-data=5940 RW-data=768 ZI-data=13696  
+FromELF: creating hex file...
+"..\..\Output\atk_f407.axf" - 0 Error(s), 10 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -40,7 +65,7 @@ Package Vendor: Keil
   C:/Users/fu/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>
