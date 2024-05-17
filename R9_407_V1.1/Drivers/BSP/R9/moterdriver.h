@@ -77,9 +77,8 @@
 		__HAL_RCC_TIM9_CLK_ENABLE();   \
 	} while (0) /* TIM9 时钟使能 */
 
-/* 靠背推杆电机 1 驱动输出 TIME1  */
-/* TIMX REMAP设置* 开启TIM1的重映射功能, 将TIM1_CH1 TIM1_CH2 输出到PA8 PA9 上，*/
-/*推杆电机 1 输出*/
+/* 靠背角度撑杆A1  */
+
 #define GTIM_TIM1_PWM_CHY_GPIO_PORTA GPIOA
 #define GTIM_TIM1_PWM_CHY_GPIO_PIN10 GPIO_PIN_10
 #define GTIM_TIM1_PWM_CHY_GPIO_PIN11 GPIO_PIN_11
@@ -100,9 +99,8 @@
 		__HAL_RCC_TIM1_CLK_ENABLE();   \
 	} while (0) /* TIM1 时钟使能 */
 
-/* 座椅举升 及 旋转 推杆电机 2 && 3  驱动输出 TIME8  */
-/* TIMX REMAP设置* 开启TIM1的重映射功能, 将TIM8_CH1 TIM8_CH2 TIM8_CH3 TIM8_CH4 输出到PC6 PC7 PC8 PC9 上，*/
-/*推杆电机 1 输出*/
+/* 底盘举升撑杆B1 / 座板角度撑杆B2 */
+
 #define GTIM_TIM8_PWM_CHY_GPIO_PORTC GPIOC
 #define GTIM_TIM8_PWM_CHY_GPIO_PIN6 GPIO_PIN_6 // T3
 #define GTIM_TIM8_PWM_CHY_GPIO_PIN7 GPIO_PIN_7
@@ -131,9 +129,7 @@
 		__HAL_RCC_TIM8_CLK_ENABLE();   \
 	} while (0) /* TIM8 时钟使能 */
 
-/* 脚踏旋转及升降 推杆电机 4 && 5 驱动输出 TIME4  */
-/* TIMX REMAP设置* 开启TIM4的重映射功能, 将TIM4_CH1 TIM4_CH2 TIM4_CH3 TIM4_CH4输出到     PD12 PD13 PD14 PD15 上，*/
-/*推杆电机 1 输出*/
+/*腿托角度撑杆A2 (L)、腿托长度撑杆A3(L)*/
 #define GTIM_TIM4_PWM_CHY_GPIO_PORTD GPIOD
 #define GTIM_TIM4_PWM_CHY_GPIO_PIN12 GPIO_PIN_12 // T5
 #define GTIM_TIM4_PWM_CHY_GPIO_PIN13 GPIO_PIN_13
@@ -160,9 +156,8 @@
 		__HAL_RCC_TIM4_CLK_ENABLE();   \
 	} while (0) /* TIM4 时钟使能 */
 
-/* 推杆电机 6 驱动输出 TIME12  */
-/* TIMX REMAP设置* 开启TIM1的重映射功能, 将TIM12_CH1 TIM12_CH2 输出到PB14 PB15 上，*/
-/*推杆电机 6 输出*/
+
+/*前支撑轮撑杆C1*/
 #define GTIM_TIM12_PWM_CHY_GPIO_PORTB GPIOB
 #define GTIM_TIM12_PWM_CHY_GPIO_PIN14 GPIO_PIN_14 // T6
 #define GTIM_TIM12_PWM_CHY_GPIO_PIN15 GPIO_PIN_15
@@ -182,6 +177,8 @@
 	{                                   \
 		__HAL_RCC_TIM12_CLK_ENABLE();   \
 	} while (0) /* TIM12 时钟使能 */
+    
+    
 /*姿态指令控制宏定义*/
 #define NONE 0
 #define STANCE 1

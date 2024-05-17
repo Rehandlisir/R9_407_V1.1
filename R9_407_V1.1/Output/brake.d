@@ -4,7 +4,7 @@
 ..\..\output\brake.o: ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 ..\..\output\brake.o: ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h
 ..\..\output\brake.o: ..\..\Drivers\CMSIS\Include\core_cm4.h
-..\..\output\brake.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\brake.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\..\output\brake.o: ..\..\Drivers\CMSIS\Include\cmsis_version.h
 ..\..\output\brake.o: ..\..\Drivers\CMSIS\Include\cmsis_compiler.h
 ..\..\output\brake.o: ..\..\Drivers\CMSIS\Include\cmsis_armcc.h
@@ -16,7 +16,7 @@
 ..\..\output\brake.o: ..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h
 ..\..\output\brake.o: ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 ..\..\output\brake.o: ..\..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy/stm32_hal_legacy.h
-..\..\output\brake.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+..\..\output\brake.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 ..\..\output\brake.o: ..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h
 ..\..\output\brake.o: ..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_exti.h
 ..\..\output\brake.o: ..\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h

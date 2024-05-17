@@ -145,29 +145,31 @@ void getadc3Data(void)
 		adc3_alldata = sum / (ADC3_DMA_BUF_SIZE / 12); /* 取平均值 */
 
 		if (j == 0)
-			adcdata.lift_pos = adc3_alldata;
-		if (j == 1)
-			adcdata.pedestal_pos = adc3_alldata;
-		if (j == 2)
 			adcdata.backboard_pos = adc3_alldata;
-		if (j == 3)
+		if (j == 1)
 			adcdata.legangle_pos = adc3_alldata;
-		if (j == 4)
+		if (j == 2)
 			adcdata.leglength_pos = adc3_alldata;
+		if (j == 3)
+			adcdata.lift_pos = adc3_alldata;
+		if (j == 4)
+			adcdata.pedestal_pos = adc3_alldata;
 		if (j == 5)
 			adcdata.support_pos = adc3_alldata;
 		if (j == 6)
-			adcdata.lift_current = adc3_alldata;
-		if (j == 7)
-			adcdata.pedestal_current = adc3_alldata;
-		if (j == 8)
 			adcdata.backboard_current = adc3_alldata;
-		if (j == 9)
+		if (j == 7)
 			adcdata.legangle_current = adc3_alldata;
-		if (j == 10)
+		if (j == 8)
 			adcdata.leglength_current = adc3_alldata;
+		if (j == 9)
+			adcdata.lift_current = adc3_alldata;
+		if (j == 10)
+			adcdata.pedestal_current = adc3_alldata;
 		if (j == 11)
 			adcdata.support_current = adc3_alldata;
+
+
 	}
 	g_adc3_dma_sta = 0;						/* 清除DMA采集完成状态标志 */
 	adc3_nch_dma_enable(ADC3_DMA_BUF_SIZE); /* 启动下一次ADC1 DMA多通道采集 */

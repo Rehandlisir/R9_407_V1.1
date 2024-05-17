@@ -5,54 +5,84 @@
 <h2>Tool Versions:</h2>
 IDE-Version: μVision V5.38.0.0
 Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: rehand fu@reha, HP Inc., LIC=65ISZ-JPW1A-63SMB-2C18Y-RU7XC-7M4J7
+License Information: ss 602320162@qq.com, ss, LIC=ATTQ1-CRF71-UH68H-W1BKM-DIAF9-X85GK
  
 Tool Versions:
 Toolchain:       MDK-ARM Plus  Version: 5.38.0.0
-Toolchain Path:  D:\Keil_v5\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.06 update 7 (build 960)
-Assembler:       Armasm.exe V5.06 update 7 (build 960)
-Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
-Library Manager: ArmAr.exe V5.06 update 7 (build 960)
-Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
 CPU DLL:         SARMCM3.DLL V5.38.0.0
 Dialog DLL:      DCM.DLL V1.17.5.0
 Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.1.0.0
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-c:\Users\fu\Desktop\Code\CodeV1.1\R9_407_V1.1\R9_407_V1.1\Projects\MDK-ARM\R9V1.uvprojx
-Project File Date:  05/14/2024
+C:\Users\60232\Desktop\新建文件夹\R9_407_V1.1\R9_407_V1.1\Projects\MDK-ARM\R9V1.uvprojx
+Project File Date:  05/15/2024
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'R9V1'
-compiling key.c...
-..\..\Drivers\BSP\KEY\key.c(82): warning:  #940-D: missing return statement at end of non-void function "key_scan1" 
+compiling getadcdata.c...
+..\..\Drivers\BSP\R9\getadcdata.c(62): warning:  #177-D: variable "temp"  was declared but never referenced
+  	float temp;
+..\..\Drivers\BSP\R9\getadcdata.c: 1 warning, 0 errors
+compiling sys.c...
+compiling usart.c...
+compiling moterdriver.c...
+..\..\Drivers\BSP\R9\moterdriver.c(451): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T1_IN2 = 200 * (1.0 -acctemp);	
+..\..\Drivers\BSP\R9\moterdriver.c(453): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T2_IN2 = 200 * (1.0 - SEAT_LIFTDROPRATIO*acctemp);	
+..\..\Drivers\BSP\R9\moterdriver.c(469): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T1_IN1 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(471): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T2_IN1 = 200 * (1.0 - SEAT_LIFTDROPRATIO*acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(516): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T3_IN1 = 200 * (1.0 - acctemp);	
+..\..\Drivers\BSP\R9\moterdriver.c(533): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T3_IN2 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(573): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T2_IN2 = 200 * (1.0 - acctemp);	
+..\..\Drivers\BSP\R9\moterdriver.c(590): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T2_IN1 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(628): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T1_IN2 = 200 * (1.0 - acctemp);	
+..\..\Drivers\BSP\R9\moterdriver.c(645): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T1_IN1 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(687): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T4_IN2 = 100 * (1.0 - acctemp);	
+..\..\Drivers\BSP\R9\moterdriver.c(689): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T5_IN2 = 100 * (1.0 - acctemp);	
+..\..\Drivers\BSP\R9\moterdriver.c(705): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T4_IN1 = 100 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(707): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T5_IN1 = 100 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(737): warning:  #174-D: expression has no effect
+      NONE;
+..\..\Drivers\BSP\R9\moterdriver.c(738): warning:  #1-D: last line of file ends without a newline
   }
-..\..\Drivers\BSP\KEY\key.c(101): warning:  #940-D: missing return statement at end of non-void function "key_scan2" 
-  }
-..\..\Drivers\BSP\KEY\key.c(119): warning:  #940-D: missing return statement at end of non-void function "key_scan3" 
-  }
-..\..\Drivers\BSP\KEY\key.c(138): warning:  #940-D: missing return statement at end of non-void function "key_scan4" 
-  }
-..\..\Drivers\BSP\KEY\key.c(156): warning:  #940-D: missing return statement at end of non-void function "key_scan5" 
-  }
-..\..\Drivers\BSP\KEY\key.c(176): warning:  #940-D: missing return statement at end of non-void function "key_scandouble" 
-  }
-..\..\Drivers\BSP\KEY\key.c(195): warning:  #940-D: missing return statement at end of non-void function "keycmdbulb" 
-  }
-..\..\Drivers\BSP\KEY\key.c(216): warning:  #940-D: missing return statement at end of non-void function "keycmdleftbulb" 
-  }
-..\..\Drivers\BSP\KEY\key.c(234): warning:  #1-D: last line of file ends without a newline
-  }
-..\..\Drivers\BSP\KEY\key.c(234): warning:  #940-D: missing return statement at end of non-void function "keycmdrightbulb" 
-  }
-..\..\Drivers\BSP\KEY\key.c: 10 warnings, 0 errors
+..\..\Drivers\BSP\R9\moterdriver.c(735): warning:  #177-D: variable "acctemp"  was declared but never referenced
+      static float acctemp=0,acct=0;
+..\..\Drivers\BSP\R9\moterdriver.c(735): warning:  #177-D: variable "acct"  was declared but never referenced
+      static float acctemp=0,acct=0;
+..\..\Drivers\BSP\R9\moterdriver.c(736): warning:  #177-D: variable "accdoneflage"  was declared but never referenced
+      static uint8_t accdoneflage=0;
+..\..\Drivers\BSP\R9\moterdriver.c: 19 warnings, 0 errors
+compiling API_Schedule.c...
+compiling main.c...
+compiling task.c...
+..\..\Drivers\BSP\task.c(241): warning:  #1-D: last line of file ends without a newline
+  }	
+..\..\Drivers\BSP\task.c: 1 warning, 0 errors
 linking...
-Program Size: Code=42812 RO-data=5940 RW-data=768 ZI-data=13696  
+Program Size: Code=42800 RO-data=5936 RW-data=768 ZI-data=13696  
 FromELF: creating hex file...
-"..\..\Output\atk_f407.axf" - 0 Error(s), 10 Warning(s).
+"..\..\Output\atk_f407.axf" - 0 Error(s), 21 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -62,10 +92,10 @@ Package Vendor: Keil
                 STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
 
 <h2>Collection of Component include folders:</h2>
-  C:/Users/fu/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+  C:/Users/60232/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:15
 </pre>
 </body>
 </html>

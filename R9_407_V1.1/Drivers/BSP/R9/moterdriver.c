@@ -84,9 +84,11 @@ void  MoterR_pwm_chy_init(uint16_t arr, uint16_t psc) // 右轮电机
     HAL_TIM_PWM_Start(&g_time9_pwm_chy_handle, GTIM_TIM9_PWM_CH2);                           /* 开启对应PWM通道 */
 }
 
-void  MoterLift_pwm_chy_init(uint16_t arr, uint16_t psc) // 电动推杆 1 
+
+/*靠背角度撑杆A1*/
+void  MoterLift_pwm_chy_init(uint16_t arr, uint16_t psc) 
 {
-    /*推杆电机1（举升）*/
+
     TIM_OC_InitTypeDef tim1_oc_pwm_chy = {0};                       /* 定时器9输出句柄 */
     g_time1_pwm_chy_handle.Instance = GTIM_TIM1_PWM;                 /* 定时器x */
     g_time1_pwm_chy_handle.Init.Prescaler = psc;                     /* 预分频系数 */
@@ -102,6 +104,7 @@ void  MoterLift_pwm_chy_init(uint16_t arr, uint16_t psc) // 电动推杆 1
     HAL_TIM_PWM_Start(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4);                           /* 开启对应PWM通道 */
 }
 
+/*底盘举升撑杆B1 / 座板角度撑杆B2*/
 void  MoterPedestal_Backboard_pwm_chy_init(uint16_t arr, uint16_t psc) // 电动推杆 2&3 
 {
     /*推杆电机2（座板）*/
@@ -126,9 +129,10 @@ void  MoterPedestal_Backboard_pwm_chy_init(uint16_t arr, uint16_t psc) // 电动推
 
 }
 
+/*腿托角度撑杆A2 (L)、腿托长度撑杆A3(L)*/
 void  MoterLeg_pwm_chy_init(uint16_t arr, uint16_t psc) // 电动推杆 4&5 
 {
-   // 推杆4 （脚踏旋转）
+   // 腿托角度撑杆A2
     TIM_OC_InitTypeDef tim4_oc_pwm_chy = {0};                       /* 定时器9输出句柄 */
     g_time4_pwm_chy_handle.Instance = GTIM_TIM4_PWM;                 /* 定时器x */
     g_time4_pwm_chy_handle.Init.Prescaler = psc;                     /* 预分频系数 */
@@ -142,7 +146,7 @@ void  MoterLeg_pwm_chy_init(uint16_t arr, uint16_t psc) // 电动推杆 4&5
     HAL_TIM_PWM_Start(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH3);                           /* 开启对应PWM通道 */
 	HAL_TIM_PWM_ConfigChannel(&g_time4_pwm_chy_handle, &tim4_oc_pwm_chy, GTIM_TIM4_PWM_CH4); /* 配置TIMx通道y */
     HAL_TIM_PWM_Start(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH4);                           /* 开启对应PWM通道 */
-    /* 推杆5 （脚踏伸长）*/
+    /* 推杆5 腿托长度撑杆A3*/
     HAL_TIM_PWM_ConfigChannel(&g_time4_pwm_chy_handle, &tim4_oc_pwm_chy, GTIM_TIM4_PWM_CH1); /* 配置TIMx通道y */
     HAL_TIM_PWM_Start(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH1);                           /* 开启对应PWM通道 */
 	HAL_TIM_PWM_ConfigChannel(&g_time4_pwm_chy_handle, &tim4_oc_pwm_chy, GTIM_TIM4_PWM_CH2); /* 配置TIMx通道y */
@@ -421,8 +425,10 @@ void linearactuatorTest(void)
  /*座椅举升控制*/
  void SeatLiftDrop(void)
  {
+   //底盘举升撑杆B1(M)
     uint16_t T1_IN1 = 0;
     uint16_t T1_IN2 = 0;
+   //座板角度撑杆B2(L)
     uint16_t T2_IN1 = 0;
     uint16_t T2_IN2 = 0;
     static float acctemp=0,acct=0;
@@ -477,9 +483,10 @@ void linearactuatorTest(void)
         T2_IN1 = 200 * (1.0 - 0);
         T2_IN2 = 200 * (1.0 - 0);	
     }
-    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T1_IN1);
-    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T1_IN2);
-
+     //底盘举升撑杆B1(M)
+    __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH1, T1_IN1);
+    __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH2, T1_IN2);
+    //座板角度撑杆B2(L)
     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH3, T2_IN1);
     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH4, T2_IN2);
 
@@ -536,8 +543,8 @@ void linearactuatorTest(void)
         T3_IN2 = 0;
         T3_IN1 = 0;	      
     }
-     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH1, T3_IN1);
-    __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH2, T3_IN2);
+     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T3_IN1);
+    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T3_IN2);
 
  }
 
@@ -646,15 +653,17 @@ void OverallFB(void)
         T1_IN1 = 0;
         T1_IN2 = 0;	   
     }
-    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T1_IN1);
-    __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T1_IN2);
+    __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH1, T1_IN1);
+    __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH2, T1_IN2);
 }
 
 /*腿托上下旋转调节*/
 void LegSpinFB(void)
 {
+     //腿托长度撑杆A3
     uint16_t T4_IN1 = 0;
     uint16_t T4_IN2 = 0;
+      //腿托角度撑杆A2  
     uint16_t T5_IN1 = 0;
     uint16_t T5_IN2 = 0;
     static float acctemp=0,acct=0;
@@ -710,8 +719,10 @@ void LegSpinFB(void)
         T5_IN1 = 100 * (1.0 - 0);
         T5_IN2 = 100 * (1.0 - 0);	
     }
+        //腿托长度撑杆A3
         __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH3, T4_IN1);
-        __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH4, T4_IN2);			
+        __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH4, T4_IN2);	
+        //腿托角度撑杆A2    
         __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH1, T5_IN1);
         __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH2, T5_IN2);	
 
