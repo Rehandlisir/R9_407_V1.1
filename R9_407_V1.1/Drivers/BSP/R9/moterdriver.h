@@ -28,6 +28,7 @@
 #include "./BSP/R9/Hostmodbus.h"
 #include "./BSP/R9/Slavemodbus.h"
 #include "math.h"
+#include "stdio.h"
 
 /*********************************以下是通用定时器PWM输出实验相关宏定义*************************************/
 
@@ -191,7 +192,38 @@
 #define ALL_BACK 8
 #define LEG_TOPSPIN 9
 #define LEG_BACKSPIN 10
-#define SEAT_LIFTDROPRATIO 0.819   // 座板角度B2/B1底盘举升
+/*推杆1~6最大占空比*/
+#define A1MAX 0.9    // 靠背角度撑杆A1（M）
+#define A2MAX 0.9    //腿托角度撑杆A2 (M)
+#define A3MAX 0.9    //腿托长度撑杆A3(M)   
+#define B1MAX 0.9    //底盘举升撑杆B1(M)
+#define B2MAX 0.9    //座板角度撑杆B2 (M)
+#define C1MAX 0.9    //前支撑轮撑杆C1(M)
+
+/*姿态状态宏定义*/
+typedef enum
+{
+   
+    iddle,
+    Stand_run,
+    Site_run,
+    Lift_run,
+    Down_run,
+    Backf_run,
+    Backb_run, 
+    Alltiltfrun,
+    Alltiltbrun,
+    Legspintop_run,
+    Legspindown_run,
+    Legexten_run,
+    Legunexten_run,
+    Seat_tiltf_run,
+    Seat_tiltb_run
+    
+} LineActor_State;
+
+
+#define SEAT_LIFTDROPRATIO 0.865   // 座板角度B2/B1底盘举升
 
 /*************************电机驱动变量*****************************/
 extern TIM_HandleTypeDef g_time3_pwm_chy_handle;  /* 底盘L电机 1 函数句柄*/
@@ -209,11 +241,16 @@ void MoterPedestal_Backboard_pwm_chy_init(uint16_t arr, uint16_t psc); // 电动
 void MoterLeg_pwm_chy_init(uint16_t arr, uint16_t psc);				   // 电动推杆 4&5
 void MoterSupport_pwm_chy_init(uint16_t arr, uint16_t psc);			   // 电动推杆 6
 void MoterdriveInit(void);
+
+
 void linearactuatorTest(void);
-void SeatLiftDrop(void);
-void BackresetFB(void);
-void ThwartFB(void);
-void OverallFB(void);
-void LegSpinFB(void);
-void OverallStandSit(void);
+
+void linearactuator(void);
+ void SeatLiftDrop(void);
+ void BackresetFB(void);
+ void ThwartFB(void);
+ void OverallFB(void);
+ void LegSpinFB(void);
+ void LegExtension(void);
+ void OverallStandSit(void);
 #endif

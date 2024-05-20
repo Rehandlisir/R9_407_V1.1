@@ -27,62 +27,96 @@ Project File Date:  05/15/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'R9V1'
-compiling getadcdata.c...
-..\..\Drivers\BSP\R9\getadcdata.c(62): warning:  #177-D: variable "temp"  was declared but never referenced
-  	float temp;
-..\..\Drivers\BSP\R9\getadcdata.c: 1 warning, 0 errors
-compiling sys.c...
-compiling usart.c...
-compiling moterdriver.c...
-..\..\Drivers\BSP\R9\moterdriver.c(451): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T1_IN2 = 200 * (1.0 -acctemp);	
-..\..\Drivers\BSP\R9\moterdriver.c(453): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T2_IN2 = 200 * (1.0 - SEAT_LIFTDROPRATIO*acctemp);	
-..\..\Drivers\BSP\R9\moterdriver.c(469): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T1_IN1 = 200 * (1.0 - acctemp);
-..\..\Drivers\BSP\R9\moterdriver.c(471): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T2_IN1 = 200 * (1.0 - SEAT_LIFTDROPRATIO*acctemp);
-..\..\Drivers\BSP\R9\moterdriver.c(516): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T3_IN1 = 200 * (1.0 - acctemp);	
-..\..\Drivers\BSP\R9\moterdriver.c(533): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T3_IN2 = 200 * (1.0 - acctemp);
-..\..\Drivers\BSP\R9\moterdriver.c(573): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T2_IN2 = 200 * (1.0 - acctemp);	
-..\..\Drivers\BSP\R9\moterdriver.c(590): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T2_IN1 = 200 * (1.0 - acctemp);
-..\..\Drivers\BSP\R9\moterdriver.c(628): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T1_IN2 = 200 * (1.0 - acctemp);	
-..\..\Drivers\BSP\R9\moterdriver.c(645): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T1_IN1 = 200 * (1.0 - acctemp);
-..\..\Drivers\BSP\R9\moterdriver.c(687): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T4_IN2 = 100 * (1.0 - acctemp);	
-..\..\Drivers\BSP\R9\moterdriver.c(689): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T5_IN2 = 100 * (1.0 - acctemp);	
-..\..\Drivers\BSP\R9\moterdriver.c(705): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T4_IN1 = 100 * (1.0 - acctemp);
-..\..\Drivers\BSP\R9\moterdriver.c(707): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          T5_IN1 = 100 * (1.0 - acctemp);
-..\..\Drivers\BSP\R9\moterdriver.c(737): warning:  #174-D: expression has no effect
-      NONE;
-..\..\Drivers\BSP\R9\moterdriver.c(738): warning:  #1-D: last line of file ends without a newline
-  }
-..\..\Drivers\BSP\R9\moterdriver.c(735): warning:  #177-D: variable "acctemp"  was declared but never referenced
-      static float acctemp=0,acct=0;
-..\..\Drivers\BSP\R9\moterdriver.c(735): warning:  #177-D: variable "acct"  was declared but never referenced
-      static float acctemp=0,acct=0;
-..\..\Drivers\BSP\R9\moterdriver.c(736): warning:  #177-D: variable "accdoneflage"  was declared but never referenced
-      static uint8_t accdoneflage=0;
-..\..\Drivers\BSP\R9\moterdriver.c: 19 warnings, 0 errors
 compiling API_Schedule.c...
-compiling main.c...
 compiling task.c...
 ..\..\Drivers\BSP\task.c(241): warning:  #1-D: last line of file ends without a newline
   }	
 ..\..\Drivers\BSP\task.c: 1 warning, 0 errors
+compiling led.c...
+..\..\Drivers\BSP\LED\led.c(111): warning:  #177-D: variable "KEY4_PRES_contes"  was declared but never referenced
+  	static uint8_t KEY4_PRES_contes = 1; // 360view
+..\..\Drivers\BSP\LED\led.c: 1 warning, 0 errors
+compiling moterdriver.c...
+..\..\Drivers\BSP\R9\moterdriver.c(472): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T1_IN2 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(474): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T2_IN2 = 200 * (1.0 - Kp * acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(494): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T1_IN1 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(496): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T2_IN1 = 200 * (1.0 - Kp * acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(518): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T3_IN2 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(534): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T3_IN1 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(552): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T1_IN2 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(569): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T1_IN1 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(591): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T4_IN2 = 100 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(593): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T5_IN2 = 100 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(613): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T4_IN1 = 100 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(615): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T5_IN1 = 100 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(638): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+              T4_IN1 = 100 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(657): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T3_IN2 = 100 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(675): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T2_IN2 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(691): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+          T2_IN1 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(734): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T1_IN2 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(736): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T2_IN2 = 200 * (1.0 - Kp * acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(752): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T1_IN1 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(754): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T2_IN1 = 200 * (1.0 - Kp * acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(796): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T3_IN2 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(811): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T3_IN1 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(849): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T2_IN2 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(864): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T2_IN1 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(900): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T1_IN2 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(917): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T1_IN1 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(959): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T4_IN2 = 100 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(961): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T5_IN2 = 100 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(977): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T4_IN1 = 100 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(979): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T5_IN1 = 100 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(1021): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T3_IN1 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(1036): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+           T3_IN2 = 200 * (1.0 - acctemp);
+..\..\Drivers\BSP\R9\moterdriver.c(1056): warning:  #174-D: expression has no effect
+       NONE;
+..\..\Drivers\BSP\R9\moterdriver.c(1057): warning:  #1-D: last line of file ends without a newline
+   }
+..\..\Drivers\BSP\R9\moterdriver.c(1054): warning:  #177-D: variable "acctemp"  was declared but never referenced
+       static float acctemp = 0, acct = 0;
+..\..\Drivers\BSP\R9\moterdriver.c(1054): warning:  #177-D: variable "acct"  was declared but never referenced
+       static float acctemp = 0, acct = 0;
+..\..\Drivers\BSP\R9\moterdriver.c(1055): warning:  #177-D: variable "accdoneflage"  was declared but never referenced
+       static uint8_t accdoneflage = 0;
+..\..\Drivers\BSP\R9\moterdriver.c: 37 warnings, 0 errors
+compiling main.c...
 linking...
-Program Size: Code=42800 RO-data=5936 RW-data=768 ZI-data=13696  
+Program Size: Code=45004 RO-data=5940 RW-data=792 ZI-data=13696  
 FromELF: creating hex file...
-"..\..\Output\atk_f407.axf" - 0 Error(s), 21 Warning(s).
+"..\..\Output\atk_f407.axf" - 0 Error(s), 39 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -95,7 +129,7 @@ Package Vendor: Keil
   C:/Users/60232/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:15
+Build Time Elapsed:  00:00:11
 </pre>
 </body>
 </html>

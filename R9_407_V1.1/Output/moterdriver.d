@@ -71,3 +71,4 @@
 ..\..\output\moterdriver.o: ..\..\Drivers\./BSP/R9/Hostmodbus.h
 ..\..\output\moterdriver.o: ..\..\Drivers\./BSP/R9/Slavemodbus.h
 ..\..\output\moterdriver.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\..\output\moterdriver.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

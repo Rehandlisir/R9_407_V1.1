@@ -137,9 +137,9 @@ void LedControl(void)
 	 }
 	 else if (KeyReg[0X0091] == 1)
 	 {
-		LED1G(1);
-		LED1R(1);
-		LED1B(0);
+		LED1G(0);
+		LED1R(0);
+		LED1B(1);
 	 }
 	 else if (KeyReg[0X0091] == 2)
 	 {
@@ -163,9 +163,9 @@ void LedControl(void)
 	 }
 	 else if (KeyReg[0X0092] == 1)
 	 {
-		LED2G(1);
-		LED2R(1);
-		LED2B(0);
+		LED2G(0);
+		LED2R(0);
+		LED2B(1);
 	 }
 	 else if (KeyReg[0X0092] == 2)
 	 {
@@ -188,9 +188,9 @@ void LedControl(void)
 	 }
 	 else if (KeyReg[0X0093] == 1)
 	 {
-		LED3G(1);
-		LED3R(1);
-		LED3B(0);
+		LED3G(0);
+		LED3R(0);
+		LED3B(1);
 	 }
 	 else if (KeyReg[0X0093] == 2)
 	 {
@@ -214,9 +214,9 @@ void LedControl(void)
 	 }
 	 else if (KeyReg[0X0094] == 1)
 	 {
-		LED4G(1);
-		LED4R(1);
-		LED4B(0);
+		LED4G(0);
+		LED4R(0);
+		LED4B(1);
 	 }
 	 else if (KeyReg[0X0094] == 2)
 	 {
@@ -239,9 +239,9 @@ void LedControl(void)
 	 }
 	 else if (KeyReg[0X0095] == 1)
 	 {
-		LED5G(1);
-		LED5R(1);
-		LED5B(0);
+		LED5G(0);
+		LED5R(0);
+		LED5B(1);  
 	 }
 	 else if (KeyReg[0X0095] == 2)
 	 {

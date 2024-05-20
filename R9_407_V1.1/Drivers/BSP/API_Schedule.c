@@ -47,7 +47,7 @@ void PeachOSRun(void)
 	while (1)
 	{
 		iwdg_feed(); /* 喂狗 */
-		// printf("已喂狗\n");
+		//printf("已喂狗\n");
 
 		if (TaskST[j].TaskStatus) // 判断一个任务是否被挂起
 		{
