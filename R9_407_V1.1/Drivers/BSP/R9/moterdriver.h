@@ -29,6 +29,7 @@
 #include "./BSP/R9/Slavemodbus.h"
 #include "math.h"
 #include "stdio.h"
+#include "./BSP/R9/getadcdata.h"
 
 /*********************************以下是通用定时器PWM输出实验相关宏定义*************************************/
 
@@ -221,6 +222,22 @@ typedef enum
     Seat_tiltb_run
     
 } LineActor_State;
+/*推杆限位参数*/
+typedef struct 
+{	
+	uint16_t A1_Uppos;
+	uint16_t A1_Downpos;
+	uint16_t A2_Uppos;
+	uint16_t A2_Downpos;
+	uint16_t A3_Uppos;
+	uint16_t A3_Downpos;
+	uint16_t B1_Uppos;
+	uint16_t B1_Downpos;
+	uint16_t B2_Uppos;
+	uint16_t B2_Downpos;
+	uint16_t C1_Uppos;
+	uint16_t C2_Downpos;		
+} ACTORLIMITPARA;
 
 
 #define SEAT_LIFTDROPRATIO 0.865   // 座板角度B2/B1底盘举升
@@ -243,9 +260,9 @@ void MoterSupport_pwm_chy_init(uint16_t arr, uint16_t psc);			   // 电动推杆
 void MoterdriveInit(void);
 
 
-void linearactuatorTest(void);
+ void linearactuatorTest(void);
 
-void linearactuator(void);
+ void linearactuator(void);
  void SeatLiftDrop(void);
  void BackresetFB(void);
  void ThwartFB(void);

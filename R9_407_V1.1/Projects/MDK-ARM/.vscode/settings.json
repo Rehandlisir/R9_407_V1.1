@@ -2,6 +2,8 @@
     "files.associations": {
         "underpancontrol.h": "c",
         "cstdint": "c",
-        "sys.h": "c"
+        "sys.h": "c",
+        "moterdriver.h": "c",
+        "stdio.h": "c"
     }
 }

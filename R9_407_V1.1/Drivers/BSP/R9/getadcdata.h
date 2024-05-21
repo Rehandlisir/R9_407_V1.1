@@ -47,7 +47,7 @@ typedef struct
     int32_t bat_v;
 	int32_t chargeI_adc;
 } ADCDATA;
-
+extern ADCDATA adcdata;
 void Datareset(void);
 void getadcDataInit(void);
 void getadcData(void);

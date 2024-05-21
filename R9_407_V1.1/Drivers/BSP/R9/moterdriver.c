@@ -43,12 +43,7 @@ TIM_HandleTypeDef g_time4_pwm_chy_handle;  /* ÍÆ¸Ë4 £¨½ÅÌ¤Ðý×ª£© ÍÆ¸Ë5 £¨½ÅÌ¤Éì³
 TIM_HandleTypeDef g_time12_pwm_chy_handle; /*ÍÆ¸Ë6 £¨Ç°Ö§³ÅÂÖ£© TIME12 º¯Êý¾ä±ú*/
 
 LineActor_State linerun_state;
-// MoterL_pwm_chy_init(100 - 1, 42 - 1);    //* 84 000 000 / 100*42      L 20khzÆµÂÊµÄPWM ²¨ÐÎ*  /
-// MoterR_pwm_chy_init(200 - 1, 42 - 1);    //* 168 000 000 / 200*42     R  20khzÆµÂÊµÄPWM ²¨ÐÎ*/
-// MoterLift_pwm_chy_init(200 - 1, 42 - 1);    //* 168 000 000 / 200*42     T1  20khzÆµÂÊµÄPWM ²¨ÐÎ*/
-// MoterPedestal_Backboard_pwm_chy_init(200 - 1, 42 - 1);//                   T2&T3
-// MoterLeg_pwm_chy_init(100 - 1, 42 - 1);               //                   T4&T5
-// MoterSupport_pwm_chy_init(100 - 1, 42 - 1);   //* 84 000 000 / 100*42      T6  20khzÆµÂÊµÄPWM ²¨ÐÎ*  /
+ACTORLIMITPARA ActorLimitPara;
 void MoterL_pwm_chy_init(uint16_t arr, uint16_t psc) // ×óÂÖµç»ú
 {
     /*×óÓÒÂÖµç»ú*/
@@ -304,13 +299,26 @@ void linearactuator(void)
     uint16_t T6_IN1 = 0;
     uint16_t T6_IN2 = 0;
     // ÏÈÆÁ±ÎÉÏÎ»»úÐÅºÅ
-    g_slaveReg[98] = 0;
-    g_slaveReg[99] = 0;
-    g_slaveReg[100] = 0;
-    g_slaveReg[101] = 0;
-    g_slaveReg[102] = 0;
-    g_slaveReg[103] = 0;
-    g_slaveReg[104] = 0;
+    // g_slaveReg[98] = 0;
+    // g_slaveReg[99] = 0;
+    // g_slaveReg[100] = 0;
+    // g_slaveReg[101] = 0;
+    // g_slaveReg[102] = 0;
+    // g_slaveReg[103] = 0;
+    // g_slaveReg[104] = 0;
+    /*¿ÕÏÐ×´Ì¬ÏÈ¸ø¶¨ ÏÞÎ»Î»ÖÃ*/
+    ActorLimitPara.A1_Downpos =10000;
+    ActorLimitPara.A1_Uppos = 10000;
+    ActorLimitPara.A2_Downpos = 10000;
+    ActorLimitPara.A2_Uppos = 10000;
+    ActorLimitPara.A3_Downpos = 10000;
+    ActorLimitPara.A3_Uppos = 10000;
+    ActorLimitPara.B1_Downpos = 10000;
+    ActorLimitPara.B1_Uppos = 10000;
+    ActorLimitPara.B2_Downpos = 10000;
+    ActorLimitPara.B2_Uppos = 10000;
+    ActorLimitPara.C1_Uppos = 10000;
+    ActorLimitPara.C2_Downpos = 10000;
 
     static float acctemp = 0, acct = 0;
     static uint8_t accdoneflage = 0;
@@ -334,6 +342,7 @@ void linearactuator(void)
     else if (KeyStateRecive[5] == BACKREST_FORWARD || g_slaveReg[100] == 1)
     {
         linerun_state = Backf_run;
+       
     }
     
     
@@ -472,6 +481,18 @@ void linearactuator(void)
         T1_IN2 = 200 * (1.0 - acctemp);
         T2_IN1 = 200 * (1.0 - 0);
         T2_IN2 = 200 * (1.0 - Kp * acctemp);
+        // ¾ÙÉý×´Ì¬ÏÂµÄ ÏÞÎ»±£»¤
+        if ( adcdata.lift_pos  > ActorLimitPara.B1_Uppos)
+        {
+            T1_IN1 = 0;
+            T1_IN2 = 0;
+        }
+
+        if (adcdata.pedestal_pos > ActorLimitPara.B2_Uppos)
+        {
+            T2_IN1 = 0;
+            T2_IN2 = 0;
+        }
         // µ×ÅÌ¾ÙÉý³Å¸ËB1(M)
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH1, T1_IN1);
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH2, T1_IN2);
@@ -516,8 +537,15 @@ void linearactuator(void)
         }
         T3_IN1 = 200 * (1.0 - 0);
         T3_IN2 = 200 * (1.0 - acctemp);
+        /*Ç°ÇãÍÆ¸ËÎ»ÖÃÔ¼Êø*/
+        if (adcdata.backboard_pos > ActorLimitPara.A1_Uppos)
+        {
+                T3_IN1 = 0;
+                T3_IN2 = 0;
+        }
         __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T3_IN1);
         __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T3_IN2);
+        
         break;
 
     case Backb_run:
@@ -533,6 +561,12 @@ void linearactuator(void)
         }
         T3_IN1 = 200 * (1.0 - acctemp);
         T3_IN2 = 200 * (1.0 - 0);
+        /*ºóÇãÍÆ¸ËÎ»ÖÃÔ¼Êø*/
+        if (adcdata.backboard_pos < ActorLimitPara.A1_Downpos)
+        {
+                T3_IN1 = 0;
+                T3_IN2 = 0;
+        }
         __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T3_IN1);
         __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T3_IN2);
         break;
@@ -550,6 +584,12 @@ void linearactuator(void)
         }
         T1_IN1 = 200 * (1.0 - 0);
         T1_IN2 = 200 * (1.0 - acctemp);
+        /*ÕûÌåÇ°ÇãÔ¼Êø*/
+        if ( adcdata.lift_pos  > ActorLimitPara.B1_Uppos)
+        {
+            T1_IN1 = 0;
+            T1_IN2 = 0;
+        }
         // µ×ÅÌ¾ÙÉý³Å¸ËB1(M)
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH1, T1_IN1);
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH2, T1_IN2);
@@ -591,6 +631,19 @@ void linearactuator(void)
         T4_IN2 = 100 * (1.0 - acctemp);
         T5_IN1 = 100 * (1.0 - 0);
         T5_IN2 = 100 * (1.0 - acctemp);
+        /*ÉÏÐýÍÈÍÐÉì³¤Ô¼Êø*/
+        if (adcdata.leglength_pos > ActorLimitPara.A3_Uppos)
+        {
+            T4_IN1 = 0;
+            T4_IN2 = 0;
+        }
+        /*ÍÈÍÐÐý×ªÎÞÔ¼Êø*/
+        // if (adcdata.legangle_pos > ActorLimitPara.A2_Uppos)
+        // {
+        //     T4_IN1 = 0;
+
+        //     T4_IN2 = 0;
+        // }
         // ÍÈÍÐ³¤¶È³Å¸ËA3
         __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH3, T4_IN1);
         __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH4, T4_IN2);
@@ -614,6 +667,20 @@ void linearactuator(void)
         T4_IN2 = 100 * (1.0 - 0);
         T5_IN1 = 100 * (1.0 - acctemp);
         T5_IN2 = 100 * (1.0 - 0);
+        /*ÍÈÍÐÏÂÐýÍÈÍÐ³¤¶ÈÎÞÔ¼Êø*/
+        // if (adcdata.leglength_pos > ActorLimitPara.A3_Uppos)
+        // {
+        //     T4_IN1 = 0;
+        //     T4_IN2 = 0;
+        // }
+        /*ÍÈÍÐ½Ç¶ÈÐý×ªÔ¼Êø*/
+        if (adcdata.legangle_pos > ActorLimitPara.A2_Downpos)
+        {
+            T5_IN1 = 0;
+
+            T5_IN2 = 0;
+        }
+
         // ÍÈÍÐ³¤¶È³Å¸ËA3
         __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH3, T4_IN1);
         __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH4, T4_IN2);
@@ -637,6 +704,12 @@ void linearactuator(void)
             }
             T4_IN1 = 100 * (1.0 - acctemp);
             T4_IN2 = 100 * (1.0 - 0);
+            /*ÍÈÍÐ³¤¶ÈÔ¼Êø*/
+            if (adcdata.leglength_pos > ActorLimitPara.A3_Uppos)
+            {
+                T4_IN1 = 0;
+                T4_IN2 = 0;
+            }
         }
         __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH3, T4_IN1);
         __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH4, T4_IN2);
@@ -664,7 +737,7 @@ void linearactuator(void)
         if ((acct < 200) && (accdoneflage == 0))
         {
             acct++;
-            acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
+             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
         }
         else
         {
@@ -673,6 +746,12 @@ void linearactuator(void)
         }
         T2_IN1 = 200 * (1.0 - 0);
         T2_IN2 = 200 * (1.0 - acctemp);
+        /*×ù°åÇ°ÇãÔ¼Êø*/
+        if (adcdata.pedestal_pos > ActorLimitPara.B2_Uppos)
+        {
+            T2_IN1 = 0;
+            T2_IN2 = 0;
+        }
         // ×ù°å½Ç¶È³Å¸ËB2(L)
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH3, T2_IN1);
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH4, T2_IN2);
