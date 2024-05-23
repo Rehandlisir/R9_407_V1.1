@@ -200,7 +200,7 @@ uint16_t  keycmdleftbulb(void)  // ���������·������
 
     if (g_slaveReg[114] == 0x01)
     {
-         delay_ms(2000); 
+         delay_ms(10); 
          if (g_slaveReg[114] == 1)
          {
             while(g_slaveReg[114] == 1); // �ȴ������ɿ�
@@ -222,7 +222,7 @@ uint8_t  keycmdrightbulb(void)
          delay_ms(5); 
          if (g_slaveReg[115] == 1)
          {
-            while(g_slaveReg[115] == 1); // �ȴ������ɿ�
+            while(g_slaveReg[115] == 1); // 
              return 1; 
          }
         

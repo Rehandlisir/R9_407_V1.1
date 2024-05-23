@@ -307,18 +307,23 @@ void linearactuator(void)
     // g_slaveReg[103] = 0;
     // g_slaveReg[104] = 0;
     /*空闲状态先给定 限位位置*/
-    ActorLimitPara.A1_Downpos =10000;
-    ActorLimitPara.A1_Uppos = 10000;
-    ActorLimitPara.A2_Downpos = 10000;
-    ActorLimitPara.A2_Uppos = 10000;
-    ActorLimitPara.A3_Downpos = 10000;
-    ActorLimitPara.A3_Uppos = 10000;
-    ActorLimitPara.B1_Downpos = 10000;
-    ActorLimitPara.B1_Uppos = 10000;
-    ActorLimitPara.B2_Downpos = 10000;
-    ActorLimitPara.B2_Uppos = 10000;
+    ActorLimitPara.A1_Downpos =1400;
+    ActorLimitPara.A1_Uppos = 3100; // 前倾已经超出限位计，但是机械上暂时不约束;
+
+    ActorLimitPara.A2_Downpos = 2200;
+    ActorLimitPara.A2_Uppos = 3000; // 上旋已经超出限位计长度，机械上暂时不约束
+
+    ActorLimitPara.A3_Downpos = 0; // 下限位无约束
+    ActorLimitPara.A3_Uppos = 3000;
+
+    ActorLimitPara.B1_Downpos = 0;
+    ActorLimitPara.B1_Uppos = 2400;
+
+    ActorLimitPara.B2_Downpos = 0;
+    ActorLimitPara.B2_Uppos = 2400;
+
     ActorLimitPara.C1_Uppos = 10000;
-    ActorLimitPara.C2_Downpos = 10000;
+    ActorLimitPara.C2_Downpos = 0;
 
     static float acctemp = 0, acct = 0;
     static uint8_t accdoneflage = 0;
@@ -330,19 +335,21 @@ void linearactuator(void)
     if (KeyStateRecive[3] == SEAT_LIFT || g_slaveReg[99] == 1)
     {
         linerun_state = Lift_run;
+        g_slaveReg[16] = 1;
     }
 
     else if (KeyStateRecive[4] == SEAT_DROP || g_slaveReg[99] == 2)
     {
 
         linerun_state = Down_run;
+        g_slaveReg[16] = 2;
     }
 
     /* 座椅靠背控制*/
     else if (KeyStateRecive[5] == BACKREST_FORWARD || g_slaveReg[100] == 1)
     {
         linerun_state = Backf_run;
-       
+        g_slaveReg[17] = 1;
     }
     
     
@@ -350,6 +357,7 @@ void linearactuator(void)
         
     {
         linerun_state = Backb_run;
+        g_slaveReg[17] = 2;
         
     }
 
@@ -369,22 +377,26 @@ void linearactuator(void)
     {
 
         linerun_state = Alltiltfrun;
+        g_slaveReg[19] = 1;
     }
 
     else if (KeyStateRecive[8] == 8 || g_slaveReg[101] == 2)
     {
 
         linerun_state = Alltiltbrun;
+        g_slaveReg[19] = 2;
     }
     /*腿托上下旋转*/
     else if (KeyStateRecive[9] == LEG_TOPSPIN || g_slaveReg[102] == 1)
     {
 
         linerun_state = Legspintop_run;
+        g_slaveReg[20] = 1;
     }
     else if (KeyStateRecive[10] == LEG_BACKSPIN || g_slaveReg[102] == 2)
     {
         linerun_state = Legspindown_run;
+        g_slaveReg[20] = 2;
     }
     /*腿托独立调节长度*/
     else if (g_slaveReg[103] == 1)
@@ -401,12 +413,14 @@ void linearactuator(void)
     {
 
         linerun_state = Stand_run;
+        g_slaveReg[18] = 1;
     }
 
     else if (KeyStateRecive[2] == SITTING || g_slaveReg[98] == 2)
 
     {
         linerun_state = Site_run;
+        g_slaveReg[18] = 2;
     }
 
     else
@@ -582,8 +596,8 @@ void linearactuator(void)
             accdoneflage = 1;
             acct = 0;
         }
-        T1_IN1 = 200 * (1.0 - 0);
-        T1_IN2 = 200 * (1.0 - acctemp);
+        T1_IN1 = 200 * (1.0 - acctemp);
+        T1_IN2 = 200 * (1.0 - 0);
         /*整体前倾约束*/
         if ( adcdata.lift_pos  > ActorLimitPara.B1_Uppos)
         {
@@ -606,8 +620,8 @@ void linearactuator(void)
             accdoneflage = 1;
             acct = 0;
         }
-        T1_IN1 = 200 * (1.0 - acctemp);
-        T1_IN2 = 200 * (1.0 - 0);
+        T1_IN1 = 200 * (1.0 - 0);
+        T1_IN2 = 200 * (1.0 - acctemp);
         // 底盘举升撑杆B1(M)
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH1, T1_IN1);
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH2, T1_IN2);
@@ -674,7 +688,7 @@ void linearactuator(void)
         //     T4_IN2 = 0;
         // }
         /*腿托角度旋转约束*/
-        if (adcdata.legangle_pos > ActorLimitPara.A2_Downpos)
+        if (adcdata.legangle_pos < ActorLimitPara.A2_Downpos)
         {
             T5_IN1 = 0;
 

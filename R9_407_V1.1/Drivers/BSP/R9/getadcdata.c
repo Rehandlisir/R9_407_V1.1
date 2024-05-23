@@ -81,7 +81,7 @@ void getadc1Data(void)
 			adcdata.adc_y = adc1_alldata - adcdata.adc_ybase;																  //-1800 ;//
 			adcdata.adc_y = Value_limit(yadc_min, Value_Resetzero(-yadc_Dim, adcdata.adc_y, yadc_Dim), yadc_max); // 设定耦合模糊区域及上下限数值限制
 		}
-		// printf("%d,%d\r\n",adcdata.adc_x,adcdata.adc_y);
+		//printf("%d,%d,%d,%d\r\n",adcdata.adc_x,adcdata.adc_y,adcdata.adc_xbase,adcdata.adc_ybase);
 		if (j == 2)
 		{
 			adcdata.l_brakcurrent = adc1_alldata;

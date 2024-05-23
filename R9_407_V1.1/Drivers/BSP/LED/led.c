@@ -81,9 +81,11 @@ void led_init(void)
 	LED1(1); /* ??? //LED1 */
 
 	LEFT_FRONT_TURE(0);
+	g_slaveReg[14] = LeftBulbState;
 	RIGHT_FRONT_TURE(0);
+	g_slaveReg[15] = RightBulbState;
 	FRONT_MAIN(0);
-
+	g_slaveReg[13] = MainBulbState;
 	LEFT_BACK_TURE(0);
 	RIGHT_BACK_TURE(0);
 	BACK_MAIN(0);
@@ -105,13 +107,11 @@ uint8_t doubleflingflage = 1;
 // �İ����汾
 void led_beepControl(void)
 {
-	static uint8_t cmdBulb_contes = 1; // ��������
-	static uint8_t KEY2_PRES_contes = 1; // ��ת��
-	static uint8_t KEY3_PRES_contes = 1; // ��ת��
-	static uint8_t KEY4_PRES_contes = 1; // 360view
-	static uint8_t KEYDouble_PRES_contes = 1; // ˫��ͬʱ����
-
-    
+	static uint8_t cmdBulb_contes = 1; // 移动端主灯指令计数器
+	static uint8_t KEY2_PRES_contes = 1; // 左转向灯指令计数器
+	static uint8_t KEY3_PRES_contes = 1; // 右转向灯指令计数器
+	static uint8_t KEY4_PRES_contes = 1; // 360view全景指令计数器
+	static uint8_t KEYDouble_PRES_contes = 1; // 双闪指令计数器
 	lastled_state = None;
 	if (led_state != lastled_state)
 	{
@@ -220,69 +220,91 @@ void led_beepControl(void)
 	{
 	case idle_state:
 		LEFT_FRONT_TURE(0);
+		g_slaveReg[14] = LeftBulbState;
 		RIGHT_FRONT_TURE(0);
+		g_slaveReg[15] = RightBulbState;
 		FRONT_MAIN(0);
-
-		LEFT_BACK_TURE(0);
-		RIGHT_BACK_TURE(0);
+		g_slaveReg[13] = MainBulbState;
+		LEFT_BACK_TURE(0);		
+		RIGHT_BACK_TURE(0);	
 		BACK_MAIN(0);
 		break;
 
 	case open_leftbling:
 		LEFT_FRONT_TURE_TOGGLE();
+		g_slaveReg[14] = LeftBulbState;
 		RIGHT_FRONT_TURE(0);
-
-		LEFT_BACK_TURE(1);
+		g_slaveReg[15] = RightBulbState;
+		LEFT_BACK_TURE(1);	
 		RIGHT_BACK_TURE(0);
-
+	
 		break;
 
 	case close_leftbling:
 
 		LEFT_FRONT_TURE(0);
+		g_slaveReg[14] = LeftBulbState;
 		LEFT_BACK_TURE(0);
+		
 		break;
 
 	case open_rightbling:
 		RIGHT_FRONT_TURE_TOGGLE();
+		g_slaveReg[15] = RightBulbState;
 		LEFT_FRONT_TURE(0);
+		g_slaveReg[14] = LeftBulbState;
 
 		LEFT_BACK_TURE(0);
+		
 		RIGHT_BACK_TURE(1);
+		
 
 		break;
 
 	case close_rightbling:
 
 		RIGHT_FRONT_TURE(0);
+		g_slaveReg[15] = RightBulbState;
 		RIGHT_BACK_TURE(0);
+		
 
 		break;
 
 	case open_doublebling:
 		FRONT_MAIN(0);
+		g_slaveReg[13] = MainBulbState;
 		BACK_MAIN(0);
 		LEFT_BACK_TURE(1);
+		
 		RIGHT_BACK_TURE(1);
+		
 		if (doubleflingflage)
 		{
 			LEFT_FRONT_TURE(0);
+			g_slaveReg[14] = LeftBulbState;
 			RIGHT_FRONT_TURE(0);
+			g_slaveReg[15] = RightBulbState;
 			FRONT_MAIN(0);
+			g_slaveReg[13] = MainBulbState;
 			doubleflingflage = 0;
 		}
 		else
 		{
 			doubleflingflage = 1;
 			FRONT_MAIN(0);
+			g_slaveReg[13] = MainBulbState;
 			LEFT_FRONT_TURE(1);
+			g_slaveReg[14] = LeftBulbState;
 			RIGHT_FRONT_TURE(1);
+			g_slaveReg[15] = RightBulbState;
 		}
 
 		if (lastled_state == open_leftbling || lastled_state == open_rightbling) // ???????????? ?????????????? ?????????????????????????
 		{
 			LEFT_BACK_TURE(0);
+			
 			RIGHT_BACK_TURE(0);
+			
 			delay_ms(10);
 		}
 
@@ -290,10 +312,13 @@ void led_beepControl(void)
 
 	case close_doublebling:
 		LEFT_FRONT_TURE(0);
+		g_slaveReg[14] = LeftBulbState;
 		RIGHT_FRONT_TURE(0);
-
+		g_slaveReg[15] = RightBulbState;
 		LEFT_BACK_TURE(0);
+		
 		RIGHT_BACK_TURE(0);
+		
 
 		break;
 
@@ -301,6 +326,8 @@ void led_beepControl(void)
 		BACK_MAIN(1);
 
 		FRONT_MAIN(1);
+		g_slaveReg[13] = MainBulbState;
+
 		if (lastled_state == open_leftbling) // ???????????? ??????? ?????????????
 		{
 			led_state = open_leftbling;
@@ -312,10 +339,15 @@ void led_beepControl(void)
 		if (lastled_state == open_doublebling) // ???????????? ??? ??????? ????????????
 		{
 			LEFT_FRONT_TURE(0);
+			g_slaveReg[14] = LeftBulbState;
 			RIGHT_FRONT_TURE(0);
+			g_slaveReg[15] = RightBulbState;
 			LEFT_BACK_TURE(0);
+			
 			RIGHT_BACK_TURE(0);
+			
 			FRONT_MAIN(0);
+			g_slaveReg[13] = MainBulbState;
 			led_state = open_mainbulb;
 		}
 
@@ -323,6 +355,7 @@ void led_beepControl(void)
 
 	case close_mainbulb:
 		FRONT_MAIN(0);
+		g_slaveReg[13] = MainBulbState;
 		BACK_MAIN(0);
 		if (lastled_state == open_leftbling) // ???????????? ??????? ?????????????
 		{

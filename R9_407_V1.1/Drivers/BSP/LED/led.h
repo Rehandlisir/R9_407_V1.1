@@ -170,8 +170,9 @@
         x ? HAL_GPIO_WritePin(BACK_MAIN_GPIO_PORT, BACK_MAIN_GPIO_PIN, GPIO_PIN_SET) : HAL_GPIO_WritePin(BACK_MAIN_GPIO_PORT, BACK_MAIN_GPIO_PIN, GPIO_PIN_RESET); \
     } while (0)
 
-// #define LEFT_FRONT_TURE_TOGGLE()    do{ HAL_GPIO_TogglePin(LEFT_FRONT_TURE_GPIO_PORT, LEFT_FRONT_TURE_GPIO_PIN); }while(0)       /*????? ?? */
-// #define RIGHT_FRONT_TURE_TOGGLE()    do{ HAL_GPIO_TogglePin(RIGHT_FRONT_TURE_GPIO_PORT, RIGHT_FRONT_TURE_GPIO_PIN); }while(0)      /*????? ?? */
+#define MainBulbState HAL_GPIO_ReadPin(FRONT_MAIN_GPIO_PORT,FRONT_MAIN_GPIO_PIN);
+#define LeftBulbState HAL_GPIO_ReadPin(LEFT_FRONT_TURE_GPIO_PORT,LEFT_FRONT_TURE_GPIO_PIN);
+#define RightBulbState HAL_GPIO_ReadPin(RIGHT_FRONT_TURE_GPIO_PORT,RIGHT_FRONT_TURE_GPIO_PIN);
 
 /******************************************************************************************/
 
@@ -190,8 +191,8 @@ typedef enum
     close_mainbulb
 } Led_State;
 
-/* �ⲿ�ӿں���*/
+/* */
 void led_init(void);
-void led_beepControl(void); /* ��ʼ�� */
+void led_beepControl(void); /*  */
 
-#endif /*��ת��ƿ��ￄ1�7*/
+#endif /**/

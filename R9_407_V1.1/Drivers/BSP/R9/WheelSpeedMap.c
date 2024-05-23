@@ -42,6 +42,8 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 		steering_k = 0;
 		velocity_pout.runstate = idle;
 		drivestate = idle;
+		g_slaveReg[5] = 1 ;
+
 	}
 	/* 直行 */
 	if (velocity_pout.steering_angle == 0 && velocity_pout.underpanVelocity != 0)
@@ -52,11 +54,13 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 		{
 			velocity_pout.runstate = forward;
 			drivestate = forward;
+			g_slaveReg[5] = 2 ;
 		}
 		else /*向后直行 */
 		{
 			velocity_pout.runstate = backward;
 			drivestate = backward;
+			g_slaveReg[5] = 3 ;
 		}
 	}
 	/* 转向 运行 */
@@ -69,21 +73,25 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 		{
 			velocity_pout.runstate = front_right;
 			drivestate = front_right;
+			g_slaveReg[5] = 7;
 		}
 		if (velocity_pout.steering_angle < 0 && velocity_pout.underpanVelocity > 0) /*向左前转向 */
 		{
 			velocity_pout.runstate = front_left;
 			drivestate = front_left;
+			g_slaveReg[5] = 6;
 		}
 		if (velocity_pout.steering_angle > 0 && velocity_pout.underpanVelocity < 0) /*向左后转向 */
 		{
 			velocity_pout.runstate = back_left;
 			drivestate = back_left;
+			g_slaveReg[5] = 8;
 		}
 		if (velocity_pout.steering_angle < 0 && velocity_pout.underpanVelocity < 0) /*向右后转向 */
 		{
 			velocity_pout.runstate = back_right;
 			drivestate = back_right;
+			g_slaveReg[5] = 9;
 		}
 	}
 	/* 原地转向  */
@@ -96,12 +104,14 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 		{
 			velocity_pout.runstate = turnself_right;
 			drivestate = turnself_right;
+			g_slaveReg[5] = 5;
 		}
 		/*原地左转 */
 		if (velocity_pout.steering_angle < 0)
 		{
 			velocity_pout.runstate = turnself_left;
 			drivestate = turnself_left;
+			g_slaveReg[5] = 4;
 		}
 	}
 		/*左右轮目标线速度 m/s*/
