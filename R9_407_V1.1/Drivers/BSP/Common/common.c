@@ -22,10 +22,10 @@ int32_t  Value_Resetzero(int32_t min_value ,int32_t current_value ,int32_t max_v
 		return 0;
 }
 
-double slopelimitx( double value,double increvalue)    
+int32_t slopelimitx( int32_t value,int32_t increvalue)    
 {
-     static double out_last = 0; //上一次值
-     double out;
+     static int32_t out_last = 0; //上一次值
+     int32_t out;
 
   /***************** 如果第一次进入，则给 out_last 赋值 ******************/
      static char fisrt_flag = 1;
@@ -54,10 +54,10 @@ double slopelimitx( double value,double increvalue)
       return out;
 }
 
-double slopelimity( double value,double increvalue)    
+int32_t slopelimity( int32_t value,int32_t increvalue)    
 {
-     static double out_last = 0; //上一次值
-     double out;
+     static int32_t out_last = 0; //上一次值
+     int32_t out;
 
   /***************** 如果第一次进入，则给 out_last 赋值 ******************/
      static char fisrt_flag = 1;

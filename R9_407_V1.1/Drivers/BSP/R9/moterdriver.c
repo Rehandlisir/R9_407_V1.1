@@ -317,7 +317,7 @@ void linearactuator(void)
     ActorLimitPara.A3_Uppos = 3000;
 
     ActorLimitPara.B1_Downpos = 0;
-    ActorLimitPara.B1_Uppos = 2400;
+    ActorLimitPara.B1_Uppos = 2500;
 
     ActorLimitPara.B2_Downpos = 0;
     ActorLimitPara.B2_Uppos = 2400;
@@ -498,14 +498,17 @@ void linearactuator(void)
         // 举升状态下的 限位保护
         if ( adcdata.lift_pos  > ActorLimitPara.B1_Uppos)
         {
-            T1_IN1 = 0;
-            T1_IN2 = 0;
+            T1_IN1 = 200;
+            T1_IN2 = 200;
+            //垂直举升到极限状态下，底座推杆应该停止
+            T2_IN1 = 200;
+            T2_IN2 = 200;
         }
 
         if (adcdata.pedestal_pos > ActorLimitPara.B2_Uppos)
         {
-            T2_IN1 = 0;
-            T2_IN2 = 0;
+            T2_IN1 = 200;
+            T2_IN2 = 200;
         }
         // 底盘举升撑杆B1(M)
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH1, T1_IN1);
@@ -554,8 +557,8 @@ void linearactuator(void)
         /*前倾推杆位置约束*/
         if (adcdata.backboard_pos > ActorLimitPara.A1_Uppos)
         {
-                T3_IN1 = 0;
-                T3_IN2 = 0;
+                T3_IN1 = 200;
+                T3_IN2 = 200;
         }
         __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T3_IN1);
         __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T3_IN2);
@@ -578,8 +581,8 @@ void linearactuator(void)
         /*后倾推杆位置约束*/
         if (adcdata.backboard_pos < ActorLimitPara.A1_Downpos)
         {
-                T3_IN1 = 0;
-                T3_IN2 = 0;
+                T3_IN1 = 200;
+                T3_IN2 = 200;
         }
         __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T3_IN1);
         __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T3_IN2);
@@ -598,12 +601,12 @@ void linearactuator(void)
         }
         T1_IN1 = 200 * (1.0 - acctemp);
         T1_IN2 = 200 * (1.0 - 0);
-        /*整体前倾约束*/
-        if ( adcdata.lift_pos  > ActorLimitPara.B1_Uppos)
-        {
-            T1_IN1 = 0;
-            T1_IN2 = 0;
-        }
+        /*整体前/后倾约束*/
+        // if ( adcdata.lift_pos  > ActorLimitPara.B1_Uppos)
+        // {
+        //     T1_IN1 = 200;
+        //     T1_IN2 = 200;
+        // }
         // 底盘举升撑杆B1(M)
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH1, T1_IN1);
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH2, T1_IN2);
@@ -622,10 +625,16 @@ void linearactuator(void)
         }
         T1_IN1 = 200 * (1.0 - 0);
         T1_IN2 = 200 * (1.0 - acctemp);
+        /*整体后倾约束*/
+        if ( adcdata.lift_pos  > ActorLimitPara.B1_Uppos)
+        {
+            T1_IN1 = 200;
+            T1_IN2 = 200;
+        }    
         // 底盘举升撑杆B1(M)
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH1, T1_IN1);
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH2, T1_IN2);
-        //printf("houqing_run\n");
+       printf("houqing_run\n");
         break;
 
     case Legspintop_run:
@@ -648,8 +657,8 @@ void linearactuator(void)
         /*上旋腿托伸长约束*/
         if (adcdata.leglength_pos > ActorLimitPara.A3_Uppos)
         {
-            T4_IN1 = 0;
-            T4_IN2 = 0;
+            T4_IN1 = 100;
+            T4_IN2 = 100;
         }
         /*腿托旋转无约束*/
         // if (adcdata.legangle_pos > ActorLimitPara.A2_Uppos)
@@ -690,9 +699,9 @@ void linearactuator(void)
         /*腿托角度旋转约束*/
         if (adcdata.legangle_pos < ActorLimitPara.A2_Downpos)
         {
-            T5_IN1 = 0;
+            T5_IN1 = 100;
 
-            T5_IN2 = 0;
+            T5_IN2 = 100;
         }
 
         // 腿托长度撑杆A3
@@ -721,8 +730,8 @@ void linearactuator(void)
             /*腿托长度约束*/
             if (adcdata.leglength_pos > ActorLimitPara.A3_Uppos)
             {
-                T4_IN1 = 0;
-                T4_IN2 = 0;
+                T4_IN1 = 100;
+                T4_IN2 = 100;
             }
         }
         __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH3, T4_IN1);
@@ -763,8 +772,8 @@ void linearactuator(void)
         /*座板前倾约束*/
         if (adcdata.pedestal_pos > ActorLimitPara.B2_Uppos)
         {
-            T2_IN1 = 0;
-            T2_IN2 = 0;
+            T2_IN1 = 200;
+            T2_IN2 = 200;
         }
         // 座板角度撑杆B2(L)
         __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH3, T2_IN1);

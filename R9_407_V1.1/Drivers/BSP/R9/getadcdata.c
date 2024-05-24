@@ -59,7 +59,6 @@ void getadc1Data(void)
 	uint16_t i, j;
 	uint16_t adc1_alldata;
 	uint32_t sum;
-	float temp;
 	/* 循环显示通道1~通道8的结果 */
 	for (j = 0; j < 8; j++) /* 遍历8个通道 */
 	{
@@ -72,16 +71,15 @@ void getadc1Data(void)
 
 		if (j == 0)
 		{
-			adcdata.adc_x = adcdata.adc_xbase - adc1_alldata;																  //
+			adcdata.adc_x =adcdata.adc_xbase - adc1_alldata;	//	1800 - adc1_alldata; //														  //
 			adcdata.adc_x = Value_limit(xadc_min, Value_Resetzero(-xadc_Dim, adcdata.adc_x, xadc_Dim), xadc_max); // 设定耦合模糊区域及上下限值限制
 		}
 
 		if (j == 1)
 		{
-			adcdata.adc_y = adc1_alldata - adcdata.adc_ybase;																  //-1800 ;//
+			adcdata.adc_y =	adc1_alldata - adcdata.adc_ybase;	//	adc1_alldata - 1800;	 //													  //-1800 ;//
 			adcdata.adc_y = Value_limit(yadc_min, Value_Resetzero(-yadc_Dim, adcdata.adc_y, yadc_Dim), yadc_max); // 设定耦合模糊区域及上下限数值限制
 		}
-		//printf("%d,%d,%d,%d\r\n",adcdata.adc_x,adcdata.adc_y,adcdata.adc_xbase,adcdata.adc_ybase);
 		if (j == 2)
 		{
 			adcdata.l_brakcurrent = adc1_alldata;
@@ -116,7 +114,7 @@ void getadc1Data(void)
 		{
 			adcdata.chargeI_adc = adc1_alldata; // 待补充优化充电条件
 
-			if (adcdata.chargeI_adc > 100) // RK3588 读取 电池充电状态信息
+			if (adcdata.chargeI_adc > 2100) // RK3588 读取 电池充电状态信息
 			{
 				g_slaveReg[2] = 1;
 			}

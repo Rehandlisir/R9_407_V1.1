@@ -33,9 +33,9 @@ typedef enum
 
 typedef struct /**/
 {
-	double adcx;
-	double adcy;
-	double max_underpanVelocity;
+	int32_t adcx;
+	int32_t adcy;
+	int8_t max_underpanVelocity;
 	uint8_t set_Maximum_Strspeed;
 	uint8_t set_Maximum_Steespeed;
 

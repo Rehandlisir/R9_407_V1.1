@@ -39,8 +39,8 @@ typedef struct {
 
 double Value_limit(double min_value ,double current_value ,double max_value);
 int32_t  Value_Resetzero(int32_t min_value ,int32_t current_value ,int32_t max_value);
-double slopelimitx( double value,double increvalue) ;   
-double slopelimity( double value,double increvalue) ;   
+int32_t slopelimitx( int32_t value,int32_t increvalue) ;   
+int32_t slopelimity( int32_t value,int32_t increvalue) ;   
 
 
 void initializeFilter(AverageFilter* filter);

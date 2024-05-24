@@ -42,6 +42,7 @@ void Hard_devInit(void)
 		Host_Modbuskey_Init();
 		iwdg_init(IWDG_PRESCALER_64, 500);      /* 预分频数为64,重载值为500,溢出时间约为1s */
 		g_slaveReg[0] = 0x68;//本机设备作为Modbus从机时的设备ID
+		printf("ERROR");
 }
 
 void LedFlash(void)
@@ -70,7 +71,7 @@ void GetADC_AllData(void)
    // printf("lift_pos:%d,pedestal_pos:%d,backboard_pos:%d,legangle_pos:%d,leglength_pos:%d,support_pos:%d\n",adcdata.lift_pos,adcdata.pedestal_pos,adcdata.backboard_pos,adcdata.legangle_pos,adcdata.leglength_pos,adcdata.support_pos);
 	//printf("lift_current:%d,pedestal_current:%d,backboard_current:%d,legangle_current:%d,leglength_current:%d,support_current:%d\n",adcdata.lift_current,adcdata.pedestal_current,adcdata.backboard_current,adcdata.legangle_current,adcdata.leglength_current,adcdata.support_current);
 	//  printf("adcdata.l_current :%d, adcdata.r_current %d\n",adcdata.l_current,adcdata.r_current);
-	printf("Xbase:%d,Ybase:%d,xdata:%d,ydata:%d\t\n",adcdata.adc_xbase,adcdata.adc_ybase,adcdata.adc_x,adcdata.adc_y);
+	//printf("Xbase:%d,Ybase:%d,xdata:%d,ydata:%d\t\n",adcdata.adc_xbase,adcdata.adc_ybase,adcdata.adc_x,adcdata.adc_y);
 }
 
 
@@ -110,8 +111,8 @@ void UnderpanDrive(void)
 	{
 		velPlanIn1.adcy = 0 ;
 	}
-	velPlanIn1.adcy = slopelimity( velPlanIn1.adcy,25);  
-	
+	velPlanIn1.adcy = slopelimity( velPlanIn1.adcy,25); 
+  
 //	velPlanIn1.k  = 1.0;
 	velPlanIn1.max_underpanVelocity = 4.0; 
 	velPlanIn1.set_Maximum_Strspeed = 4.0;
@@ -128,7 +129,7 @@ void UnderpanDrive(void)
 	__HAL_TIM_SET_COMPARE(&g_time9_pwm_chy_handle, GTIM_TIM9_PWM_CH1, rpwmvaBl);
 	__HAL_TIM_SET_COMPARE(&g_time9_pwm_chy_handle, GTIM_TIM9_PWM_CH2, rpwmvaB2);
 	
-    //  printf("%d,%d,%d,%d\r\n",velPlanIn1.adcx,velPlanIn1.adcy,adcdata.adc_xbase,adcdata.adc_ybase);	
+   printf("velPlanIn1.adcx:%d,velPlanIn1.adcy:%d,adcdata.adc_xbase:%d,adcdata.adc_ybase:%d\r\n",velPlanIn1.adcx,velPlanIn1.adcy,adcdata.adc_xbase,adcdata.adc_ybase);	
 	//printf("%d,%d,%d,%d\r\n",rpwmvaAl,rpwmvaA2, rpwmvaBl,rpwmvaB2);	
 }
 
@@ -222,7 +223,7 @@ void Modbuskeyread_execute(void)
 				HOST_ModbusRX();//接收数据进行处理
 			}	
 		}
-		printf("%d ,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n",KeyStateRecive[0],KeyStateRecive[1],KeyStateRecive[2],KeyStateRecive[3],KeyStateRecive[4],KeyStateRecive[5],KeyStateRecive[6],KeyStateRecive[7],KeyStateRecive[8],KeyStateRecive[9],KeyStateRecive[10]);
+	//	printf("%d ,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n",KeyStateRecive[0],KeyStateRecive[1],KeyStateRecive[2],KeyStateRecive[3],KeyStateRecive[4],KeyStateRecive[5],KeyStateRecive[6],KeyStateRecive[7],KeyStateRecive[8],KeyStateRecive[9],KeyStateRecive[10]);
 }
 	
 
