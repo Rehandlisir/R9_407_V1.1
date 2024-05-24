@@ -112,6 +112,8 @@ void UnderpanDrive(void)
 		velPlanIn1.adcy = 0 ;
 	}
 	velPlanIn1.adcy = slopelimity( velPlanIn1.adcy,25); 
+
+
   
 //	velPlanIn1.k  = 1.0;
 	velPlanIn1.max_underpanVelocity = 4.0; 
@@ -129,7 +131,7 @@ void UnderpanDrive(void)
 	__HAL_TIM_SET_COMPARE(&g_time9_pwm_chy_handle, GTIM_TIM9_PWM_CH1, rpwmvaBl);
 	__HAL_TIM_SET_COMPARE(&g_time9_pwm_chy_handle, GTIM_TIM9_PWM_CH2, rpwmvaB2);
 	
-   printf("velPlanIn1.adcx:%d,velPlanIn1.adcy:%d,adcdata.adc_xbase:%d,adcdata.adc_ybase:%d\r\n",velPlanIn1.adcx,velPlanIn1.adcy,adcdata.adc_xbase,adcdata.adc_ybase);	
+    printf("velPlanIn1.adcx:%d,velPlanIn1.adcy:%d,adcdata.adc_xbase:%d,adcdata.adc_ybase:%d\r\n",velPlanIn1.adcx,velPlanIn1.adcy,adcdata.adc_xbase,adcdata.adc_ybase);	
 	//printf("%d,%d,%d,%d\r\n",rpwmvaAl,rpwmvaA2, rpwmvaBl,rpwmvaB2);	
 }
 
@@ -226,7 +228,6 @@ void Modbuskeyread_execute(void)
 	//	printf("%d ,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n",KeyStateRecive[0],KeyStateRecive[1],KeyStateRecive[2],KeyStateRecive[3],KeyStateRecive[4],KeyStateRecive[5],KeyStateRecive[6],KeyStateRecive[7],KeyStateRecive[8],KeyStateRecive[9],KeyStateRecive[10]);
 }
 	
-
 void Modbuskeywrite_execute(void)
 {
 	
@@ -239,4 +240,4 @@ void Modbuskeywrite_execute(void)
 		Host_Func6();//从机返回数据处理
 	}  
 	
-}	
+}

@@ -1,7 +1,7 @@
 
 #include "./BSP/Common/common.h"
 
-double Value_limit(double min_value ,double current_value ,double max_value)
+int32_t Value_limit(int32_t min_value ,int32_t current_value ,int32_t max_value)
 {
 	
 	if (current_value<min_value)
@@ -11,8 +11,6 @@ double Value_limit(double min_value ,double current_value ,double max_value)
 	else
 		return current_value;
 }
-
-
 
 int32_t  Value_Resetzero(int32_t min_value ,int32_t current_value ,int32_t max_value)
 {
@@ -86,10 +84,6 @@ int32_t slopelimity( int32_t value,int32_t increvalue)
       return out;
 }
 
-
- 
-
- 
 // ³õÊ¼»¯ÂË²¨Æ÷
 void initializeFilter(AverageFilter* filter)
 {
