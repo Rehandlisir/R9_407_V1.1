@@ -13,6 +13,16 @@
 #define yadc_Dim      500
 #define xadc_Dim      500
 
+/*define class of joystic*/
+#define SMC35B2G 
+
+#if defined SMC35B2G
+#define X_BASEreturn	0
+#elif defined SMC25B2G
+#define X_BASEreturn	1
+#endif
+
+
 
 typedef struct 
 {

@@ -62,7 +62,7 @@ typedef struct /*??????????*/
 	RunState runstate; /*?????????*/
 } VELOCITY_POUT;
 
-/* �������ٶ���������ö�� */
+/*  */
 typedef enum SpeedCurve
 {
 	CURVE_NONE = 0, // ֱ��

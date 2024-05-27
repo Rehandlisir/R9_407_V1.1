@@ -12,6 +12,18 @@ int32_t Value_limit(int32_t min_value ,int32_t current_value ,int32_t max_value)
 		return current_value;
 }
 
+float Value_limitf(float min_value ,float current_value ,float max_value)
+{
+	
+	if (current_value<min_value)
+		return min_value;
+	else if (current_value>max_value)
+		return max_value;
+	else
+		return current_value;
+}
+
+
 int32_t  Value_Resetzero(int32_t min_value ,int32_t current_value ,int32_t max_value)
 {
 	if (current_value<min_value ||  current_value >  max_value)

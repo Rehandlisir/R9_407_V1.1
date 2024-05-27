@@ -23,7 +23,6 @@ float pitch,roll,yaw;  			//欧拉角
 /*************************主任务列表*****************************/
 void Hard_devInit(void)
 {
-
 		HAL_Init();                                 //* 初始化HAl库 */
 		MoterdriveInit();
 		sys_stm32_clock_init(336, 8, 2, 7);     /* 初始化时钟频率,168Mhz 主时钟*/
@@ -116,9 +115,9 @@ void UnderpanDrive(void)
 
   
 //	velPlanIn1.k  = 1.0;
-	velPlanIn1.max_underpanVelocity = 4.0; 
-	velPlanIn1.set_Maximum_Strspeed = 4.0;
-	velPlanIn1.set_Maximum_Steespeed = 2.0; 
+	velPlanIn1.max_underpanVelocity = 6.0; 
+	velPlanIn1.set_Maximum_Strspeed = 6.0;
+	velPlanIn1.set_Maximum_Steespeed = 3.0; 
 	
 	velocity_maping(velPlanIn1); /*速度规划 */	
 	rpwmvaAl = 100 * (1.0 - velocity_pout.A_IN1);
@@ -131,8 +130,8 @@ void UnderpanDrive(void)
 	__HAL_TIM_SET_COMPARE(&g_time9_pwm_chy_handle, GTIM_TIM9_PWM_CH1, rpwmvaBl);
 	__HAL_TIM_SET_COMPARE(&g_time9_pwm_chy_handle, GTIM_TIM9_PWM_CH2, rpwmvaB2);
 	
-    printf("velPlanIn1.adcx:%d,velPlanIn1.adcy:%d,adcdata.adc_xbase:%d,adcdata.adc_ybase:%d\r\n",velPlanIn1.adcx,velPlanIn1.adcy,adcdata.adc_xbase,adcdata.adc_ybase);	
-	//printf("%d,%d,%d,%d\r\n",rpwmvaAl,rpwmvaA2, rpwmvaBl,rpwmvaB2);	
+   
+	
 }
 
 

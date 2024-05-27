@@ -104,7 +104,7 @@ Led_State led_state;
 Led_State lastled_state;
 uint8_t doubleflingflage = 1;
 
-// �İ����汾
+
 void led_beepControl(void)
 {
 	static uint8_t cmdBulb_contes = 1; // 移动端主灯指令计数器
@@ -128,8 +128,6 @@ void led_beepControl(void)
 	}
 
 /* left   right and  maibulb control*/
-
-
 	if (cmdBulb_contes==1  && KEY2_PRES_contes==1 && KEY3_PRES_contes==1 && KEYDouble_PRES_contes==1)
 	{
 		led_state = idle_state;
@@ -167,7 +165,6 @@ void led_beepControl(void)
 			led_state = open_leftbling;
 			KEY3_PRES_contes = 1;           // close right
 			KEYDouble_PRES_contes = 1;     // close double
-
 		}
 		else
 		{
@@ -299,7 +296,7 @@ void led_beepControl(void)
 			g_slaveReg[15] = RightBulbState;
 		}
 
-		if (lastled_state == open_leftbling || lastled_state == open_rightbling) // ???????????? ?????????????? ?????????????????????????
+		if (lastled_state == open_leftbling || lastled_state == open_rightbling) 
 		{
 			LEFT_BACK_TURE(0);
 			
@@ -328,15 +325,15 @@ void led_beepControl(void)
 		FRONT_MAIN(1);
 		g_slaveReg[13] = MainBulbState;
 
-		if (lastled_state == open_leftbling) // ???????????? ??????? ?????????????
+		if (lastled_state == open_leftbling) 
 		{
 			led_state = open_leftbling;
 		}
-		if (lastled_state == open_rightbling) // ???????????? ??????? ?????????????
+		if (lastled_state == open_rightbling) 
 		{
 			led_state = open_rightbling;
 		}
-		if (lastled_state == open_doublebling) // ???????????? ??? ??????? ????????????
+		if (lastled_state == open_doublebling) 
 		{
 			LEFT_FRONT_TURE(0);
 			g_slaveReg[14] = LeftBulbState;
@@ -357,11 +354,190 @@ void led_beepControl(void)
 		FRONT_MAIN(0);
 		g_slaveReg[13] = MainBulbState;
 		BACK_MAIN(0);
-		if (lastled_state == open_leftbling) // ???????????? ??????? ?????????????
+		if (lastled_state == open_leftbling) 
 		{
 			led_state = open_leftbling;
 		}
-		if (lastled_state == open_rightbling) // ???????????? ??????? ?????????????
+		if (lastled_state == open_rightbling) 
+		{
+			led_state = open_rightbling;
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+void led_beepControlRK3588(void)
+{
+	lastled_state = None;
+	if (led_state != lastled_state)
+	{
+		lastled_state = led_state;
+	}
+/* left   right and  maibulb control
+72 : 左转向指令
+73 ：右转向指令
+74 ：照明指令
+75： 双闪指令
+*/
+	if (g_slaveReg[72] == 0  && g_slaveReg[73] == 0 && g_slaveReg[74] == 0 && g_slaveReg[75]==0 )
+	{
+		led_state = idle_state;
+	}
+// maibulb control
+	if (g_slaveReg[74] ) 
+	{
+		led_state = open_mainbulb;
+	}
+	else
+	{		
+		led_state = close_mainbulb;	
+	}
+
+// left control
+	if (g_slaveReg[72])
+	{
+		led_state = open_leftbling;
+	}
+	else
+	{
+		led_state = close_leftbling;
+	}
+
+/*right */
+	if (g_slaveReg[73])
+	{
+		led_state = open_rightbling;
+	}
+	else
+	{		
+		led_state = close_rightbling;
+	}
+/*double*/
+	if (g_slaveReg[75])
+	{
+		led_state = open_doublebling;
+	}		
+	else
+	{
+		led_state = close_doublebling;
+	}
+/*bulb driving*/
+	switch (led_state)
+	{
+	case idle_state:
+		LEFT_FRONT_TURE(0);
+		g_slaveReg[14] = LeftBulbState;
+		RIGHT_FRONT_TURE(0);
+		g_slaveReg[15] = RightBulbState;
+		FRONT_MAIN(0);
+		g_slaveReg[13] = MainBulbState;
+		LEFT_BACK_TURE(0);		
+		RIGHT_BACK_TURE(0);	
+		BACK_MAIN(0);
+		break;
+	case open_leftbling:
+		LEFT_FRONT_TURE_TOGGLE();
+		g_slaveReg[14] = LeftBulbState;
+		RIGHT_FRONT_TURE(0);
+		g_slaveReg[15] = RightBulbState;
+		LEFT_BACK_TURE(1);	
+		RIGHT_BACK_TURE(0);
+		break;
+	case close_leftbling:
+		LEFT_FRONT_TURE(0);
+		g_slaveReg[14] = LeftBulbState;
+		LEFT_BACK_TURE(0);	
+		break;
+	case open_rightbling:
+		RIGHT_FRONT_TURE_TOGGLE();
+		g_slaveReg[15] = RightBulbState;
+		LEFT_FRONT_TURE(0);
+		g_slaveReg[14] = LeftBulbState;
+		LEFT_BACK_TURE(0);	
+		RIGHT_BACK_TURE(1);
+		break;
+	case close_rightbling:
+		RIGHT_FRONT_TURE(0);
+		g_slaveReg[15] = RightBulbState;
+		RIGHT_BACK_TURE(0);
+		break;
+	case open_doublebling:
+		g_slaveReg[13] = MainBulbState;
+		BACK_MAIN(0);
+		LEFT_BACK_TURE(1);	
+		RIGHT_BACK_TURE(1);	
+		if (doubleflingflage)
+		{
+			LEFT_FRONT_TURE(0);
+			g_slaveReg[14] = LeftBulbState;
+			RIGHT_FRONT_TURE(0);
+			g_slaveReg[15] = RightBulbState;
+			FRONT_MAIN(0);
+			g_slaveReg[13] = MainBulbState;
+			doubleflingflage = 0;
+		}
+		else
+		{
+			doubleflingflage = 1;
+			FRONT_MAIN(0);
+			g_slaveReg[13] = MainBulbState;
+			LEFT_FRONT_TURE(1);
+			g_slaveReg[14] = LeftBulbState;
+			RIGHT_FRONT_TURE(1);
+			g_slaveReg[15] = RightBulbState;
+		}
+		if (lastled_state == open_leftbling || lastled_state == open_rightbling) 
+		{
+			LEFT_BACK_TURE(0);	
+			RIGHT_BACK_TURE(0);	
+			delay_ms(10);
+		}
+		break;
+	case close_doublebling:
+		LEFT_FRONT_TURE(0);
+		g_slaveReg[14] = LeftBulbState;
+		RIGHT_FRONT_TURE(0);
+		g_slaveReg[15] = RightBulbState;
+		LEFT_BACK_TURE(0);	
+		RIGHT_BACK_TURE(0);
+		break;
+	case open_mainbulb:
+		BACK_MAIN(1);
+		FRONT_MAIN(1);
+		g_slaveReg[13] = MainBulbState;
+		if (lastled_state == open_leftbling) 
+		{
+			led_state = open_leftbling;
+		}
+		if (lastled_state == open_rightbling) 
+		{
+			led_state = open_rightbling;
+		}
+		if (lastled_state == open_doublebling) 
+		{
+			LEFT_FRONT_TURE(0);
+			g_slaveReg[14] = LeftBulbState;
+			RIGHT_FRONT_TURE(0);
+			g_slaveReg[15] = RightBulbState;
+			LEFT_BACK_TURE(0);	
+			RIGHT_BACK_TURE(0);	
+			FRONT_MAIN(0);
+			g_slaveReg[13] = MainBulbState;
+			led_state = open_mainbulb;
+		}
+		break;
+
+	case close_mainbulb:
+		FRONT_MAIN(0);
+		g_slaveReg[13] = MainBulbState;
+		BACK_MAIN(0);
+		if (lastled_state == open_leftbling) 
+		{
+			led_state = open_leftbling;
+		}
+		if (lastled_state == open_rightbling) 
 		{
 			led_state = open_rightbling;
 		}

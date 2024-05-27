@@ -123,9 +123,11 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 	/*左右目标轮线速度 转换为 占空比*/
 	velocity_pout.L_Dutycycle = fabs(velocity_pout.L_Velocity / MPS_TO_DUTY) * 0.5 + 0.5; /*占空比大于50% 方可驱动电机启动 */
 	velocity_pout.R_Dutycycle = fabs(velocity_pout.R_Velocity / MPS_TO_DUTY) * 0.5 + 0.5;
+	//printf("%lf,%f\r\n",velocity_pout.L_Dutycycle,velocity_pout.R_Dutycycle);
 	/* 占空比约束*/
-	velocity_pout.L_Dutycycle = Value_limit(0, velocity_pout.L_Dutycycle, 1);
-	velocity_pout.R_Dutycycle = Value_limit(0, velocity_pout.R_Dutycycle, 1);
+	velocity_pout.L_Dutycycle = Value_limitf(0, velocity_pout.L_Dutycycle, 1);
+	velocity_pout.R_Dutycycle = Value_limitf(0, velocity_pout.R_Dutycycle, 1);
+	printf("%lf,%f\r\n",velocity_pout.L_Dutycycle,velocity_pout.R_Dutycycle);	
 	/*待补充占空比曲线规划*/
 	// CurveObjectType L_curve;
 	// CurveObjectType R_curve;

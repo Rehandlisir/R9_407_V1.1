@@ -24,8 +24,6 @@
 int main(void)
 {
 	
-	// Hard_devInit();
-  
-	PeachOSRun();     
-
+	  PeachOSRun();    
+	
 }

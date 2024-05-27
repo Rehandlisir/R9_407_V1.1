@@ -71,7 +71,15 @@ void getadc1Data(void)
 
 		if (j == 0)
 		{
-			adcdata.adc_x =adcdata.adc_xbase - adc1_alldata;	//	1800 - adc1_alldata; //														  //
+			if (X_BASEreturn)
+			{
+				adcdata.adc_x =adcdata.adc_xbase - adc1_alldata;	//	1800 - adc1_alldata; //	
+			}
+			else
+			{
+				adcdata.adc_x =adc1_alldata - adcdata.adc_xbase ;	//	1800 - adc1_alldata; //	
+			}
+																  
 			adcdata.adc_x = Value_limit(xadc_min, Value_Resetzero(-xadc_Dim, adcdata.adc_x, xadc_Dim), xadc_max); // 设定耦合模糊区域及上下限值限制
 		}
 

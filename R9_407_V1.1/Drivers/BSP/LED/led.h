@@ -194,5 +194,5 @@ typedef enum
 /* */
 void led_init(void);
 void led_beepControl(void); /*  */
-
+void led_beepControlRK3588(void);
 #endif /**/
