@@ -28,6 +28,7 @@
 "..\..\output\hostmodbus.o"
 "..\..\output\wheelspeedmap.o"
 "..\..\output\hostdap21.o"
+"..\..\output\pid.o"
 "..\..\output\stm32f4xx_hal.o"
 "..\..\output\stm32f4xx_hal_adc.o"
 "..\..\output\stm32f4xx_hal_adc_ex.o"

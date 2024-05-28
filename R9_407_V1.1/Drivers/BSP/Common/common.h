@@ -48,6 +48,9 @@ float Value_limitf(float min_value ,float current_value ,float max_value);
 void initializeFilter(AverageFilter* filter);
 
 int filterValue(AverageFilter* filter, int input);
+
+
+
 #endif
 
 
