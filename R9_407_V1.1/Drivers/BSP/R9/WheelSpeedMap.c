@@ -19,7 +19,7 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 	static double steering_k;
 	velocity_pout.underpanVelocity = velPlanIn.max_underpanVelocity * velPlanIn.adcy / (yadc_max - yadc_Dim) * KMPH_TO_MPS;/* 用于底盘运动状态判断 */																							   
 	velocity_pout.steering_angle = 90 * velPlanIn.adcx / (xadc_max - xadc_Dim) * PI / 180.0;	   /* 用于底盘运动状态判断 */
-	velocity_pout.steering_angle = Value_limit(-PI / 2.0, velocity_pout.steering_angle, PI / 2.0); /* 用于底盘运动状态判断*/
+	velocity_pout.steering_angle = Value_limitf(-PI / 2.0, velocity_pout.steering_angle, PI / 2.0); /* 用于底盘运动状态判断*/
 	/*待补充 对velPlanIn.adcx 的极小值约束*/
 	if (velPlanIn.adcx == 0)
 	{
@@ -30,11 +30,11 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 		velocity_pout.theta = atan(velPlanIn.adcy / velPlanIn.adcx); /*theta 输出单位为弧度 范围取值 -1.57 ~ 1.57 */
 	}
 	precess_var1 = pow(tan(velocity_pout.theta), 2.0);						/*tan(theta)^2*/
-	precess_var2 = pow(velPlanIn.set_Maximum_Strspeed * KMPH_TO_MPS, 2.0);	/*a^2*/
-	precess_var3 = pow(velPlanIn.set_Maximum_Steespeed * KMPH_TO_MPS, 2.0); /*b^2*/
+	precess_var2 = pow(velPlanIn.set_Maximum_Strspeed, 2.0);	/*a^2*/
+	precess_var3 = pow(velPlanIn.set_Maximum_Steespeed, 2.0); /*b^2*/
 	precess_var4 = (1 + precess_var1) / (precess_var2 + precess_var3 * precess_var1);
-	precess_var5 = pow(precess_var4, 0.5);
-	velocity_pout.acceleration_coeff = velPlanIn.set_Maximum_Strspeed * KMPH_TO_MPS * velPlanIn.set_Maximum_Steespeed * KMPH_TO_MPS * precess_var5;
+	precess_var5 = sqrt(precess_var4);
+	velocity_pout.acceleration_coeff = velPlanIn.set_Maximum_Strspeed * velPlanIn.set_Maximum_Steespeed * KMPH_TO_MPS * precess_var5;
 	/* 静止  */
 	if (velocity_pout.steering_angle == 0 && velocity_pout.underpanVelocity == 0)
 	{
@@ -131,7 +131,7 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 	/* 占空比约束*/
 	velocity_pout.L_Dutycycle = Value_limitf(0, velocity_pout.L_Dutycycle, 1);
 	velocity_pout.R_Dutycycle = Value_limitf(0, velocity_pout.R_Dutycycle, 1);
-	printf("%lf,%f\r\n",velocity_pout.L_Dutycycle,velocity_pout.R_Dutycycle);	
+	//printf("%lf,%f\r\n",velocity_pout.L_Dutycycle,velocity_pout.R_Dutycycle);	
 	/*待补充占空比曲线规划*/ 
 	switch (drivestate)
 	{
@@ -198,21 +198,23 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 
 	{
 		brakeflage++;
-		if (brakeflage > 600)
+		if (brakeflage > 300)
 		{ // 抱住
 			BRAKE1(1);
 			BRAKE2(1);
 			brakeflage = 0;
 		}
 	}
-	if (velPlanIn.adcx < -100 || velPlanIn.adcx > 100 || velPlanIn.adcy > 100 || velPlanIn.adcy < -100)
+	if (velPlanIn.adcx < -50 || velPlanIn.adcx > 50 || velPlanIn.adcy > 50 || velPlanIn.adcy < -50)
 
 	{
 		// 松开
 		BRAKE1(0);
 		BRAKE2(0);
 	}
+	printf("Xdata:%d,Ydata:%d\n,Lduty:%f,Rduty:%f\t\n",velPlanIn.adcx,velPlanIn.adcy,velocity_pout.L_Dutycycle,velocity_pout.R_Dutycycle);
 }
+/*数据监测采集*/
 
 void (*pCalCurve[])(CurveObjectType *curve)={CalCurveTRAP,CalCurveSPTA};
 

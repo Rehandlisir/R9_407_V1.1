@@ -174,8 +174,6 @@ void getadc3Data(void)
 			adcdata.pedestal_current = adc3_alldata;
 		if (j == 11)
 			adcdata.support_current = adc3_alldata;
-
-
 	}
 	g_adc3_dma_sta = 0;						/* 清除DMA采集完成状态标志 */
 	adc3_nch_dma_enable(ADC3_DMA_BUF_SIZE); /* 启动下一次ADC1 DMA多通道采集 */

@@ -10,8 +10,8 @@
 #define xadc_max      1700
 #define xadc_min      -1700
 
-#define yadc_Dim      500
-#define xadc_Dim      500
+#define yadc_Dim      100
+#define xadc_Dim      100
 
 /*define class of joystic*/
 #define SMC25B2G 

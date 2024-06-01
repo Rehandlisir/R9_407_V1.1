@@ -46,7 +46,7 @@ void Hard_devInit(void)
 
 void LedFlash(void)
 {
-	led_beepControl();
+	led_beepControlRK3588();
 	LED0_TOGGLE();
 
 }
@@ -115,9 +115,9 @@ void UnderpanDrive(void)
 
   
 //	velPlanIn1.k  = 1.0;
-	velPlanIn1.max_underpanVelocity = 1.0; 
+	velPlanIn1.max_underpanVelocity = 3.0; 
 	velPlanIn1.set_Maximum_Strspeed = 3.0;
-	velPlanIn1.set_Maximum_Steespeed = 3.0; 
+	velPlanIn1.set_Maximum_Steespeed = 2.0; 
 	
 	velocity_maping(velPlanIn1); /*速度规划 */	
 	rpwmvaAl = 100 * (1.0 - velocity_pout.A_IN1);

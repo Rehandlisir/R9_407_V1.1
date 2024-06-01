@@ -308,7 +308,7 @@ void linearactuator(void)
     // g_slaveReg[104] = 0;
     /*空闲状态先给定 限位位置*/
     ActorLimitPara.A1_Downpos =1400;
-    ActorLimitPara.A1_Uppos = 3100; // 前倾已经超出限位计，但是机械上暂时不约束;
+    ActorLimitPara.A1_Uppos = 4100; // 前倾已经超出限位计，但是机械上暂时不约束;
 
     ActorLimitPara.A2_Downpos = 2200;
     ActorLimitPara.A2_Uppos = 3000; // 上旋已经超出限位计长度，机械上暂时不约束
@@ -803,7 +803,6 @@ void linearactuator(void)
     
     }
 }
-
  /*座椅举升控制*/
  void SeatLiftDrop(void)
  {

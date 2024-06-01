@@ -35,9 +35,9 @@ typedef struct /**/
 {
 	int32_t adcx;
 	int32_t adcy;
-	int8_t max_underpanVelocity;
-	uint8_t set_Maximum_Strspeed;
-	uint8_t set_Maximum_Steespeed;
+	double max_underpanVelocity;
+	double set_Maximum_Strspeed;
+	double set_Maximum_Steespeed;
 
 } VELOCITY_PIn;
 
