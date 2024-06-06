@@ -39,7 +39,7 @@
 
 
 #define LED1B_GPIO_PORT GPIOE
-#define LED1B_GPIO_PIN GPIO_PIN_12
+#define LED1B_GPIO_PIN GPIO_PIN_13
 #define LED1B_GPIO_CLK_ENABLE()        \
     do                                \
     {                                 \

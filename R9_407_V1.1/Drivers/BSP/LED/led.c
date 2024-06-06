@@ -376,17 +376,17 @@ void led_beepControlRK3588(void)
 		lastled_state = led_state;
 	}
 /* left   right and  maibulb control
-72 : 左转向指令
-73 ：右转向指令
-74 ：照明指令
-75： 双闪指令
+82 : 左转向指令
+83 ：右转向指令
+84 ：照明指令
+85： 双闪指令
 */
-	if (g_slaveReg[72] == 0  && g_slaveReg[73] == 0 && g_slaveReg[74] == 0 && g_slaveReg[75]==0 )
+	if (g_slaveReg[82] == 0  && g_slaveReg[83] == 0 && g_slaveReg[84] == 0 && g_slaveReg[85]== 0 )
 	{
 		led_state = idle_state;
 	}
 // maibulb control
-	if (g_slaveReg[74] ) 
+	if (g_slaveReg[84] ) 
 	{
 		led_state = open_mainbulb;
 	}
@@ -396,7 +396,7 @@ void led_beepControlRK3588(void)
 	}
 
 // left control
-	if (g_slaveReg[72])
+	if (g_slaveReg[82])
 	{
 		led_state = open_leftbling;
 	}
@@ -406,7 +406,7 @@ void led_beepControlRK3588(void)
 	}
 
 /*right */
-	if (g_slaveReg[73])
+	if (g_slaveReg[83])
 	{
 		led_state = open_rightbling;
 	}
@@ -415,7 +415,7 @@ void led_beepControlRK3588(void)
 		led_state = close_rightbling;
 	}
 /*double*/
-	if (g_slaveReg[75])
+	if (g_slaveReg[85])
 	{
 		led_state = open_doublebling;
 	}		

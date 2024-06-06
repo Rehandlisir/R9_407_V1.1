@@ -8,13 +8,13 @@
 
 #define PI 3.1415926 /*????PI*/
 
-#define GEAR_RATIO 29.5		 /* ????? */
-#define Diameter 0.354		 /* ?????? 354mm  */
-#define MoterMaxr 5000.0	 /*?????? 175PRM */
-#define MoterMaxrN 175.0	 /*?????? 175PRM */
-#define KMPH_TO_MPS 0.277778 /*km/h --?? m/s??????*/
-#define MPS_TO_DUTY 3.333333 /*m/s --?? ???? ??????*/
-#define MPS_TO_KMPH 0.277778 /*km/h --?? m/s??????*/
+#define GEAR_RATIO 29.5		 /* 减速比 */
+#define Diameter 0.354		 /* 轮子直径354mm  */
+#define MoterMaxrN 175.0	 /*输出轴额定转速 175PRM */
+#define KMPH_TO_RPM    15.0  /*1km/h 约 15RPM*/
+#define VelocityConst  7.3   /*电机速率常数 单位 RPM/V*/
+#define KMPH_TO_Voltage 2.055 /*V/KMPH*/
+#define KMPH_TO_Duty 0.0856  /*1km/h 占空比约 8.56%*/
 
 /*   */
 
@@ -33,8 +33,8 @@ typedef enum
 
 typedef struct /**/
 {
-	int32_t adcx;
-	int32_t adcy;
+	int16_t adcx;
+	int16_t adcy;
 	double max_underpanVelocity;
 	double set_Maximum_Strspeed;
 	double set_Maximum_Steespeed;

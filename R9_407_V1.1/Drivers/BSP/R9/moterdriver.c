@@ -299,14 +299,6 @@ void linearactuator(void)
     uint16_t T6_IN1 = 0;
     uint16_t T6_IN2 = 0;
     // 先屏蔽上位机信号
-    // g_slaveReg[98] = 0;
-    // g_slaveReg[99] = 0;
-    // g_slaveReg[100] = 0;
-    // g_slaveReg[101] = 0;
-    // g_slaveReg[102] = 0;
-    // g_slaveReg[103] = 0;
-    // g_slaveReg[104] = 0;
-    /*空闲状态先给定 限位位置*/
     ActorLimitPara.A1_Downpos =1400;
     ActorLimitPara.A1_Uppos = 4100; // 前倾已经超出限位计，但是机械上暂时不约束;
 
@@ -332,13 +324,13 @@ void linearactuator(void)
     Kp = B1MAX * SEAT_LIFTDROPRATIO / 2.0 + 0.5;
 
     /*座椅举升控制*/
-    if (KeyStateRecive[3] == SEAT_LIFT || g_slaveReg[99] == 1)
+    if (KeyStateRecive[3] == SEAT_LIFT || g_slaveReg[67] == 1)
     {
         linerun_state = Lift_run;
         g_slaveReg[16] = 1;
     }
 
-    else if (KeyStateRecive[4] == SEAT_DROP || g_slaveReg[99] == 2)
+    else if (KeyStateRecive[4] == SEAT_DROP || g_slaveReg[67] == 2)
     {
 
         linerun_state = Down_run;
@@ -346,14 +338,14 @@ void linearactuator(void)
     }
 
     /* 座椅靠背控制*/
-    else if (KeyStateRecive[5] == BACKREST_FORWARD || g_slaveReg[100] == 1)
+    else if (KeyStateRecive[5] == BACKREST_FORWARD || g_slaveReg[68] == 1)
     {
         linerun_state = Backf_run;
         g_slaveReg[17] = 1;
     }
     
     
-    else if (KeyStateRecive[6] == BACKREST_BACK || g_slaveReg[100] == 2)
+    else if (KeyStateRecive[6] == BACKREST_BACK || g_slaveReg[68] == 2)
         
     {
         linerun_state = Backb_run;
@@ -363,60 +355,60 @@ void linearactuator(void)
 
     /*座板控制*/
 
-    else if (g_slaveReg[104] == 1)
+    else if (g_slaveReg[72] == 1)
     {
         linerun_state = Seat_tiltf_run;
     }
-    else if (g_slaveReg[104] == 2)
+    else if (g_slaveReg[72] == 2)
     {
         linerun_state = Seat_tiltb_run;
     }
 
     /*整体前后倾*/
-    else if (KeyStateRecive[7] == ALL_FORWARD || g_slaveReg[101] == 1)
+    else if (KeyStateRecive[7] == ALL_FORWARD || g_slaveReg[69] == 1)
     {
 
         linerun_state = Alltiltfrun;
         g_slaveReg[19] = 1;
     }
 
-    else if (KeyStateRecive[8] == 8 || g_slaveReg[101] == 2)
+    else if (KeyStateRecive[8] == 8 || g_slaveReg[69] == 2)
     {
 
         linerun_state = Alltiltbrun;
         g_slaveReg[19] = 2;
     }
     /*腿托上下旋转*/
-    else if (KeyStateRecive[9] == LEG_TOPSPIN || g_slaveReg[102] == 1)
+    else if (KeyStateRecive[9] == LEG_TOPSPIN || g_slaveReg[70] == 1)
     {
 
         linerun_state = Legspintop_run;
         g_slaveReg[20] = 1;
     }
-    else if (KeyStateRecive[10] == LEG_BACKSPIN || g_slaveReg[102] == 2)
+    else if (KeyStateRecive[10] == LEG_BACKSPIN || g_slaveReg[70] == 2)
     {
         linerun_state = Legspindown_run;
         g_slaveReg[20] = 2;
     }
     /*腿托独立调节长度*/
-    else if (g_slaveReg[103] == 1)
+    else if (g_slaveReg[71] == 1)
     {
         linerun_state = Legexten_run;
     }
 
-    else if (g_slaveReg[103] == 2)
+    else if (g_slaveReg[71] == 2)
     {
         linerun_state = Legunexten_run;
     }
     /*一键站立/坐下*/
-    else if (KeyStateRecive[1] == STANCE || g_slaveReg[98] == 1)
+    else if (KeyStateRecive[1] == STANCE || g_slaveReg[66] == 1)
     {
 
         linerun_state = Stand_run;
         g_slaveReg[18] = 1;
     }
 
-    else if (KeyStateRecive[2] == SITTING || g_slaveReg[98] == 2)
+    else if (KeyStateRecive[2] == SITTING || g_slaveReg[66] == 2)
 
     {
         linerun_state = Site_run;
@@ -428,6 +420,26 @@ void linearactuator(void)
     {
 
         linerun_state = iddle;
+        g_slaveReg[16] = 0;
+        g_slaveReg[17] = 0;
+        g_slaveReg[18] = 0;
+        g_slaveReg[19] = 0;
+        g_slaveReg[20] = 0;
+
+    }
+
+    if (KeyStateRecive[1]!= 0 || KeyStateRecive[2]!= 0 ||
+        KeyStateRecive[3]!= 0 || KeyStateRecive[4]!= 0 ||
+        KeyStateRecive[5]!= 0 || KeyStateRecive[6]!= 0 ||
+        KeyStateRecive[7]!= 0 || KeyStateRecive[8]!=0  ||
+        KeyStateRecive[9]!= 0 || KeyStateRecive[10]!= 0
+    )
+    {
+        g_slaveReg[21] = 1 ;
+    }
+    else
+    {
+        g_slaveReg[21] = 0 ;
     }
 
     
@@ -450,8 +462,6 @@ void linearactuator(void)
         acct = 0;
         accdoneflage = 0;
         acctemp = 0;
-    
-    
         // 靠背角度撑杆A1
         __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T3_IN1);
         __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T3_IN2);
@@ -803,356 +813,3 @@ void linearactuator(void)
     
     }
 }
- /*座椅举升控制*/
- void SeatLiftDrop(void)
- {
-     // 底盘举升撑杆B1(M)
-     uint16_t T1_IN1 = 0;
-     uint16_t T1_IN2 = 0;
-     // 座板角度撑杆B2(L)
-     uint16_t T2_IN1 = 0;
-     uint16_t T2_IN2 = 0;
-     static float acctemp = 0, acct = 0;
-     static uint8_t accdoneflage = 0;
-     static float Kp;
-
-     Kp = B1MAX * SEAT_LIFTDROPRATIO / 2.0 + 0.5;
-     if (KeyStateRecive[3] == SEAT_LIFT || g_slaveReg[99] == 1)
-     {
-         // 举升软起动 相关代码
-         if ((acct < 200) && (accdoneflage == 0)) // 0 --- 0.95  200ms
-         {
-             acct++;
-             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
-         }
-         else
-         {
-             accdoneflage = 1;
-             acct = 0;
-         }
-
-         T1_IN1 = 200 * (1.0 - 0);
-         T1_IN2 = 200 * (1.0 - acctemp);
-         T2_IN1 = 200 * (1.0 - 0);
-         T2_IN2 = 200 * (1.0 - Kp * acctemp);
-     }
-     else if (KeyStateRecive[4] == SEAT_DROP || g_slaveReg[99] == 2)
-     {
-         // 下降软起动 相关代码
-
-         if ((acct < 200) && (accdoneflage == 0))
-         {
-             acct++;
-             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
-         }
-         else
-         {
-             accdoneflage = 1;
-             acct = 0;
-         }
-         T1_IN1 = 200 * (1.0 - acctemp);
-         T1_IN2 = 200 * (1.0 - 0);
-         T2_IN1 = 200 * (1.0 - Kp * acctemp);
-         T2_IN2 = 200 * (1.0 - 0);
-     }
-     else
-     {
-         acct = 0;
-         accdoneflage = 0;
-         acctemp = 0;
-         T1_IN1 = 200 * (1.0 - 0);
-         T1_IN2 = 200 * (1.0 - 0);
-         T2_IN1 = 200 * (1.0 - 0);
-         T2_IN2 = 200 * (1.0 - 0);
-     }
-     // 底盘举升撑杆B1(M)
-     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH1, T1_IN1);
-     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH2, T1_IN2);
-     // 座板角度撑杆B2(L)
-     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH3, T2_IN1);
-     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH4, T2_IN2);
- }
-
- /*座椅靠背控制-靠背角度撑杆A1*/
- void BackresetFB(void)
- {
-     uint16_t T3_IN1 = 0;
-     uint16_t T3_IN2 = 0;
-     static float acctemp = 0, acct = 0;
-     static uint8_t accdoneflage = 0;
-     // 靠背前倾
-     if (KeyStateRecive[5] == BACKREST_FORWARD || g_slaveReg[100] == 1)
-     {
-         if ((acct < 200) && (accdoneflage == 0))
-         {
-             acct++;
-             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
-         }
-         else
-         {
-             accdoneflage = 1;
-             acct = 0;
-         }
-         T3_IN1 = 200 * (1.0 - 0);
-         T3_IN2 = 200 * (1.0 - acctemp);
-     }
-     // 靠背后倾
-     else if (KeyStateRecive[6] == BACKREST_BACK || g_slaveReg[100] == 2)
-     {
-         if ((acct < 200) && (accdoneflage == 0))
-         {
-             acct++;
-             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
-         }
-         else
-         {
-             accdoneflage = 1;
-             acct = 0;
-         }
-         T3_IN1 = 200 * (1.0 - acctemp);
-         T3_IN2 = 200 * (1.0 - 0);
-     }
-     // 靠背前后倾STOP
-     else
-     {
-         acct = 0;
-         accdoneflage = 0;
-         acctemp = 0;
-         T3_IN2 = 0;
-         T3_IN1 = 0;
-     }
-     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH3, T3_IN1);
-     __HAL_TIM_SET_COMPARE(&g_time1_pwm_chy_handle, GTIM_TIM1_PWM_CH4, T3_IN2);
- }
-
- /*座板控制-座板角度撑杆B2*/
- void ThwartFB(void)
- {
-     uint16_t T2_IN1 = 0;
-     uint16_t T2_IN2 = 0;
-     static float acctemp = 0, acct = 0;
-     static uint8_t accdoneflage = 0;
-
-     // 座板前倾
-     if (g_slaveReg[104] == 1)
-     {
-         if ((acct < 200) && (accdoneflage == 0))
-         {
-             acct++;
-             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
-         }
-         else
-         {
-             accdoneflage = 1;
-             acct = 0;
-         }
-         T2_IN1 = 200 * (1.0 - 0);
-         T2_IN2 = 200 * (1.0 - acctemp);
-     }
-     // 座板后倾
-     else if (g_slaveReg[104] == 2)
-     {
-         if ((acct < 200) && (accdoneflage == 0))
-         {
-             acct++;
-             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
-         }
-         else
-         {
-             accdoneflage = 1;
-             acct = 0;
-         }
-         T2_IN1 = 200 * (1.0 - acctemp);
-         T2_IN2 = 200 * (1.0 - 0);
-     }
-     // 座板前后倾STOP
-     else
-     {
-         acct = 0;
-         accdoneflage = 0;
-         acctemp = 0;
-         T2_IN1 = 0;
-         T2_IN2 = 0;
-     }
-     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH3, T2_IN1);
-     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH4, T2_IN2);
- }
- /*整体前后倾-底盘举升撑杆B1*/
- void OverallFB(void)
- {
-     uint16_t T1_IN1 = 0;
-     uint16_t T1_IN2 = 0;
-     static float acctemp = 0, acct = 0;
-     static uint8_t accdoneflage = 0;
-     // 整体前倾
-     if (KeyStateRecive[7] == ALL_FORWARD || g_slaveReg[101] == 1)
-     {
-         if ((acct < 200) && (accdoneflage == 0))
-         {
-             acct++;
-             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
-         }
-         else
-         {
-             accdoneflage = 1;
-             acct = 0;
-         }
-         T1_IN1 = 200 * (1.0 - 0);
-         T1_IN2 = 200 * (1.0 - acctemp);
-     }
-
-     // 整体后倾
-     else if (KeyStateRecive[8] == ALL_BACK || g_slaveReg[101] == 2)
-     {
-
-         if ((acct < 200) && (accdoneflage == 0))
-         {
-             acct++;
-             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
-         }
-         else
-         {
-             accdoneflage = 1;
-             acct = 0;
-         }
-         T1_IN1 = 200 * (1.0 - acctemp);
-         T1_IN2 = 200 * (1.0 - 0);
-     }
-     else
-     {
-         acct = 0;
-         accdoneflage = 0;
-         acctemp = 0;
-         T1_IN1 = 0;
-         T1_IN2 = 0;
-     }
-     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH1, T1_IN1);
-     __HAL_TIM_SET_COMPARE(&g_time8_pwm_chy_handle, GTIM_TIM8_PWM_CH2, T1_IN2);
- }
-
- /*腿托上下旋转调节 腿托角度撑杆A2 腿托长度撑杆A3*/
- void LegSpinFB(void)
- {
-     // 腿托长度撑杆A3
-     uint16_t T4_IN1 = 0;
-     uint16_t T4_IN2 = 0;
-     // 腿托角度撑杆A2
-     uint16_t T5_IN1 = 0;
-     uint16_t T5_IN2 = 0;
-     static float acctemp = 0, acct = 0;
-     static uint8_t accdoneflage = 0;
-
-     if (KeyStateRecive[9] == LEG_TOPSPIN || g_slaveReg[102] == 1)
-     {
-         // 腿托上旋
-         if ((acct < 200) && (accdoneflage == 0))
-         {
-             acct++;
-             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
-         }
-         else
-         {
-             accdoneflage = 1;
-             acct = 0;
-         }
-
-         T4_IN1 = 100 * (1.0 - 0);
-         T4_IN2 = 100 * (1.0 - acctemp);
-         T5_IN1 = 100 * (1.0 - 0);
-         T5_IN2 = 100 * (1.0 - acctemp);
-     }
-     else if (KeyStateRecive[10] == LEG_BACKSPIN || g_slaveReg[102] == 2)
-     {
-         // 腿托下旋
-
-         if ((acct < 200) && (accdoneflage == 0))
-         {
-             acct++;
-             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
-         }
-         else
-         {
-             accdoneflage = 1;
-             acct = 0;
-         }
-         T4_IN1 = 100 * (1.0 - acctemp);
-         T4_IN2 = 100 * (1.0 - 0);
-         T5_IN1 = 100 * (1.0 - acctemp);
-         T5_IN2 = 100 * (1.0 - 0);
-     }
-     else
-     {
-         acct = 0;
-         accdoneflage = 0;
-         acctemp = 0;
-         T4_IN1 = 100 * (1.0 - 0);
-         T4_IN2 = 100 * (1.0 - 0);
-         T5_IN1 = 100 * (1.0 - 0);
-         T5_IN2 = 100 * (1.0 - 0);
-     }
-     // 腿托长度撑杆A3
-     __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH3, T4_IN1);
-     __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH4, T4_IN2);
-     // 腿托角度撑杆A2
-     __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH1, T5_IN1);
-     __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH2, T5_IN2);
- }
-
- void LegExtension(void)
- {
-
-     uint16_t T3_IN1 = 0;
-     uint16_t T3_IN2 = 0;
-     static float acctemp = 0, acct = 0;
-     static uint8_t accdoneflage = 0;
-     // 腿托独立伸长调节
-     if (g_slaveReg[103] == 1)
-     {
-         if ((acct < 200) && (accdoneflage == 0))
-         {
-             acct++;
-             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
-         }
-         else
-         {
-             accdoneflage = 1;
-             acct = 0;
-         }
-         T3_IN2 = 200 * (1.0 - 0);
-         T3_IN1 = 200 * (1.0 - acctemp);
-     }
-     // 腿托缩短伸长调节
-     else if (g_slaveReg[103] == 2) // || Reg[100] ==2 )
-     {
-         if ((acct < 200) && (accdoneflage == 0))
-         {
-             acct++;
-             acctemp = 8.437500000000000e-12 * pow(acct, 5) - 4.218750000000000e-09 * pow(acct, 4) + 5.625000000000000e-07 * pow(acct, 3) + 0.5;
-         }
-         else
-         {
-             accdoneflage = 1;
-             acct = 0;
-         }
-         T3_IN2 = 200 * (1.0 - acctemp);
-         T3_IN1 = 200 * (1.0 - 0);
-     }
-     // 腿托独立伸长调节
-     else
-     {
-         acct = 0;
-         accdoneflage = 0;
-         acctemp = 0;
-         T3_IN2 = 0;
-         T3_IN1 = 0;
-     }
-     __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH3, T3_IN1);
-     __HAL_TIM_SET_COMPARE(&g_time4_pwm_chy_handle, GTIM_TIM4_PWM_CH4, T3_IN2);
- }
-
- void OverallStandSit()
- {
-     static float acctemp = 0, acct = 0;
-     static uint8_t accdoneflage = 0;
-     NONE;
- }

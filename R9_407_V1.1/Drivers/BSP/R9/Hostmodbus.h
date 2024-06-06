@@ -48,7 +48,7 @@
 typedef struct 
 {
 	//作为从机时使用
-	uint8_t  myadd;        //本设备从机地址
+	
 	uint8_t  rcbuf[100];   //modbus接受缓冲区
 	uint8_t  timout;       //modbus数据持续时间
 	uint8_t  recount;      //modbus端口接收到的数据个数
@@ -60,7 +60,7 @@ typedef struct
 	uint8_t Host_Txbuf[8];	//modbus发送数组	
 	uint8_t slave_add;		//要匹配的从机设备地址（做主机实验时使用）
 	uint8_t Host_send_flag;//主机设备发送数据完毕标志位
-	int Host_Sendtime;//发送完一帧数据后时间计数
+	uint16_t Host_Sendtime;//发送完一帧数据后时间计数
 	uint8_t Host_time_flag;//发送时间到标志位，=1表示到发送数据时间了
 	uint8_t Host_End;//接收数据后处理完毕	
 	

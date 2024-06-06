@@ -263,11 +263,5 @@ void MoterdriveInit(void);
  void linearactuatorTest(void);
 
  void linearactuator(void);
- void SeatLiftDrop(void);
- void BackresetFB(void);
- void ThwartFB(void);
- void OverallFB(void);
- void LegSpinFB(void);
- void LegExtension(void);
- void OverallStandSit(void);
+
 #endif

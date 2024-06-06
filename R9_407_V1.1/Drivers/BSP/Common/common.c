@@ -1,6 +1,7 @@
 
 #include "./BSP/Common/common.h"
-
+AverageFilter filter_L;
+AverageFilter filter_R;
 int32_t Value_limit(int32_t min_value ,int32_t current_value ,int32_t max_value)
 {
 	
@@ -107,19 +108,19 @@ void initializeFilter(AverageFilter* filter)
 }
  
 // 算术平均滤波函数
-int filterValue(AverageFilter* filter, int input)
+double filterValue(AverageFilter* filter, double input)
 {
     // 更新缓存区
     filter->window[filter->index] = input;
     filter->index = (filter->index + 1) % WINDOW_SIZE;
  
     // 计算平均值
-    int sum = 0;
+    double sum = 0.0;
     for (int i = 0; i < WINDOW_SIZE; ++i)
-	{
+	  {
         sum += filter->window[i];
     }
-    int average = sum / WINDOW_SIZE;
+    double average = sum / WINDOW_SIZE;
  
     return average;
 }

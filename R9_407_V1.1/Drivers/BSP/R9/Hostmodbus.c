@@ -102,7 +102,7 @@ void Host_Modbuskey_send_data(uint8_t *buf, uint8_t len)
 {
 	Modbus_RE(1);										  /* 进入发送模式 */
 	HAL_UART_Transmit(&g_modbus_handler, buf, len, 1000); /* 串口5发送数据 */
-														  //   g_Modbus_rx_cnt = 0;
+	// g_Modbus_rx_cnt					   = 0;
 	Modbus_RE(0);										  /* 进入接收模式 */
 }
 /******************************************************************************************/
@@ -217,7 +217,7 @@ void Host_Read03_slave(uint8_t slave, uint16_t StartAddr, uint16_t num)
 	// 待发送数据打包完毕
 	Modbus_RE(1);
 	; // 使能485控制端(启动发送)
-	//	HAL_Delay(100);
+	// delay_ms(10);
 	for (j = 0; j < 8; j++)
 	{
 		Host_Modbuskey_send_data(&modbus.Host_Txbuf[j], 1);

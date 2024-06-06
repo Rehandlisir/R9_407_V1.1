@@ -20,6 +20,7 @@ short gyrox,gyroy,gyroz ;
 short aacx,aacy,aacz ;
 float pitch,roll,yaw;  			//欧拉角
 
+
 /*************************主任务列表*****************************/
 void Hard_devInit(void)
 {
@@ -40,13 +41,15 @@ void Hard_devInit(void)
 		SlaveModbus_Init();                  /*与RK3588作为从机通讯*/
 		Host_Modbuskey_Init();
 		iwdg_init(IWDG_PRESCALER_64, 500);      /* 预分频数为64,重载值为500,溢出时间约为1s */
+		initializeFilter(&filter_L);                    /*初始化滤波器*/
 		g_slaveReg[0] = 0x68;//本机设备作为Modbus从机时的设备ID
 		printf("ERROR");
 }
 
 void LedFlash(void)
 {
-	led_beepControlRK3588();
+	// led_beepControlRK3588();
+	led_beepControl();
 	LED0_TOGGLE();
 
 }
@@ -112,12 +115,8 @@ void UnderpanDrive(void)
 	}
 	velPlanIn1.adcy = slopelimity( velPlanIn1.adcy,25); 
 
-
-  
-//	velPlanIn1.k  = 1.0;
-	velPlanIn1.max_underpanVelocity = 3.0; 
-	velPlanIn1.set_Maximum_Strspeed = 3.0;
-	velPlanIn1.set_Maximum_Steespeed = 2.0; 
+	velPlanIn1.set_Maximum_Strspeed = 2.0;
+	velPlanIn1.set_Maximum_Steespeed = velPlanIn1.set_Maximum_Strspeed/2.0; 
 	
 	velocity_maping(velPlanIn1); /*速度规划 */	
 	rpwmvaAl = 100 * (1.0 - velocity_pout.A_IN1);
@@ -224,19 +223,20 @@ void Modbuskeyread_execute(void)
 				HOST_ModbusRX();//接收数据进行处理
 			}	
 		}
-	//	printf("%d ,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n",KeyStateRecive[0],KeyStateRecive[1],KeyStateRecive[2],KeyStateRecive[3],KeyStateRecive[4],KeyStateRecive[5],KeyStateRecive[6],KeyStateRecive[7],KeyStateRecive[8],KeyStateRecive[9],KeyStateRecive[10]);
+	printf("%d ,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n",KeyStateRecive[0],KeyStateRecive[1],KeyStateRecive[2],KeyStateRecive[3],KeyStateRecive[4],KeyStateRecive[5],KeyStateRecive[6],KeyStateRecive[7],KeyStateRecive[8],KeyStateRecive[9],KeyStateRecive[10]);
 }
 	
 void Modbuskeywrite_execute(void)
 {
-	
-	Host_write06_slave(0x11,0x06,0x0091,0X02);
-	if(modbus.Host_send_flag)
-	{
-		modbus.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
-		modbus.Host_time_flag=0;//发送数据标志位清零
-		modbus.Host_send_flag=0;//清空发送结束数据标志位
-		Host_Func6();//从机返回数据处理
-	}  
-	
+//  if(modbus.Host_time_flag)//每1s发送一次数据
+// 	{
+		Host_write06_slave(0x11,0x06,0x0091,0X01);
+		if(modbus.Host_send_flag)
+		{
+			modbus.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
+			modbus.Host_time_flag=0;//发送数据标志位清零
+			modbus.Host_send_flag=0;//清空发送结束数据标志位
+			Host_Func6();//从机返回数据处理
+		}  
+	// }	
 }

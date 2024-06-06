@@ -28,15 +28,16 @@
 #include "./SYSTEM/sys/sys.h"
 
 
-#define WINDOW_SIZE 5
+#define WINDOW_SIZE 10
  
 // ��������ƽ���˲����ṹ��
 typedef struct {
-    int window[WINDOW_SIZE];
-    int index;
+    double window[WINDOW_SIZE];
+    uint8_t index;
 } AverageFilter;
 
-
+extern  AverageFilter filter_L;
+extern  AverageFilter filter_R;
 int32_t Value_limit(int32_t min_value ,int32_t current_value ,int32_t max_value);
 int32_t  Value_Resetzero(int32_t min_value ,int32_t current_value ,int32_t max_value);
 int32_t slopelimitx( int32_t value,int32_t increvalue) ;   
@@ -47,7 +48,7 @@ float Value_limitf(float min_value ,float current_value ,float max_value);
 
 void initializeFilter(AverageFilter* filter);
 
-int filterValue(AverageFilter* filter, int input);
+double filterValue(AverageFilter* filter, double input);
 
 
 

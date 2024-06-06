@@ -85,7 +85,7 @@ void getadc1Data(void)
 
 		if (j == 1)
 		{
-			adcdata.adc_y =	adc1_alldata - adcdata.adc_ybase;	//	adc1_alldata - 1800;	 //													  //-1800 ;//
+			adcdata.adc_y =	adc1_alldata - adcdata.adc_ybase;	//	adc1_alldata - 1800;	 //														  
 			adcdata.adc_y = Value_limit(yadc_min, Value_Resetzero(-yadc_Dim, adcdata.adc_y, yadc_Dim), yadc_max); // 设定耦合模糊区域及上下限数值限制
 		}
 		if (j == 2)
@@ -115,8 +115,9 @@ void getadc1Data(void)
 		if (j == 6)
 		{
 			adcdata.bat_v = adc1_alldata; //  24V 对应电压 1.84615V 理论数字量 为 2291 实测2323 参考值为2325
-			g_slaveReg[1] = (adcdata.bat_v / 2325) * 100;
+			g_slaveReg[1] = (adcdata.bat_v / 2325.0) * 100;
 			g_slaveReg[1] = (uint8_t)Value_limit(0, g_slaveReg[1], 100); // RK3588 读取 电池电量信息
+			
 		}
 		if (j == 7)
 		{

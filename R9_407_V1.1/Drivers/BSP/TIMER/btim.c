@@ -107,7 +107,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 						
 				 }
 			
-		//		Modbus 主机读取按键板状态
+				// Modbus 主机读取按键板状态
 				if(modbus.timrun != 0)//运行时间！=0表明
 				 {
 					modbus.timout++;
@@ -123,11 +123,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				 
 				if(modbus.Host_Sendtime>50)//距离发送上一帧数据1s了
 					{
-						//1s时间到
+						//50ms时间到
 						modbus.Host_time_flag=1;//发送数据标志位置1
 						
 					}
-				//		Modbus 主机读取DAP21数据
+
+//						Modbus 主机读取DAP21数据
 
 				if(modbus_dap21.timrun != 0)//运行时间！=0表明
 				 {

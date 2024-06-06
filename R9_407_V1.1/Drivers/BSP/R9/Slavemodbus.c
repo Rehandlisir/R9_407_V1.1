@@ -1,23 +1,12 @@
 /**
  ****************************************************************************************************
- * @file        slavemodbus.c
+  * @file        modbus.c
  * @author      R9团队
  * @version     V1.0
  * @date        2021-10-23
  * @brief       Modbus 驱动代码
- * @license     Copyright (c) 2020-2032, 广州市星翼电子科技有限公司
+ * @license
  ****************************************************************************************************
- * @attention
- *
- * 实验平台:正点原子 探索者 F407开发板
- * 在线视频:www.yuanzige.com
- * 技术论坛:www.openedv.com
- * 公司网址:www.alientek.com
- * 购买地址:openedv.taobao.com
- *
- * 修改说明
- * V1.0 20211023
- * 第一次发布
  *
  ****************************************************************************************************
  */
@@ -28,7 +17,7 @@
 
 UART_HandleTypeDef g_slavemodbus_handler;     /* Modbus控制句柄(串口) */
 
-uint16_t g_slaveReg[5000] ={0x0000};//g_slaveReg是提前定义好的寄存器和寄存器数据，要读取和改写的部分内容
+int16_t g_slaveReg[5000] ={0x0000};//g_slaveReg是提前定义好的寄存器和寄存器数据，要读取和改写的部分内容
  
 
 void SlaveModbus_UX_IRQHandler(void)
@@ -102,9 +91,7 @@ void SlavemodbusUART6_init(uint32_t baudrate)
       /* 使能接收中断 */
     __HAL_UART_ENABLE_IT(&g_slavemodbus_handler, UART_IT_RXNE);   /* 开启接收中断 */
     HAL_NVIC_EnableIRQ(SlaveModbus_UX_IRQn);                      /* 使能USART1中断 */
-    HAL_NVIC_SetPriority(SlaveModbus_UX_IRQn, 1, 2);              /* 抢占优先级3，子优先级3 */
-
-
+    HAL_NVIC_SetPriority(SlaveModbus_UX_IRQn, 3, 3);              /* 抢占优先级1，子优先级2 */
     SlaveModbus_RE(0); /* 默认为接收模式 */
 }
 
