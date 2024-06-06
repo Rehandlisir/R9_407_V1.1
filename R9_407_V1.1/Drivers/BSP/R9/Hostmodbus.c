@@ -23,17 +23,17 @@ uint16_t KeyStateRecive[200] = {0x00FF}; //主机读取/写入从机寄存器并 返回的数据
 
 void ModbusKey_UX_IRQHandler(void)
 {
-	uint8_t res;
+	uint8_t Keyres;
 
 	if ((__HAL_UART_GET_FLAG(&g_modbus_handler, UART_FLAG_RXNE) != RESET)) /* 接收到数据 */
 	{
-		HAL_UART_Receive(&g_modbus_handler, &res, 1, 1000);
+		HAL_UART_Receive(&g_modbus_handler, &Keyres, 1, 1000);
 
 		if (modbus.reflag == 1) // 有数据包正在处理
 		{
 			return;
 		}
-		modbus.rcbuf[modbus.recount++] = res;
+		modbus.rcbuf[modbus.recount++] = Keyres;
 		modbus.timout = 0;
 		if (modbus.recount == 1) // 已经收到了第二个字符数据
 		{
@@ -87,7 +87,7 @@ void Host_ModbusKeyUART5_init(uint32_t baudrate)
 	/* 使能接收中断 */
 	__HAL_UART_ENABLE_IT(&g_modbus_handler, UART_IT_RXNE); /* 开启接收中断 */
 	HAL_NVIC_EnableIRQ(Modbus_UX_IRQn);					   /* 使能USART1中断 */
-	HAL_NVIC_SetPriority(Modbus_UX_IRQn, 3, 3);			   /* 抢占优先级3，子优先级3 */
+	HAL_NVIC_SetPriority(Modbus_UX_IRQn, 2, 3);			   /* 抢占优先级3，子优先级3 */
 
 	Modbus_RE(0); /* 默认为接收模式 */
 }
@@ -252,7 +252,6 @@ void HOST_ModbusRX()
 	//	printf("0000");
 	if (modbus.reflag == 0) // 如果接收未完成则返回空
 	{
-		//		printf("55555");
 		return;
 	}
 	// 接收数据结束

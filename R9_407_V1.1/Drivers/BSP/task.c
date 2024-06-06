@@ -206,7 +206,7 @@ void ultrasonicreadExecute (void)
 //				HOST_ModbusDap21RX();//接收数据进行处理
 //			}
 		}	
-	//	printf("distence: %d\n",dap21Data.dyplength1);
+		printf("distence: %d\n",dap21Data.dyplength1);
 }
 
 void Modbuskeyread_execute(void)
@@ -228,8 +228,8 @@ void Modbuskeyread_execute(void)
 	
 void Modbuskeywrite_execute(void)
 {
-//  if(modbus.Host_time_flag)//每1s发送一次数据
-// 	{
+ if(modbus.Host_time_flag)//每1s发送一次数据
+	{
 		Host_write06_slave(0x11,0x06,0x0091,0X01);
 		if(modbus.Host_send_flag)
 		{
@@ -238,5 +238,5 @@ void Modbuskeywrite_execute(void)
 			modbus.Host_send_flag=0;//清空发送结束数据标志位
 			Host_Func6();//从机返回数据处理
 		}  
-	// }	
+	}	
 }

@@ -5,7 +5,7 @@
 struct TaskStruct TaskST[]=
 {
      { 0,       1,              0,           ModbusKey},
-	   { 0,       5,              0,           Led_control}
+	   { 0,       1,              0,           Led_control}
 	 
 };
 
