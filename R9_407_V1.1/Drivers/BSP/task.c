@@ -40,7 +40,7 @@ void Hard_devInit(void)
 		Host_ModbusDap21_Init();              /*与DYPA21通讯*/
 		SlaveModbus_Init();                  /*与RK3588作为从机通讯*/
 		Host_Modbuskey_Init();
-		iwdg_init(IWDG_PRESCALER_64, 500);      /* 预分频数为64,重载值为500,溢出时间约为1s */
+		iwdg_init(IWDG_PRESCALER_64, 1000);      /* 预分频数为64,重载值为1000,溢出时间约为2s */
 		initializeFilter(&filter_L);                    /*初始化滤波器*/
 		g_slaveReg[0] = 0x68;//本机设备作为Modbus从机时的设备ID
 		printf("ERROR");
@@ -49,7 +49,7 @@ void Hard_devInit(void)
 void LedFlash(void)
 {
 	// led_beepControlRK3588();
-	led_beepControl();
+	//led_beepControl();
 	LED0_TOGGLE();
 
 }

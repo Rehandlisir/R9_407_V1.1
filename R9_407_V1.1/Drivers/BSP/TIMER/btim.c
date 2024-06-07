@@ -121,9 +121,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				 
 				 modbus.Host_Sendtime++;//发送完上一帧后的时间计数
 				 
-				if(modbus.Host_Sendtime>10)//距离发送上一帧数据1s了
+				if(modbus.Host_Sendtime>100)//距离发送上一帧数据100s了 此参数不可随意改动，可能出现程序溢出
 					{
-						//50ms时间到
+						//100ms时间到
 						modbus.Host_time_flag=1;//发送数据标志位置1	
 					}
 

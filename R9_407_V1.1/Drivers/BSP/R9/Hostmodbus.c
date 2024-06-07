@@ -87,7 +87,7 @@ void Host_ModbusKeyUART5_init(uint32_t baudrate)
 	/* 使能接收中断 */
 	__HAL_UART_ENABLE_IT(&g_modbus_handler, UART_IT_RXNE); /* 开启接收中断 */
 	HAL_NVIC_EnableIRQ(Modbus_UX_IRQn);					   /* 使能USART1中断 */
-	HAL_NVIC_SetPriority(Modbus_UX_IRQn, 2, 3);			   /* 抢占优先级3，子优先级3 */
+	HAL_NVIC_SetPriority(Modbus_UX_IRQn, 3, 3);			   /* 抢占优先级3，子优先级3 */
 
 	Modbus_RE(0); /* 默认为接收模式 */
 }
