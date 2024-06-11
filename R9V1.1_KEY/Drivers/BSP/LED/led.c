@@ -26,7 +26,7 @@
 #include "./BSP/KEY/key.h"
 #include "./SYSTEM/delay/delay.h"
 #include "./BSP/R9/modbus.h"
-
+#include "./BSP/CAN/can.h"
 /**
  * @brief       初始化LED相关IO口, 并使能时钟
  * @param       无
@@ -126,133 +126,276 @@ void Led_Init(void)
  *             
  *             
  */
+static uint8_t rxlen;
 void LedControl(void)
 {
-	 if (KeyReg[0X0091] == 0)
-	 {
-		LED1G(1);
-		LED1R(0);
-		LED1B(0);
-		
-	 }
-	 else if (KeyReg[0X0091] == 1)
-	 {
-		LED1G(0);
-		LED1R(0);
-		LED1B(1);
-	 }
-	 else if (KeyReg[0X0091] == 2)
-	 {
-		LED1G(0);
-		LED1R(1);
-		LED1B(0);
-	 }
-	 else
-	 {
-		LED1G(0); 
-		LED1R(0);
-		LED1B(0);
-	 };
-	 
+//	 if (KeyReg[0X0091] == 0)
+//	 {
+//		LED1G(1);
+//		LED1R(0);
+//		LED1B(0);
+//		
+//	 }
+//	 else if (KeyReg[0X0091] == 1)
+//	 {
+//		LED1G(0);
+//		LED1R(0);
+//		LED1B(1);
+//	 }
+//	 else if (KeyReg[0X0091] == 2)
+//	 {
+//		LED1G(0);
+//		LED1R(1);
+//		LED1B(0);
+//	 }
+//	 else
+//	 {
+//		LED1G(0); 
+//		LED1R(0);
+//		LED1B(0);
+//	 };
+//	 
 
-	 if (KeyReg[0X0092] == 0)
-	 {
-		LED2G(1);
-		LED2R(0);
-		LED2B(0);
-	 }
-	 else if (KeyReg[0X0092] == 1)
-	 {
-		LED2G(0);
-		LED2R(0);
-		LED2B(1);
-	 }
-	 else if (KeyReg[0X0092] == 2)
-	 {
-		LED2G(0);
-		LED2R(1);
-		LED2B(0);
-	 }	
-	 else
-	 {
-		LED2G(0);
-		LED2R(0);
-		LED2B(0);
-	 };
+//	 if (KeyReg[0X0092] == 0)
+//	 {
+//		LED2G(1);
+//		LED2R(0);
+//		LED2B(0);
+//	 }
+//	 else if (KeyReg[0X0092] == 1)
+//	 {
+//		LED2G(0);
+//		LED2R(0);
+//		LED2B(1);
+//	 }
+//	 else if (KeyReg[0X0092] == 2)
+//	 {
+//		LED2G(0);
+//		LED2R(1);
+//		LED2B(0);
+//	 }	
+//	 else
+//	 {
+//		LED2G(0);
+//		LED2R(0);
+//		LED2B(0);
+//	 };
 
-	 if (KeyReg[0X0093] == 0)
-	 {
-		LED3G(1);
-		LED3R(0);
-		LED3B(0);
-	 }
-	 else if (KeyReg[0X0093] == 1)
-	 {
-		LED3G(0);
-		LED3R(0);
-		LED3B(1);
-	 }
-	 else if (KeyReg[0X0093] == 2)
-	 {
-		LED3G(0);
-		LED3R(1);
-		LED3B(0);
-	 }
-	 else
-	 {		
-		LED3G(0);
-		LED3R(0);
-		LED3B(0);
+//	 if (KeyReg[0X0093] == 0)
+//	 {
+//		LED3G(1);
+//		LED3R(0);
+//		LED3B(0);
+//	 }
+//	 else if (KeyReg[0X0093] == 1)
+//	 {
+//		LED3G(0);
+//		LED3R(0);
+//		LED3B(1);
+//	 }
+//	 else if (KeyReg[0X0093] == 2)
+//	 {
+//		LED3G(0);
+//		LED3R(1);
+//		LED3B(0);
+//	 }
+//	 else
+//	 {		
+//		LED3G(0);
+//		LED3R(0);
+//		LED3B(0);
 
-	 };
+//	 };
 
-	 if (KeyReg[0X0094] == 0)
-	 {
-		LED4G(1);
-		LED4R(0);
-		LED4B(0);
-	 }
-	 else if (KeyReg[0X0094] == 1)
-	 {
-		LED4G(0);
-		LED4R(0);
-		LED4B(1);
-	 }
-	 else if (KeyReg[0X0094] == 2)
-	 {
-		LED4G(0);
-		LED4R(1);
-		LED4B(0);
-	 }
-	 else
-	 {
-		LED4G(0);
-		LED4R(0);
-		LED4B(0);
-	 };
+//	 if (KeyReg[0X0094] == 0)
+//	 {
+//		LED4G(1);
+//		LED4R(0);
+//		LED4B(0);
+//	 }
+//	 else if (KeyReg[0X0094] == 1)
+//	 {
+//		LED4G(0);
+//		LED4R(0);
+//		LED4B(1);
+//	 }
+//	 else if (KeyReg[0X0094] == 2)
+//	 {
+//		LED4G(0);
+//		LED4R(1);
+//		LED4B(0);
+//	 }
+//	 else
+//	 {
+//		LED4G(0);
+//		LED4R(0);
+//		LED4B(0);
+//	 };
 
-	 if (KeyReg[0X0095] == 0)
-	 {
-		LED5G(1);
-		LED5R(0);
-		LED5B(0);
-	 }
-	 else if (KeyReg[0X0095] == 1)
-	 {
-		LED5G(0);
-		LED5R(0);
-		LED5B(1);  
-	 }
-	 else if (KeyReg[0X0095] == 2)
-	 {
-		LED5G(0);
-		LED5R(1);
-		LED5B(0);
-	 }
-	else
-	{
-		LED5G(0);
-		LED5R(0);
-		LED5B(0);	
-	}
+//	 if (KeyReg[0X0095] == 0)
+//	 {
+//		LED5G(1);
+//		LED5R(0);
+//		LED5B(0);
+//	 }
+//	 else if (KeyReg[0X0095] == 1)
+//	 {
+//		LED5G(0);
+//		LED5R(0);
+//		LED5B(1);  
+//	 }
+//	 else if (KeyReg[0X0095] == 2)
+//	 {
+//		LED5G(0);
+//		LED5R(1);
+//		LED5B(0);
+//	 }
+//	else
+//	{
+//		LED5G(0);
+//		LED5R(0);
+//		LED5B(0);	
+//	}
+}
+
+void LedCmdReceive(void)
+{
+    
+    rxlen = can_receive_msg(0x01, CanLedCmdbufReceive);  /* CAN ID = 0x01, 接收数据查询 */
+
+}
+
+void LedCanControl(void)
+{
+    LedCmdReceive();
+    if (rxlen && CanLedCmdbufReceive[0] == 1 ) /* 接收到有数据 且是主机1 发送过来的 */
+    {  
+        if (CanLedCmdbufReceive[1] == 0)
+         {
+            LED1G(1);
+            LED1R(0); 
+            LED1B(0);
+            
+         }
+         else if (CanLedCmdbufReceive[1] == 1)
+         {
+            LED1G(0);
+            LED1R(0);
+            LED1B(1);
+         }
+         else if (CanLedCmdbufReceive[1] == 2)
+         {
+            LED1G(0);
+            LED1R(1);
+            LED1B(0);
+         }
+         else
+         {
+            LED1G(0); 
+            LED1R(0);
+            LED1B(0);
+         };
+         
+
+         if (CanLedCmdbufReceive[2] == 0)
+         {
+            LED2G(1);
+            LED2R(0);
+            LED2B(0);
+         }
+         else if (CanLedCmdbufReceive[2] == 1)
+         {
+            LED2G(0);
+            LED2R(0);
+            LED2B(1);
+         }
+         else if (CanLedCmdbufReceive[2] == 2)
+         {
+            LED2G(0);
+            LED2R(1);
+            LED2B(0);
+         }	
+         else
+         {
+            LED2G(0);
+            LED2R(0);
+            LED2B(0);
+         };
+
+         if (CanLedCmdbufReceive[3] == 0)
+         {
+            LED3G(1);
+            LED3R(0);
+            LED3B(0);
+         }
+         else if (CanLedCmdbufReceive[3] == 1)
+         {
+            LED3G(0);
+            LED3R(0);
+            LED3B(1);
+         }
+         else if (CanLedCmdbufReceive[3] == 2)
+         {
+            LED3G(0);
+            LED3R(1);
+            LED3B(0);
+         }
+         else
+         {		
+            LED3G(0);
+            LED3R(0);
+            LED3B(0);
+
+         };
+
+         if (CanLedCmdbufReceive[4] == 0)
+         {
+            LED4G(1);
+            LED4R(0);
+            LED4B(0);
+         }
+         else if (CanLedCmdbufReceive[4] == 1)
+         {
+            LED4G(0);
+            LED4R(0);
+            LED4B(1);
+         }
+         else if (CanLedCmdbufReceive[4] == 2)
+         {
+            LED4G(0);
+            LED4R(1);
+            LED4B(0);
+         }
+         else
+         {
+            LED4G(0);
+            LED4R(0);
+            LED4B(0);
+         };
+
+         if (CanLedCmdbufReceive[5] == 0)
+         {
+            LED5G(1);
+            LED5R(0);
+            LED5B(0);
+         }
+         else if (CanLedCmdbufReceive[5] == 1)
+         {
+            LED5G(0);
+            LED5R(0);
+            LED5B(1);  
+         }
+         else if (CanLedCmdbufReceive[5] == 2)
+         {
+            LED5G(0);
+            LED5R(1);
+            LED5B(0);
+         }
+        else
+        {
+            LED5G(0);
+            LED5R(0);
+            LED5B(0);	
+        }
+    }
 }

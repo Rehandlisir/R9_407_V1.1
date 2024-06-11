@@ -102,6 +102,8 @@ void key_scan8(void);
 void key_scan9(void);
 void key_scan10(void);
 void KeyScan(void);
+void Keysendbuf(void);
+
 #endif
 
 

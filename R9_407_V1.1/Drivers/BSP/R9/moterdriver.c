@@ -324,13 +324,13 @@ void linearactuator(void)
     Kp = B1MAX * SEAT_LIFTDROPRATIO / 2.0 + 0.5;
 
     /*座椅举升控制*/
-    if (KeyStateRecive[3] == SEAT_LIFT || g_slaveReg[67] == 1)
+    if (CanKeybufReceive[1] == SEAT_LIFT || g_slaveReg[67] == 1)
     {
         linerun_state = Lift_run;
         g_slaveReg[16] = 1;
     }
 
-    else if (KeyStateRecive[4] == SEAT_DROP || g_slaveReg[67] == 2)
+    else if (CanKeybufReceive[1] == SEAT_DROP || g_slaveReg[67] == 2)
     {
 
         linerun_state = Down_run;
@@ -338,14 +338,14 @@ void linearactuator(void)
     }
 
     /* 座椅靠背控制*/
-    else if (KeyStateRecive[5] == BACKREST_FORWARD || g_slaveReg[68] == 1)
+    else if (CanKeybufReceive[1] == BACKREST_FORWARD || g_slaveReg[68] == 1)
     {
         linerun_state = Backf_run;
         g_slaveReg[17] = 1;
     }
     
     
-    else if (KeyStateRecive[6] == BACKREST_BACK || g_slaveReg[68] == 2)
+    else if (CanKeybufReceive[1] == BACKREST_BACK || g_slaveReg[68] == 2)
         
     {
         linerun_state = Backb_run;
@@ -365,27 +365,27 @@ void linearactuator(void)
     }
 
     /*整体前后倾*/
-    else if (KeyStateRecive[7] == ALL_FORWARD || g_slaveReg[69] == 1)
+    else if (CanKeybufReceive[1] == ALL_FORWARD || g_slaveReg[69] == 1)
     {
 
         linerun_state = Alltiltfrun;
         g_slaveReg[19] = 1;
     }
 
-    else if (KeyStateRecive[8] == 8 || g_slaveReg[69] == 2)
+    else if (CanKeybufReceive[1] == 8 || g_slaveReg[69] == 2)
     {
 
         linerun_state = Alltiltbrun;
         g_slaveReg[19] = 2;
     }
     /*腿托上下旋转*/
-    else if (KeyStateRecive[9] == LEG_TOPSPIN || g_slaveReg[70] == 1)
+    else if (CanKeybufReceive[1] == LEG_TOPSPIN || g_slaveReg[70] == 1)
     {
 
         linerun_state = Legspintop_run;
         g_slaveReg[20] = 1;
     }
-    else if (KeyStateRecive[10] == LEG_BACKSPIN || g_slaveReg[70] == 2)
+    else if (CanKeybufReceive[1] == LEG_BACKSPIN || g_slaveReg[70] == 2)
     {
         linerun_state = Legspindown_run;
         g_slaveReg[20] = 2;
@@ -401,14 +401,14 @@ void linearactuator(void)
         linerun_state = Legunexten_run;
     }
     /*一键站立/坐下*/
-    else if (KeyStateRecive[1] == STANCE || g_slaveReg[66] == 1)
+    else if (CanKeybufReceive[1] == STANCE || g_slaveReg[66] == 1)
     {
 
         linerun_state = Stand_run;
         g_slaveReg[18] = 1;
     }
 
-    else if (KeyStateRecive[2] == SITTING || g_slaveReg[66] == 2)
+    else if (CanKeybufReceive[1] == SITTING || g_slaveReg[66] == 2)
 
     {
         linerun_state = Site_run;
@@ -428,12 +428,7 @@ void linearactuator(void)
 
     }
 
-    if (KeyStateRecive[1]!= 0 || KeyStateRecive[2]!= 0 ||
-        KeyStateRecive[3]!= 0 || KeyStateRecive[4]!= 0 ||
-        KeyStateRecive[5]!= 0 || KeyStateRecive[6]!= 0 ||
-        KeyStateRecive[7]!= 0 || KeyStateRecive[8]!=0  ||
-        KeyStateRecive[9]!= 0 || KeyStateRecive[10]!= 0
-    )
+    if (CanKeybufReceive[1]!= 0 ) /*按键板有按键按下*/
     {
         g_slaveReg[21] = 1 ;
     }

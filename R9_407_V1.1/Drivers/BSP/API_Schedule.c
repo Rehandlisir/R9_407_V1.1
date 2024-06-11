@@ -11,8 +11,8 @@ struct TaskStruct TaskST[] =
 	  	{0, 300, 0, LedFlash},
 		{0, 1, 0, ModbusSlaveExecute},
 		{0, 100, 0, ultrasonicreadExecute},
-		{0, 2, 0, Modbuskeyread_execute},
-   		{0, 200, 0, Modbuskeywrite_execute},
+		{0, 1, 0, CanKeyRun},
+
 
 };
 

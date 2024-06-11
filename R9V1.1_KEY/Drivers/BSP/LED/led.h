@@ -262,5 +262,6 @@
 
 void Led_Init(void);
 void LedControl(void);
-
+void LedCmdReceive(void);
+void LedCanControl(void);
 #endif 

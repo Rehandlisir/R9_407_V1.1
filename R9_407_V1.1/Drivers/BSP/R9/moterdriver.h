@@ -25,7 +25,8 @@
 #define __MOTERDRIVER_H
 
 #include "./SYSTEM/sys/sys.h"
-#include "./BSP/R9/Hostmodbus.h"
+//#include "./BSP/R9/Hostmodbus.h"
+#include "./BSP/CAN/can.h"
 #include "./BSP/R9/Slavemodbus.h"
 #include "math.h"
 #include "stdio.h"

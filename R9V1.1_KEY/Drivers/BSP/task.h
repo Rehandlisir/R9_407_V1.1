@@ -9,6 +9,7 @@
 #include "./BSP/TIMER/btim.h"
 #include "./BSP/R9/modbus.h"
 #include "./BSP/WDG/wdg.h"
+#include "./BSP/CAN/can.h"
 //任务列表
 void Hard_devInit(void);
 void ModbusKey (void);

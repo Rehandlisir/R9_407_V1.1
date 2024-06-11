@@ -94,16 +94,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 		OS_IT_RUN();
 		
-		if(modbus.timrun != 0)//运行时间！=0表明
-		 {
-		  modbus.timout++;
-		  if(modbus.timout >=8)
-		  {
-		   modbus.timrun = 0;
-			 modbus.reflag = 1;//接收数据完毕
-		  }
-			
-		 }
+//		if(modbus.timrun != 0)//运行时间！=0表明
+//		 {
+//		  modbus.timout++;
+//		  if(modbus.timout >=8)
+//		  {
+//		   modbus.timrun = 0;
+//			 modbus.reflag = 1;//接收数据完毕
+//		  }
+//			
+//		 }
 	
     }
 }

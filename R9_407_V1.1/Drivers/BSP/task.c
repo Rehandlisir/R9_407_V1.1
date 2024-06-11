@@ -39,7 +39,7 @@ void Hard_devInit(void)
 		mpu_dmp_init();
 		Host_ModbusDap21_Init();              /*与DYPA21通讯*/
 		SlaveModbus_Init();                  /*与RK3588作为从机通讯*/
-		Host_Modbuskey_Init();
+		can_init(CAN_SJW_1TQ, CAN_BS2_6TQ, CAN_BS1_7TQ, 6, CAN_MODE_NORMAL);  /* CAN初始化, 正常模式, 波特率500Kbps */
 		iwdg_init(IWDG_PRESCALER_64, 1000);      /* 预分频数为64,重载值为1000,溢出时间约为2s */
 		initializeFilter(&filter_L);                    /*初始化滤波器*/
 		g_slaveReg[0] = 0x68;//本机设备作为Modbus从机时的设备ID
@@ -148,12 +148,9 @@ void gyroscopeData(void)
 //    printf("%d,%d,%d,%d,%d,%d,%d\n",Temperature,gyrox,gyroy,gyroz,aacx,aacy,aacz);
 //	res=MPU_Read_Byte(MPU_DEVICE_ID_REG);
 //	printf("%d\n",res);
-	
-	
+
 	mpu_dmp_get_data(&pitch,&roll,&yaw);       
     //printf("roll:%f,pitch:%f,yaw:%f\t\n",roll,pitch,yaw); 
-		    
-
 }
 void ModbusSlaveExecute (void)
 {
@@ -161,8 +158,6 @@ void ModbusSlaveExecute (void)
 	SlaveModbus_Event();//Modbus事件处理函数(执行读或者写的判断)--从机地址0x01
 	
 }
-
-
 
 void ultrasonicreadExecute (void)
 {
@@ -177,66 +172,13 @@ void ultrasonicreadExecute (void)
 
 				HOST_ModbusDap21RX();//接收数据进行处理
 			}	
-//			HostDap21_Read03_slave(0x02,0x0101,0x0001);//参数1从机地址，参数2起始地址，参数3寄存器个数
-//			if(modbus_dap21.Host_send_flag)
-//			{
-//				modbus_dap21.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
-//				modbus_dap21.Host_time_flag=0;//发送数据标志位清零
-//				modbus_dap21.Host_send_flag=0;//清空发送结束数据标志位
 
-//				HOST_ModbusDap21RX();//接收数据进行处理
-//			}	
-//			HostDap21_Read03_slave(0x03,0x0101,0x0001);//参数1从机地址，参数2起始地址，参数3寄存器个数
-//			if(modbus_dap21.Host_send_flag)
-//			{
-//				modbus_dap21.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
-//				modbus_dap21.Host_time_flag=0;//发送数据标志位清零
-//				modbus_dap21.Host_send_flag=0;//清空发送结束数据标志位
-
-//				HOST_ModbusDap21RX();//接收数据进行处理
-//			}
-//			
-//			HostDap21_Read03_slave(0x04,0x0101,0x0001);//参数1从机地址，参数2起始地址，参数3寄存器个数
-//			if(modbus_dap21.Host_send_flag)
-//			{
-//				modbus_dap21.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
-//				modbus_dap21.Host_time_flag=0;//发送数据标志位清零
-//				modbus_dap21.Host_send_flag=0;//清空发送结束数据标志位
-
-//				HOST_ModbusDap21RX();//接收数据进行处理
-//			}
 		}	
 		printf("distence: %d\n",dap21Data.dyplength1);
 }
 
-void Modbuskeyread_execute(void)
+void CanKeyRun(void)
 {
-		if(modbus.Host_time_flag)//每1s发送一次数据
-		{
-			Host_Read03_slave(0x11,0x0000,0x000B);//参数1从机地址，参数2起始地址，参数3寄存器个数
-			if(modbus.Host_send_flag)
-			{
-				modbus.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
-				modbus.Host_time_flag=0;//发送数据标志位清零
-				modbus.Host_send_flag=0;//清空发送结束数据标志位
-
-				HOST_ModbusRX();//接收数据进行处理
-			}	
-		}
-	printf("%d ,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n",KeyStateRecive[0],KeyStateRecive[1],KeyStateRecive[2],KeyStateRecive[3],KeyStateRecive[4],KeyStateRecive[5],KeyStateRecive[6],KeyStateRecive[7],KeyStateRecive[8],KeyStateRecive[9],KeyStateRecive[10]);
-}
-	
-void Modbuskeywrite_execute(void)
-{
- if(modbus.Host_time_flag)//每1s发送一次数据
-	{
-		Host_write06_slave(0x11,0x06,0x0091,0X01);
-		if(modbus.Host_send_flag)
-		{
-			modbus.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
-			modbus.Host_time_flag=0;//发送数据标志位清零
-			modbus.Host_send_flag=0;//清空发送结束数据标志位
-			Host_Func6();//从机返回数据处理
-		}  
-	}	
+    
+    Canexcute();
 }

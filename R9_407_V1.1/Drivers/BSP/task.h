@@ -6,9 +6,7 @@
 #include "./SYSTEM/delay/delay.h"
 #include "./BSP/LED/led.h"
 #include "./BSP/KEY/key.h"
-// #include "./BSP/LCD/lcd.h"
-//#include "./BSP/BEEP/beep.h"
-// #include "./BSP/R9/joystic.h"
+
 #include "./BSP/R9/underpanControl.h"
 #include "./BSP/R9/moterdriver.h"
 #include "./BSP/R9/brake.h"
@@ -27,7 +25,8 @@
 
 #include "./BSP/WDG/wdg.h"
 #include "./BSP/DAP21/hostdap21.h"
-#include "./BSP/R9/Hostmodbus.h"
+//#include "./BSP/R9/Hostmodbus.h"
+#include "./BSP/CAN/can.h"
 #include "./BSP/R9/Slavemodbus.h"
 
 //任务列表
@@ -39,7 +38,8 @@ void linearactuatorDrive(void);
 void gyroscopeData(void);
 void ModbusSlaveExecute (void);
 void ultrasonicreadExecute (void);
-void Modbuskeyread_execute(void);
-void Modbuskeywrite_execute(void);
+//void Modbuskeyread_execute(void);
+//void Modbuskeywrite_execute(void);
+void CanKeyRun(void);
 
 #endif

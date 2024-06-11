@@ -10,8 +10,8 @@
       <TargetName>R9V1.1_key</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pArmCC>5060960::V5.06 update 7 (build 960)::.\ARMCC</pArmCC>
-      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
+      <pArmCC>5060750::V5.06 update 6 (build 750)::.\ARMCC</pArmCC>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -446,11 +446,6 @@
               <FilePath>..\..\Drivers\BSP\LED\led.c</FilePath>
             </File>
             <File>
-              <FileName>modbus.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\R9\modbus.c</FilePath>
-            </File>
-            <File>
               <FileName>wdg.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\BSP\WDG\wdg.c</FilePath>
@@ -469,6 +464,11 @@
               <FileName>btim.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\BSP\TIMER\btim.c</FilePath>
+            </File>
+            <File>
+              <FileName>can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Drivers\BSP\CAN\can.c</FilePath>
             </File>
           </Files>
         </Group>

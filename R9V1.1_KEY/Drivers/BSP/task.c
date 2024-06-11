@@ -12,24 +12,21 @@ void Hard_devInit(void)
     Led_Init();                             /* 转向灯初始化 */
 	key_init();								/*按键初始化*/
 	btim_timx_int_init(10 - 1, 8400 - 1);   /*定时器中断初始化 产生固定 1ms 的定时器中断 */
-    Modbuskey_Init();
+//    Modbuskey_Init();
 	iwdg_init(IWDG_PRESCALER_64, 500);      /* 预分频数为64,重载值为500,溢出时间约为1s */
-	KeyReg[0] = 0x88;
+	
+    can_init(CAN_SJW_1TQ, CAN_BS2_6TQ, CAN_BS1_7TQ, 6, CAN_MODE_NORMAL);  /* CAN初始化, 环回模式, 波特率500Kbps */
+    CanKeybufSendSend[0] = 0x01;                    // 设备 ID 
 }
-
-
 void ModbusKey (void)
 {
-    
-	Modbuskey_Event();//Modbus事件处理函数(执行读或者写的判断)--从机地址011
+    KeyScan();
+//	Modbuskey_Event();//Modbus事件处理函数(执行读或者写的判断)--从机地址011
 	
 }
 
-
-
-
 void Led_control (void)
 {
-	KeyScan();
-	LedControl();
+	LedCanControl();
+////	LedControl();
 }	

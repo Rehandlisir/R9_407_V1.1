@@ -14,6 +14,7 @@
 #include "./BSP/KEY/key.h"
 #include "./SYSTEM/delay/delay.h"
 #include "./BSP/R9/modbus.h"
+#include "./BSP/CAN/can.h"
 
 /**
  * @brief       按键初始化函数
@@ -69,221 +70,123 @@ void key_init(void)
 }
 
 /**
-
+按键 按下 扫描判断
  */
 
-
-void key_scan1(void)
-{
-    if(KEY1 == 0)
-    {
-         delay_ms(10);
-        if(KEY1== 0)
-        {
-			KeyReg[1] = 0x0001;
-               /* 按键按下了 */
-        }
-    }
-    else
-    {  
-		KeyReg[1] = 0x0000;
-           /* 按键没有按下 */
-     }
-   
-}
-
-
-void key_scan2(void)
-{
-    if(KEY2 == 0)
-    {
-         delay_ms(10);
-        if(KEY2== 0)
-        {
-			KeyReg[2] = 0x0002;
-               /* 按键按下了 */
-        }
-    }
-    else
-    { 
-		KeyReg[2] = 0x0000;
-           /* 按键没有按下 */
-        }
-   
-}
-
-void key_scan3(void)
-{
-    if(KEY3 == 0)
-    {
-         delay_ms(10);
-        if(KEY3== 0)
-        {
-			KeyReg[3] = 0x0003;
-               /* 按键按下了 */
-        }
-    }
-    else
-    { 
-        KeyReg[3] = 0x0000;
-		   /* 按键没有按下 */
-       
-	}
-   
-}
-
-
-void key_scan4(void)
-{
-    if(KEY4 == 0)
-    {
-         delay_ms(10);
-        if(KEY4== 0)
-        {
-			KeyReg[4] = 0x0004;
-               /* 按键按下了 */
-        }
-    }
-    else
-    { 
-		KeyReg[4] = 0x0000;
-           /* 按键没有按下 */
-        
-	}
-   
-}
-
-void key_scan5(void)
-{
-    if(KEY5 == 0)
-    {
-         delay_ms(10);
-        if(KEY5== 0)
-        {
-			KeyReg[5] = 0x0005;
-               /* 按键按下了 */
-        }
-    }
-    else
-    { 
-		KeyReg[5] = 0x0000;
-           /* 按键没有按下 */
-       
-	}
-   
-}
-
-void key_scan6(void)
-{
-    if(KEY6 == 0)
-    {
-         delay_ms(10);
-        if(KEY6== 0)
-        {
-			KeyReg[6] = 0x0006;
-               /* 按键按下了 */
-        }
-    }
-    else
-    { 
-		KeyReg[6] = 0x0000;
-           /* 按键没有按下 */
-        
-	}
-   
-}
-
-void key_scan7(void)
-{
-    if(KEY7 == 0)
-    {
-         delay_ms(10);
-        if(KEY7== 0)
-        {
-			KeyReg[7] = 0x0007;
-               /* 按键按下了 */
-        }
-    }
-    else
-    { 
-		KeyReg[7] = 0x0000;
-           /* 按键没有按下 */
-        
-	}
-   
-}
-
-void key_scan8(void)
-{
-    if(KEY8 == 0)
-    {
-         delay_ms(10);
-        if(KEY8== 0)
-        {
-			KeyReg[8] = 0x0008;
-               /* 按键按下了 */
-        }
-    }
-    else
-    { 
-		KeyReg[8] = 0x0000;
-           /* 按键没有按下 */
-        
-	}
-   
-}
-
-void key_scan9(void)
-{
-    if(KEY9 == 0)
-    {
-         delay_ms(10);
-        if(KEY9== 0)
-        {
-			KeyReg[9] = 0x0009;
-               /* 按键按下了 */
-        }
-    }
-    else
-    { 
-			KeyReg[9] = 0x0000;
-           /* 按键没有按下 */
-        
-	}
-   
-}
-
-void key_scan10(void)
-{
-    if(KEY10 == 0)
-    {
-         delay_ms(10);
-        if(KEY10== 0)
-        {
-			KeyReg[10] = 0x000A;
-               /* 按键按下了 */
-        }
-    }
-    else
-    { 
-		KeyReg[10] = 0x0000;
-           /* 按键没有按下 */
-    }
-   
-}
 void KeyScan(void)
 {
-	key_scan1();
-	key_scan2();
-	key_scan3();
-	key_scan4();
-	key_scan5();
-	key_scan6();
-	key_scan7();
-	key_scan8();
-	key_scan9();
-	key_scan10();
+
+    if(KEY1 == 0)
+    {
+        delay_ms(10);
+        if(KEY1== 0)
+        {
+			CanKeybufSendSend[1] = 0x0001;
+               /* 按键1按下了 */
+        }
+    }
+    else if (KEY2 == 0)
+    {  
+        delay_ms(10);
+        if(KEY2== 0)
+        {
+			CanKeybufSendSend[1] = 0x0002;
+               /* 按键2按下了 */
+        }
+     }
+    else if (KEY3 == 0)
+    {  
+        delay_ms(10);
+        if(KEY3== 0)
+        {
+			CanKeybufSendSend[1] = 0x0003;
+               /* 按键3按下了 */
+        }
+     } 
+    else if (KEY4 == 0)
+    {  
+        delay_ms(10);
+        if(KEY4== 0)
+        {
+			CanKeybufSendSend[1] = 0x0004;
+               /* 按键4按下了 */
+        }
+     }   
+    else if (KEY5 == 0)
+    {  
+        delay_ms(10);
+        if(KEY5== 0)
+        {
+			CanKeybufSendSend[1] = 0x0005;
+               /* 按键5按下了 */
+        }
+     }
+    else if (KEY6 == 0)
+    {  
+        delay_ms(10);
+        if(KEY6== 0)
+        {
+			CanKeybufSendSend[1] = 0x0006;
+               /* 按键5按下了 */
+        }
+     }
+    else if (KEY7 == 0)
+    {  
+        delay_ms(10);
+        if(KEY7== 0)
+        {
+			CanKeybufSendSend[1] = 0x0007;
+               /* 按键5按下了 */
+        }
+     }
+    else if (KEY8 == 0)
+    {  
+        delay_ms(10);
+        if(KEY8== 0)
+        {
+			CanKeybufSendSend[1] = 0x0008;
+               /* 按键5按下了 */
+        }
+     }
+    else if (KEY9 == 0)
+    {  
+        delay_ms(10);
+        if(KEY9== 0)
+        {
+			CanKeybufSendSend[1] = 0x0009;
+               /* 按键5按下了 */
+        }
+     }
+    else if (KEY10 == 0)
+    {  
+        delay_ms(10);
+        if(KEY10== 0)
+        {
+			CanKeybufSendSend[1] = 0X000A;
+               /* 按键5按下了 */
+        }
+     }
+    else
+    {
+        CanKeybufSendSend[1] = 0;
+        
+    }
+    
+    Keysendbuf();
+
+     
 }
+
+void Keysendbuf(void)
+{
+   static uint8_t res;
+   res = can_send_msg(0x01, CanKeybufSendSend, 2);    /* ID = 0x01, 发送2个字节 CanKeybufSendSend[0] 0x68 ; CanKeybufSendSend[1] 按键状态 */
+    /*res 0 :成功 1： 失败*/ 
+}
+    
+
+
+
 
 
 
