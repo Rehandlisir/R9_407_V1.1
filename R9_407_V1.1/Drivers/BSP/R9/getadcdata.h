@@ -1,3 +1,11 @@
+/*
+ * @Author: lisir lisir@rehand.com
+ * @Date: 2024-06-07 16:01:18
+ * @LastEditors: lisir lisir@rehand.com
+ * @LastEditTime: 2024-06-14 10:45:00
+ * @FilePath: \MDK-ARMc:\Users\fu\Desktop\Code\CodeV1.1\R9_407_V1.1\R9_407_V1.1\Drivers\BSP\R9\getadcdata.h
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 
 #ifndef __GETADCDATA_H
 #define __GETADCDATA_H
@@ -10,8 +18,8 @@
 #define xadc_max      1700
 #define xadc_min      -1700
 
-#define yadc_Dim      300
-#define xadc_Dim      300
+#define yadc_Dim      500
+#define xadc_Dim      500
 
 /*define class of joystic*/
 #define SMC25B2G 

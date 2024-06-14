@@ -23,7 +23,5 @@
 
 int main(void)
 {
-	
 	  PeachOSRun();    
-	
 }

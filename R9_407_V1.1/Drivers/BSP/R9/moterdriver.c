@@ -308,10 +308,10 @@ void linearactuator(void)
     ActorLimitPara.A3_Downpos = 0; // 下限位无约束
     ActorLimitPara.A3_Uppos = 3000;
 
-    ActorLimitPara.B1_Downpos = 0;
+    ActorLimitPara.B1_Downpos = 200;
     ActorLimitPara.B1_Uppos = 2500;
 
-    ActorLimitPara.B2_Downpos = 0;
+    ActorLimitPara.B2_Downpos = 200  ;
     ActorLimitPara.B2_Uppos = 2400;
 
     ActorLimitPara.C1_Uppos = 10000;

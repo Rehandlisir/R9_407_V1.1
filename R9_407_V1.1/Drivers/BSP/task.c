@@ -1,27 +1,24 @@
+/*
+ * @Author: lisir lisir@rehand.com
+ * @Date: 2024-06-07 16:01:18
+ * @LastEditors: lisir lisir@rehand.com
+ * @LastEditTime: 2024-06-14 11:36:27
+ * @FilePath: \MDK-ARMc:\Users\fu\Desktop\Code\CodeV1.1\R9_407_V1.1\R9_407_V1.1\Drivers\BSP\task.c
+ * @Description: 主任务列表
+ */
 #include "./BSP/task.h"
 
-
-/*************************数据采集变量*****************************/
- /* 针对 R9系统的所有ADC 数据采集 ，
- *  一 、ADC1 采集10通道数据 包含   
- * (1)  摇杆数据采集         PA2 PA3
- * (2)  抱闸 数据监测        PA4 PA5
- * (3)  底盘电机电流检测     PA6 PA7
- * (4)  推杆 1~4 电流检测    PC2 PC3 PC0 PC1
- * 二、   ADC3 数据采集  包含
- * (1) 推杆1~6  位置检测  PF5 PF3 PF4 PF6 PF8 PF7
- * (2) 推杆 5~6 的电流检测  PF9 PF10
- */
 extern ADCDATA adcdata;
-extern VELOCITY_POUT velocity_pout;
-VELOCITY_PIn  velPlanIn1;
-short  Temperature;
-short gyrox,gyroy,gyroz ;
-short aacx,aacy,aacz ;
-float pitch,roll,yaw;  			//欧拉角
 
+/**
+ * @description: 
+ * @return {*}
+ */
 
-/*************************主任务列表*****************************/
+/**
+ * @description: 所有任务初始化代码
+ * @return {*}
+ */
 void Hard_devInit(void)
 {
 		HAL_Init();                                 //* 初始化HAl库 */
@@ -42,123 +39,87 @@ void Hard_devInit(void)
 		can_init(CAN_SJW_1TQ, CAN_BS2_6TQ, CAN_BS1_7TQ, 6, CAN_MODE_NORMAL);  /* CAN初始化, 正常模式, 波特率500Kbps */
 		iwdg_init(IWDG_PRESCALER_64, 1000);      /* 预分频数为64,重载值为1000,溢出时间约为2s */
 		initializeFilter(&filter_L);                    /*初始化滤波器*/
+		initializeFilter(&filter_R);                    /*初始化滤波器*/
 		g_slaveReg[0] = 0x68;//本机设备作为Modbus从机时的设备ID
 		printf("ERROR");
 }
 
+/**
+ * @description: 灯控程序
+ * @return {*}
+ */
 void LedFlash(void)
 {
-	// led_beepControlRK3588();
-	//led_beepControl();
+	led_beepControlRK3588();
+//	led_beepControl();
 	LED0_TOGGLE();
 
 }
 
-/* 针对 R9系统的所有ADC 数据采集 ，
+/**
+ * @description: 
+ *  针对 R9系统的所有ADC 数据采集 ，
  *  一 、ADC1 采集7通道数据 包含   
  * (1)  摇杆数据采集         PA2 PA3
  * (2)  抱闸 数据监测        PA4 PA5
  * (3)  底盘电机电流检测     PA6 PA7
- * (4)  电池电压            PC7
+ * (4)  电池电压            PC7 pc5
 /
  * 二、   ADC3 数据采集  包含
  * (1) 推杆1~6  位置检测  PF5 PF3 PF4 PF6 PF8 PF7
  * (2) 推杆 1~6 的电流检测 PC2 PC3 PC0 PC1 PF9 PF10
- */	
-	
+ * @return {*}
+ */
 void GetADC_AllData(void)
 {
 	getadcData();
-   // printf("%d\t\n",adcdata.lift_pos);
-   // printf("lift_pos:%d,pedestal_pos:%d,backboard_pos:%d,legangle_pos:%d,leglength_pos:%d,support_pos:%d\n",adcdata.lift_pos,adcdata.pedestal_pos,adcdata.backboard_pos,adcdata.legangle_pos,adcdata.leglength_pos,adcdata.support_pos);
-	//printf("lift_current:%d,pedestal_current:%d,backboard_current:%d,legangle_current:%d,leglength_current:%d,support_current:%d\n",adcdata.lift_current,adcdata.pedestal_current,adcdata.backboard_current,adcdata.legangle_current,adcdata.leglength_current,adcdata.support_current);
-	//  printf("adcdata.l_current :%d, adcdata.r_current %d\n",adcdata.l_current,adcdata.r_current);
-	//printf("Xbase:%d,Ybase:%d,xdata:%d,ydata:%d\t\n",adcdata.adc_xbase,adcdata.adc_ybase,adcdata.adc_x,adcdata.adc_y);
+    /*数据采集及测试*/
+	// printf("lift_pos:%d,pedestal_pos:%d,backboard_pos:%d,legangle_pos:%d,leglength_pos:%d,support_pos:%d\n",adcdata.lift_pos,adcdata.pedestal_pos,adcdata.backboard_pos,adcdata.legangle_pos,adcdata.leglength_pos,adcdata.support_pos);
+	// printf("lift_current:%d,pedestal_current:%d,backboard_current:%d,legangle_current:%d,leglength_current:%d,support_current:%d\n",adcdata.lift_current,adcdata.pedestal_current,adcdata.backboard_current,adcdata.legangle_current,adcdata.leglength_current,adcdata.support_current);
+	printf("adcdata.l_current :%d, adcdata.r_current %d\n",adcdata.l_current,adcdata.r_current);
+	// printf("Xbase:%d,Ybase:%d,xdata:%d,ydata:%d\t\n",adcdata.adc_xbase,adcdata.adc_ybase,adcdata.adc_x,adcdata.adc_y);
 }
 
-
+/**
+ * @description: 底盘控制既驱动执行
+ * @return {*}
+ */
 void UnderpanDrive(void)
 {
-	uint16_t rpwmvaAl = 0;
-	uint16_t rpwmvaA2 = 0;
-	uint16_t rpwmvaBl = 0;
-	uint16_t rpwmvaB2 = 0;
-
-	/* X 数据清偏 */
-	if (adcdata.adc_x > 0)
-	{
-		velPlanIn1.adcx = adcdata.adc_x - xadc_Dim;
-	}
-	else if (adcdata.adc_x < 0)
-	{
-		velPlanIn1.adcx = adcdata.adc_x + xadc_Dim;
-	}
-	else
-	{
-		velPlanIn1.adcx = 0;
-	}
-	
-	velPlanIn1.adcx = slopelimitx( velPlanIn1.adcx,25);  
-	
-	/* Y 数据清偏移*/
-	if (adcdata.adc_y > 0)	
-	{
-		velPlanIn1.adcy = adcdata.adc_y - yadc_Dim;
-	}
-    else if (adcdata.adc_y < 0)
-	{
-		velPlanIn1.adcy = adcdata.adc_y+ yadc_Dim;
-	}	
-	else
-	{
-		velPlanIn1.adcy = 0 ;
-	}
-	velPlanIn1.adcy = slopelimity( velPlanIn1.adcy,25); 
-
-	velPlanIn1.set_Maximum_Strspeed = 2.0;
-	velPlanIn1.set_Maximum_Steespeed = velPlanIn1.set_Maximum_Strspeed/2.0; 
-	
-	velocity_maping(velPlanIn1); /*速度规划 */	
-	rpwmvaAl = 100 * (1.0 - velocity_pout.A_IN1);
-	rpwmvaA2 = 100 * (1.0 - velocity_pout.A_IN2);
-	rpwmvaBl = 200 * (1.0 - velocity_pout.B_IN1);
-	rpwmvaB2 = 200 * (1.0 - velocity_pout.B_IN2);
-
-	__HAL_TIM_SET_COMPARE(&g_time3_pwm_chy_handle, GTIM_TIM3_PWM_CH3, rpwmvaAl);
-	__HAL_TIM_SET_COMPARE(&g_time3_pwm_chy_handle, GTIM_TIM3_PWM_CH4, rpwmvaA2);
-	__HAL_TIM_SET_COMPARE(&g_time9_pwm_chy_handle, GTIM_TIM9_PWM_CH1, rpwmvaBl);
-	__HAL_TIM_SET_COMPARE(&g_time9_pwm_chy_handle, GTIM_TIM9_PWM_CH2, rpwmvaB2);
-	
-   
-	
+	underpanExcute();
 }
 
-
+/**
+ * @description: 推杆控制及驱动
+ * @return {*}
+ */
 void linearactuatorDrive(void)
- {	
+{	
 	linearactuatorTest(); 	
- }
+}
 
+/**
+ * @description: MPU6050 执行
+ * @return {*}
+ */
 void gyroscopeData(void)
 {
-//	uint8_t res;
-//	Temperature =  MPU_Get_Temperature();
-//	MPU_Get_Gyroscope(&gyrox,&gyroy,&gyroz);
-//	MPU_Get_Accelerometer(&aacx,&aacy,&aacz);
-//    printf("%d,%d,%d,%d,%d,%d,%d\n",Temperature,gyrox,gyroy,gyroz,aacx,aacy,aacz);
-//	res=MPU_Read_Byte(MPU_DEVICE_ID_REG);
-//	printf("%d\n",res);
-
-	mpu_dmp_get_data(&pitch,&roll,&yaw);       
-    //printf("roll:%f,pitch:%f,yaw:%f\t\n",roll,pitch,yaw); 
+	MPU6050Excute();
 }
+
+/**
+ * @description: 与RK3588 通讯程序执行
+ * @return {*}
+ */
 void ModbusSlaveExecute (void)
-{
-	
-	SlaveModbus_Event();//Modbus事件处理函数(执行读或者写的判断)--从机地址0x01
-	
+{	
+	SlaveModbus_Event();//Modbus事件处理函数(执行读或者写的判断)--从机地址0x01	
 }
 
+/**
+ * @description: 超声波测距程序，目前单从没问题
+ * @return {*}
+ */
 void ultrasonicreadExecute (void)
 {
 		if(modbus_dap21.Host_time_flag)//每1s发送一次数据
@@ -174,11 +135,13 @@ void ultrasonicreadExecute (void)
 			}	
 
 		}	
-		printf("distence: %d\n",dap21Data.dyplength1);
+		// printf("distence: %d\n",dap21Data.dyplength1);
 }
-
+/**
+ * @description: 按键板Can通讯实现
+ * @return {*}
+ */
 void CanKeyRun(void)
 {
-    
-    Canexcute();
+      Canexcute();
 }

@@ -4,17 +4,15 @@
 /************任务初始化，每一个结构体都代表一个任务，添加任务和删减任务都在这里完成************/
 struct TaskStruct TaskST[] =
 	{
-  		{0, 1, 0, linearactuatorDrive},
+	 	{0, 1, 0, linearactuatorDrive},
 		{0, 2, 0, gyroscopeData},
 		{0, 5, 0, UnderpanDrive},
 		{0, 1, 0, GetADC_AllData},
-	  	{0, 300, 0, LedFlash},
+		{0, 300, 0, LedFlash},
 		{0, 1, 0, ModbusSlaveExecute},
 		{0, 100, 0, ultrasonicreadExecute},
 		{0, 1, 0, CanKeyRun},
-
-
-};
+	};
 
 /*******************************搭建时间片轮询机制代码框架  ********************************/
 

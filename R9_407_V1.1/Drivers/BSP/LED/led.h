@@ -174,6 +174,8 @@
 #define LeftBulbState HAL_GPIO_ReadPin(LEFT_FRONT_TURE_GPIO_PORT,LEFT_FRONT_TURE_GPIO_PIN);
 #define RightBulbState HAL_GPIO_ReadPin(RIGHT_FRONT_TURE_GPIO_PORT,RIGHT_FRONT_TURE_GPIO_PIN);
 
+// #define KEYCONTRONL 0
+
 /******************************************************************************************/
 
 typedef enum

@@ -43,24 +43,25 @@ typedef struct /**/
 
 typedef struct /*??????????*/
 {
-	double underpanVelocity;	  /*??????? m/s */
-	double presentation_velocity; /* ?????????????*/
-	double theta;				  /*?????????????????????��?????????????x ??????*/
-	double acceleration_coeff;	  /*???????*/
-	double steering_angle;		  /*????*/
-	double L_Velocity;			  /* ????? m/s */
-	double R_Velocity;			  /* ????? m/s */
-	double L_NVelocity;			  /* ???? PRM*/
-	double R_NVelocity;			  /* ????*/
-	double L_Dutycycle;			  /* ?????*/
-	double R_Dutycycle;			  /* ????? */
+	double underpanVelocity;	  
+	double presentation_velocity; 
+	double theta;				  
+	double acceleration_coeff;	  
+	double steering_angle;		  
+	double L_Velocity;			  
+	double R_Velocity;			  
+	double L_NVelocity;			  
+	double R_NVelocity;			
+	double L_Dutycycle;			  
+	double R_Dutycycle;			 
 
-	double A_IN1;	   /*????????? */
-	double A_IN2;	   /*????????? */
-	double B_IN1;	   /*????????? */
-	double B_IN2;	   /*????????? */
-	RunState runstate; /*?????????*/
+	double A_IN1;	   
+	double A_IN2;	  
+	double B_IN1;	  
+	double B_IN2;	   
+	RunState runstate; 
 } VELOCITY_POUT;
+
 
 /*  */
 typedef enum SpeedCurve
@@ -88,7 +89,9 @@ typedef struct CurveObject
 int32_t Value_Resetzero(int32_t min_value, int32_t current_value, int32_t max_value);
 void velocity_plan(VELOCITY_PIn);
 void velocity_maping(VELOCITY_PIn velPlanIn);
-
+void underpanExcute(void);
+void MPU6050Excute(void);
+/*以下待测试函数*/
 void MotorVelocityCurve(CurveObjectType *curve);
 static void CalCurveTRAP(CurveObjectType *trap);
 static void CalCurveSPTA(CurveObjectType *spta);

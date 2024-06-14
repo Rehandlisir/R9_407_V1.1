@@ -5,7 +5,9 @@
         "sys.h": "c",
         "moterdriver.h": "c",
         "stdio.h": "c",
-        "slavemodbus.h": "c"
+        "slavemodbus.h": "c",
+        "task.h": "c",
+        "mpu6050.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
