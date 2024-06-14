@@ -1,33 +1,22 @@
 /**
- ****************************************************************************************************
- * @file        key.c
- * @author      Lisir
- * @version     V1.0
- * @date        2021-10-14
- * @brief       �������� ��������
- * @license     Copyright (c) 2024, ���ڸ���ҽ�ƿƼ����޹�˾
- ****************************************************************************************************
- * @attention
- *
- * ʵ��ƽ̨:F407������
- * none
- * none
- * none
- * none
- *
- *
- ****************************************************************************************************
- */
-
+ * @FilePath     : /MDK-ARMc:/Users/fu/Desktop/Code/CodeV1.1/R9_407_V1.1/R9_407_V1.1/Drivers/BSP/KEY/key.c
+ * @Description  : Read Key Message
+ * @Author       : lisir
+ * @Version      : V1.1
+ * @LastEditors  : lisir
+ * @LastEditTime : 2024-06-14 16:15:18
+ * @Copyright (c) 2024 by Rehand Medical Technology Co., LTD, All Rights Reserved. 
+**/
 #include "./BSP/KEY/key.h"
 #include "./SYSTEM/delay/delay.h"
 #include "./BSP/R9/Slavemodbus.h"
 
 /**
- * @brief       ������ʼ������
- * @param       ��
- * @retval      ��
- */
+ * @Author       : lisir
+ * @brief        : Key initialize
+ * @return        {*}
+ * @Test_result  : Function self test result ok
+**/
 void key_init(void)
 {
     GPIO_InitTypeDef gpioE_init_struct;                          /* GPIO���ò����洢���� */

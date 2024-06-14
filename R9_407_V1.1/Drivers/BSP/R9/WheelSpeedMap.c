@@ -2,7 +2,7 @@
  * @Author: lisir lisir@rehand.com
  * @Date: 2024-06-07 16:01:18
  * @LastEditors: lisir lisir@rehand.com
- * @LastEditTime: 2024-06-14 11:52:25
+ * @LastEditTime: 2024-06-14 15:02:34
  * @FilePath: \MDK-ARMc:\Users\fu\Desktop\Code\CodeV1.1\R9_407_V1.1\R9_407_V1.1\Drivers\BSP\R9\WheelSpeedMap.c
  * @Description:底盘控制程序代码
  */
@@ -271,7 +271,7 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 		BRAKE1(0);
 		BRAKE2(0);
 	}
-	printf("adcx:%d,adcy:%d\r\n",velPlanIn.adcx,velPlanIn.adcy);//,velocity_pout.L_Dutycycle,velocity_pout.R_Dutycycle);
+	// printf("adcx:%d,adcy:%d\r\n",velPlanIn.adcx,velPlanIn.adcy);//,velocity_pout.L_Dutycycle,velocity_pout.R_Dutycycle);
 }
 
 /**

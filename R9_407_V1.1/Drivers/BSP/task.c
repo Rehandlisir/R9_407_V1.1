@@ -2,7 +2,7 @@
  * @Author: lisir lisir@rehand.com
  * @Date: 2024-06-07 16:01:18
  * @LastEditors: lisir lisir@rehand.com
- * @LastEditTime: 2024-06-14 11:36:27
+ * @LastEditTime: 2024-06-14 15:24:27
  * @FilePath: \MDK-ARMc:\Users\fu\Desktop\Code\CodeV1.1\R9_407_V1.1\R9_407_V1.1\Drivers\BSP\task.c
  * @Description: 主任务列表
  */
@@ -76,7 +76,7 @@ void GetADC_AllData(void)
     /*数据采集及测试*/
 	// printf("lift_pos:%d,pedestal_pos:%d,backboard_pos:%d,legangle_pos:%d,leglength_pos:%d,support_pos:%d\n",adcdata.lift_pos,adcdata.pedestal_pos,adcdata.backboard_pos,adcdata.legangle_pos,adcdata.leglength_pos,adcdata.support_pos);
 	// printf("lift_current:%d,pedestal_current:%d,backboard_current:%d,legangle_current:%d,leglength_current:%d,support_current:%d\n",adcdata.lift_current,adcdata.pedestal_current,adcdata.backboard_current,adcdata.legangle_current,adcdata.leglength_current,adcdata.support_current);
-	printf("adcdata.l_current :%d, adcdata.r_current %d\n",adcdata.l_current,adcdata.r_current);
+	// printf("adcdata.l_current :%d, adcdata.r_current %d\n",adcdata.l_current,adcdata.r_current);
 	// printf("Xbase:%d,Ybase:%d,xdata:%d,ydata:%d\t\n",adcdata.adc_xbase,adcdata.adc_ybase,adcdata.adc_x,adcdata.adc_y);
 }
 
@@ -120,23 +120,38 @@ void ModbusSlaveExecute (void)
  * @description: 超声波测距程序，目前单从没问题
  * @return {*}
  */
-void ultrasonicreadExecute (void)
+void ultrasonicreadExecute1 (void)
 {
-		if(modbus_dap21.Host_time_flag)//每1s发送一次数据
-		{
+		// if(modbus_dap21.Host_time_flag)//每1s发送一次数据
+		// {
 			HostDap21_Read03_slave(0x01,0x0101,0x0001);//参数1从机地址，参数2起始地址，参数3寄存器个数
+			
 			if(modbus_dap21.Host_send_flag)
 			{
-				modbus_dap21.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
-				modbus_dap21.Host_time_flag=0;//发送数据标志位清零
+				// modbus_dap21.Host_Sendtime=0;//发送完毕后计数清零（距离上次的时间）
+				// modbus_dap21.Host_time_flag=0;//发送数据标志位清零
 				modbus_dap21.Host_send_flag=0;//清空发送结束数据标志位
 
 				HOST_ModbusDap21RX();//接收数据进行处理
 			}	
-
-		}	
-		// printf("distence: %d\n",dap21Data.dyplength1);
+		
+		
 }
+
+void ultrasonicreadExecute2 (void)
+{
+			HostDap21_Read03_slave(0x02,0x0101,0x0001);//参数1从机地址，参数2起始地址，参数3寄存器个数			
+			if(modbus_dap21.Host_send_flag)
+			{
+				modbus_dap21.Host_send_flag=0;//清空发送结束数据标志位
+				HOST_ModbusDap21RX();//接收数据进行处理
+			}	
+           
+		printf("distence1: %d,distence2: %d\n",dap21Data.dyplength1,dap21Data.dyplength2);
+	
+}
+
+
 /**
  * @description: 按键板Can通讯实现
  * @return {*}

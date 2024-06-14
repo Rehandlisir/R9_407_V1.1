@@ -12,7 +12,6 @@
  *
  ****************************************************************************************************
  */
-
 #include "./SYSTEM/delay/delay.h"
 #include "./BSP/DAP21/hostdap21.h"
 
@@ -231,7 +230,7 @@ void HostDap21_Read03_slave(uint8_t slave, uint16_t StartAddr, uint16_t num)
 // 主机处理接受到的数据
 void HostDap21_Func3(uint8_t slave)
 {
-  if (slave ==0x01)
+  	if (slave ==0x01)
 	{
 		dap21Data.slav1data[0] = modbus_dap21.rcbuf[4];
 		dap21Data.slav1data[1] = modbus_dap21.rcbuf[3];
@@ -242,8 +241,8 @@ void HostDap21_Func3(uint8_t slave)
 	}
 	if (slave ==0x02)
 	{
-		dap21Data.slav1data[0] = modbus_dap21.rcbuf[4];
-		dap21Data.slav1data[1] = modbus_dap21.rcbuf[3];
+		dap21Data.slav2data[0] = modbus_dap21.rcbuf[4];
+		dap21Data.slav2data[1] = modbus_dap21.rcbuf[3];
 		
 		dap21Data.dyplength2 = ((*((uint8_t *)dap21Data.slav2data+ 1)<< 8))| *(uint8_t *)dap21Data.slav2data;
 
@@ -252,8 +251,8 @@ void HostDap21_Func3(uint8_t slave)
 	
 	if (slave ==0x03)
 	{
-		dap21Data.slav1data[0] = modbus_dap21.rcbuf[4];
-		dap21Data.slav1data[1] = modbus_dap21.rcbuf[3];
+		dap21Data.slav3data[0] = modbus_dap21.rcbuf[4];
+		dap21Data.slav3data[1] = modbus_dap21.rcbuf[3];
 		
 		dap21Data.dyplength3 = ((*((uint8_t *)dap21Data.slav3data+ 1)<< 8))| *(uint8_t *)dap21Data.slav3data;
 
@@ -262,8 +261,8 @@ void HostDap21_Func3(uint8_t slave)
 	}
 	if (slave ==0x04)
 	{
-		dap21Data.slav1data[0] = modbus_dap21.rcbuf[4];
-		dap21Data.slav1data[1] = modbus_dap21.rcbuf[3];
+		dap21Data.slav4data[0] = modbus_dap21.rcbuf[4];
+		dap21Data.slav4data[1] = modbus_dap21.rcbuf[3];
 		
 		dap21Data.dyplength4 = ((*((uint8_t *)dap21Data.slav4data+ 1)<< 8))| *(uint8_t *)dap21Data.slav4data;
 

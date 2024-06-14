@@ -1,7 +1,18 @@
+/**
+ * @FilePath     : /MDK-ARMc:/Users/fu/Desktop/Code/CodeV1.1/R9_407_V1.1/R9_407_V1.1/Drivers/BSP/API_Schedule.c
+ * @Description  :  
+ * @Author       : lisir
+ * @Version      : V1.1
+ * @LastEditors  : lisir
+ * @LastEditTime : 2024-06-14 16:13:30
+ * @Copyright (c) 2024 by Rehand Medical Technology Co., LTD, All Rights Reserved. 
+**/
 #include "API_Schedule.h"
 #include "./BSP/task.h"
-
-/************任务初始化，每一个结构体都代表一个任务，添加任务和删减任务都在这里完成************/
+/**
+ * @description: 任务初始化，每一个结构体都代表一个任务，添加任务和删减任务都在这里完成
+ * @return {*}
+ */
 struct TaskStruct TaskST[] =
 	{
 	 	{0, 1, 0, linearactuatorDrive},
@@ -10,16 +21,17 @@ struct TaskStruct TaskST[] =
 		{0, 1, 0, GetADC_AllData},
 		{0, 300, 0, LedFlash},
 		{0, 1, 0, ModbusSlaveExecute},
-		{0, 100, 0, ultrasonicreadExecute},
+		{0, 120, 0, ultrasonicreadExecute1},
+		{0, 150, 0, ultrasonicreadExecute2},
 		{0, 1, 0, CanKeyRun},
 	};
 
-/*******************************搭建时间片轮询机制代码框架  ********************************/
-
 // 记录任务数量
 uint8_t TaskCount = sizeof(TaskST) / sizeof(TaskST[0]);
-
-// 放在“TIM2_IRQHandler”中断执行，用于任务计时
+/**
+ * @description: 任务轮询
+ * @return {*}
+ */
 void OS_IT_RUN(void)
 {
 	uint8_t i;
@@ -35,7 +47,6 @@ void OS_IT_RUN(void)
 		}
 	}
 }
-
 // 放在main函数中执行，自带死循环，用于执行挂起的任务
 void PeachOSRun(void)
 {
