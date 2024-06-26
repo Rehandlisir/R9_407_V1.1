@@ -49,6 +49,9 @@ void brake_init(void)
     
     BRAKE1(1);                                                /* ¹Ø±Õ ±§Õ¢1 */
     BRAKE2(1);                                                /* ¹Ø±Õ ±§Õ¢1 */
+ 
+    */
+
 }
 
 

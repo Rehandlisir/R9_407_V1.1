@@ -1,0 +1,20 @@
+{
+    "files.associations": {
+        "underpancontrol.h": "c",
+        "cstdint": "c",
+        "sys.h": "c",
+        "moterdriver.h": "c",
+        "stdio.h": "c",
+        "slavemodbus.h": "c",
+        "task.h": "c",
+        "mpu6050.h": "c",
+        "delay.h": "c",
+        "brake.h": "c",
+        "can.h": "c",
+        "getadcdata.h": "c",
+        "exception_handling.h": "c",
+        "numbers": "c",
+        "cmath": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}

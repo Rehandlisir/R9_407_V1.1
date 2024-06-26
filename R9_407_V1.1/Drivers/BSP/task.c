@@ -147,7 +147,7 @@ void ultrasonicreadExecute2 (void)
 				HOST_ModbusDap21RX();//接收数据进行处理
 			}	
            
-		printf("distence1: %d,distence2: %d\n",dap21Data.dyplength1,dap21Data.dyplength2);
+		// printf("distence1: %d,distence2: %d\n",dap21Data.dyplength1,dap21Data.dyplength2);
 	
 }
 

@@ -1,0 +1,13 @@
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'R9V1'
+compiling WheelSpeedMap.c...
+..\..\Drivers\BSP\R9\WheelSpeedMap.c(954): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	 power=(0.0-spta->flexible)*power;
+..\..\Drivers\BSP\R9\WheelSpeedMap.c(970): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\..\Drivers\BSP\R9\WheelSpeedMap.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=46244 RO-data=5420 RW-data=292 ZI-data=13772  
+FromELF: creating hex file...
+"..\..\Output\atk_f407.axf" - 0 Error(s), 2 Warning(s).
+Build Time Elapsed:  00:00:03

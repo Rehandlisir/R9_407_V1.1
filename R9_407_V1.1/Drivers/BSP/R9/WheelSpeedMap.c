@@ -1,11 +1,12 @@
-/*
- * @Author: lisir lisir@rehand.com
- * @Date: 2024-06-07 16:01:18
- * @LastEditors: lisir lisir@rehand.com
- * @LastEditTime: 2024-06-14 15:02:34
- * @FilePath: \MDK-ARMc:\Users\fu\Desktop\Code\CodeV1.1\R9_407_V1.1\R9_407_V1.1\Drivers\BSP\R9\WheelSpeedMap.c
- * @Description:底盘控制程序代码
- */
+/**
+ * @FilePath     : /MDK-ARMc:/Users/fu/Desktop/Code/CodeV1.1/R9_407_V1.1/R9_407_V1.1/Drivers/BSP/R9/WheelSpeedMap.c
+ * @Description  :  
+ * @Author       : lisir
+ * @Version      : V1.1
+ * @LastEditors  : lisir
+ * @LastEditTime : 2024-06-20 09:08:10
+ * @Copyright (c) 2024 by Rehand Medical Technology Co., LTD, All Rights Reserved. 
+**/
 
 #include "./BSP/R9/underpanControl.h"
 #include "math.h"
@@ -59,7 +60,7 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 	}
 	else
 	{
-		velocity_pout.theta = atan((double)(velPlanIn.adcy / velPlanIn.adcx)); /*theta 输出单位为弧度 范围取值 -1.57 ~ 1.57 */
+		velocity_pout.theta = atan((double)(velPlanIn.adcy) / (double)(velPlanIn.adcx)); /*theta 输出单位为弧度 范围取值 -1.57 ~ 1.57 */
 	}
 	precess_var1 = pow(tan(velocity_pout.theta), 2.0);						/*tan(theta)^2*/
 	precess_var2 = pow(velPlanIn.set_Maximum_Strspeed, 2.0);	/*a^2*/
@@ -181,21 +182,40 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 	velocity_pout.R_Dutycycle = filterValue(&filter_R,velocity_pout.R_Dutycycle);
 
 	/* 占空比约束*/
-	velocity_pout.L_Dutycycle = Value_limitf(0, velocity_pout.L_Dutycycle, 1);
-	velocity_pout.R_Dutycycle = Value_limitf(0, velocity_pout.R_Dutycycle, 1);	
-	// printf("%lf,%f,%d\r\n",velocity_pout.L_Dutycycle,velocity_pout.R_Dutycycle,g_slaveReg[5]);	
+	velocity_pout.L_Dutycycle = Value_limitf(-1, velocity_pout.L_Dutycycle, 1);
+	velocity_pout.R_Dutycycle = Value_limitf(-1, velocity_pout.R_Dutycycle, 1);	
+	printf("%lf,%lf,%f\r\n",velocity_pout.acceleration_coeff,velocity_pout.L_Dutycycle,velocity_pout.R_Dutycycle);//,g_slaveReg[5]);	
 	/*待补充占空比曲线规划*/ 
+	static float acctemp = 0, acct = 0;
+    static uint8_t accdoneflage = 0;
 	switch (drivestate)
 	{
-		case idle:	
-		    if (e_lastdrivestate == forward || e_lastdrivestate == front_right || e_lastdrivestate ==front_left) // 上一次处于非静止状态进入到静止状态则执行减速操作
-			{
-				;
-			}
-			velocity_pout.A_IN1 = 0;
-			velocity_pout.A_IN2 = 0;
-			velocity_pout.B_IN1 = 0;
-			velocity_pout.B_IN2 = 0;
+		// if (drivestate!=idle)
+		// {
+		// 	acct = 0;
+		// 	accdoneflage =0;
+		// 	acctemp = 0;
+
+		// }
+
+		case idle:
+		   
+		        // if ((acct < 1000) && (accdoneflage == 0)) // 0 --- 0.95  200ms
+				// {
+				// 	acct++;
+				// 	acctemp = 6.000000000000007e-15 * pow(acct, 5) - 1.500000000000002e-11 * pow(acct, 4) + 1.000000000000001e-08 * pow(acct, 3) + 0.5;
+				// }
+				// else
+				// {
+				// 	accdoneflage = 1;
+				// 	acct = 0;
+				// }
+		    
+				velocity_pout.A_IN1 = 0;
+				velocity_pout.A_IN2 = 0;
+				velocity_pout.B_IN1 = 0;
+				velocity_pout.B_IN2 = 0;				
+			
 			break;
 		case forward:
 			velocity_pout.A_IN1 = 0;
@@ -403,8 +423,8 @@ void underpanExcute(void)
 			}
 			break;
 		default:
-				velPlanIn1.set_Maximum_Strspeed = 4.0 ;
-				velPlanIn1.set_Maximum_Steespeed = 2.0 ;
+				velPlanIn1.set_Maximum_Strspeed = 12.0 ;
+				velPlanIn1.set_Maximum_Steespeed = 6.0 ;
 			break;
 	}
 	/* X 数据清偏 */
