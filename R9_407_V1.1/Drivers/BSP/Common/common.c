@@ -97,6 +97,72 @@ int32_t slopelimity(int32_t value, int32_t increvalue)
   return out;
 }
 
+double slopelimitLDuty(double value, double increvalue,double decreasvalue)
+{
+  static double out_last = 0; // 上一次值
+  double out;
+
+  /***************** 如果第一次进入，则给 out_last 赋值 ******************/
+  static char fisrt_flag = 1;
+  if (fisrt_flag == 1)
+  {
+    fisrt_flag = 0;
+    out_last = value;
+  }
+  /***************** 正向递增约束 ******************/
+  if ((value - out_last) >= increvalue)
+  {
+    out = out_last + increvalue;
+  }
+  /***************** 负向向递减约束 ******************/
+  else if ((value - out_last) <= (-decreasvalue))
+  {
+    out = out_last - decreasvalue;
+  }
+  /***************** 不满足增量约束条件直接输出 ******************/
+  else
+  {
+    out = value;
+  }
+  out_last = out;
+
+  return out;
+}
+
+double slopelimitRDuty(double value, double increvalue,double decreasvalue)
+{
+  static double out_last = 0; // 上一次值
+  double out;
+
+  /***************** 如果第一次进入，则给 out_last 赋值 ******************/
+  static char fisrt_flag = 1;
+  if (fisrt_flag == 1)
+  {
+    fisrt_flag = 0;
+    out_last = value;
+  }
+  /***************** 正向递增约束 ******************/
+  if ((value - out_last) >= increvalue)
+  {
+    out = out_last + increvalue;
+  }
+  /***************** 负向向递减约束 ******************/
+  else if ((value - out_last) <= (-decreasvalue))
+  {
+    out = out_last - decreasvalue;
+  }
+  /***************** 不满足增量约束条件直接输出 ******************/
+  else
+  {
+    out = value;
+  }
+  out_last = out;
+
+  return out;
+}
+
+
+
 // 初始化滤波器
 void initializeFilter(AverageFilter *filter)
 {

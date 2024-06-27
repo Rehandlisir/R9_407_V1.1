@@ -4,7 +4,7 @@
  * @Author       : lisir
  * @Version      : V1.1
  * @LastEditors  : lisir lisir@rehand.com
- * @LastEditTime : 2024-06-26 11:14:23
+ * @LastEditTime : 2024-06-27 14:36:47
  * @Copyright (c) 2024 by Rehand Medical Technology Co., LTD, All Rights Reserved. 
 **/
 #include "./BSP/R9/underpanControl.h"
@@ -522,7 +522,7 @@ static void CalCurveSPTA(CurveObjectType *spta)
 void velocity_maping(VELOCITY_PIn velPlanIn)
 {
 	/*上位机显示 摇杆数据*/
-	g_slaveReg[10] =  velPlanIn.adcx;
+	  g_slaveReg[10] =  velPlanIn.adcx;
     g_slaveReg[11] =  velPlanIn.adcy;
     /*本地摇杆操控轮椅状态*/
 	if (velPlanIn.adcx!=0 || velPlanIn.adcy!=0)
@@ -535,25 +535,24 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 	}
 	/*转向角计算*/
     velocity_pout.steering_angle = atan2((double)velPlanIn.adcy, (double)velPlanIn.adcx);
-    if (velPlanIn.adcy <= 0)
-	{
+    if (velPlanIn.adcy < 0)
+		{
 		velocity_pout.steering_angle = velocity_pout.steering_angle +2*pi;
-	}
+		}
     /*速度模长*/
-
     velocity_pout.underpanVelocity = sqrt(pow(velPlanIn.adcx,2.0)+pow(velPlanIn.adcy,2.0));
 	
 	/*左右轮目标线速度 Km/h*/
 	velocity_pout.L_Velocity = velPlanIn.set_Maximum_Strspeed * velocity_pout.underpanVelocity/ (yadc_max - yadc_Dim) * \
-	(sin(velocity_pout.steering_angle-pi/6.0) + cos(velocity_pout.steering_angle-pi/6.0)) / 1.366 ;
+	(sin(velocity_pout.steering_angle-pi/6.0) + cos(velocity_pout.steering_angle-pi/6.0)) / 1.0 ;
 
 	velocity_pout.R_Velocity = velPlanIn.set_Maximum_Strspeed * velocity_pout.underpanVelocity/ (yadc_max - yadc_Dim) * \
-	(sin(velocity_pout.steering_angle+pi/6.0) - cos(velocity_pout.steering_angle+pi/6.0)) / 1.366 ;
-
+	(sin(velocity_pout.steering_angle+pi/6.0) - cos(velocity_pout.steering_angle+pi/6.0)) / 1.0 ;
+  
 	velocity_pout.L_Velocity = Value_limitf(-velPlanIn.set_Maximum_Strspeed,velocity_pout.L_Velocity,velPlanIn.set_Maximum_Strspeed);
 	velocity_pout.R_Velocity = Value_limitf(-velPlanIn.set_Maximum_Strspeed,velocity_pout.R_Velocity,velPlanIn.set_Maximum_Strspeed);
 	
-  	if (drivestate != backward)
+  if (drivestate != backward)
 	{
 		velocity_pout.presentation_velocity = (fabs(velocity_pout.L_Velocity) + fabs(velocity_pout.R_Velocity))/2.0;
 	}
@@ -567,15 +566,34 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 	/*KM/h —— RPM—— Voltage - Duty cycle*/
     
 	/*左右目标轮线速度 转换为 占空比*/
-	velocity_pout.L_Dutycycle = fabs(velocity_pout.L_Velocity) * KMPH_TO_Duty;//* 0.5 + 0.5; /*占空比大于50% 方可驱动电机启动 */
+	velocity_pout.L_Dutycycle = fabs(velocity_pout.L_Velocity) * KMPH_TO_Duty;// * 0.5 + 0.5; /*占空比大于50% 方可驱动电机启动 */
 	velocity_pout.R_Dutycycle = fabs(velocity_pout.R_Velocity) * KMPH_TO_Duty;// * 0.5 + 0.5;
 	/*算术平均滤波占空比滤波处理*/
     velocity_pout.L_Dutycycle = filterValue(&filter_L,velocity_pout.L_Dutycycle);
 	velocity_pout.R_Dutycycle = filterValue(&filter_R,velocity_pout.R_Dutycycle);
 
 	/* 占空比约束*/
-	velocity_pout.L_Dutycycle = Value_limitf(-1, velocity_pout.L_Dutycycle, 1);
-	velocity_pout.R_Dutycycle = Value_limitf(-1, velocity_pout.R_Dutycycle, 1);	 
+	if (fabs(velocity_pout.L_Dutycycle) < 0.51)
+	{
+		velocity_pout.L_Dutycycle = 0;
+		
+	}
+	
+	if (fabs(velocity_pout.R_Dutycycle) < 0.51)
+	{
+		velocity_pout.R_Dutycycle = 0;
+	}
+	velocity_pout.L_Dutycycle = slopelimitLDuty(velocity_pout.L_Dutycycle,0.08,0.2);
+	velocity_pout.R_Dutycycle = slopelimitRDuty(velocity_pout.R_Dutycycle,0.08,0.2);
+	
+//	velocity_pout.L_Dutycycle = fabs(velocity_pout.L_Dutycycle);
+//	velocity_pout.R_Dutycycle = fabs(velocity_pout.R_Dutycycle);
+	
+	velocity_pout.L_Dutycycle = Value_limitf(0, velocity_pout.L_Dutycycle, 1);
+	velocity_pout.R_Dutycycle = Value_limitf(0, velocity_pout.R_Dutycycle, 1);	
+	
+	
+	
 	/* 静止  */
 	if (velPlanIn.adcx == 0 && velPlanIn.adcy  == 0)
 	{
@@ -601,28 +619,29 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 	}
 	
 	/*向左前转向 */
-	if (velPlanIn.adcx < 0 && velPlanIn.adcy > 0)
+//	if (velPlanIn.adcx < 0 && velPlanIn.adcy > 0)
+	if (velocity_pout.steering_angle > pi/2 && velocity_pout.steering_angle <(11/12.0)*pi && velPlanIn.adcx!=0 )
 	{
 		velocity_pout.runstate = front_left;
 		drivestate = front_left;
 		g_slaveReg[5] = 6;
 	}
 	/*向右前转向 */
-	if (velPlanIn.adcx > 0 && velPlanIn.adcy > 0)
+	if (velocity_pout.steering_angle > pi*1.0/12.0 && velocity_pout.steering_angle <1/2.0 *pi && velPlanIn.adcx!=0)
 	{
 		velocity_pout.runstate = front_right;
 		drivestate = front_right;
 		g_slaveReg[5] = 7;
 	}
 	/*向左后转向 */
-	if (velPlanIn.adcx > 0 && velPlanIn.adcy < 0) 
+	if (velocity_pout.steering_angle > 1.5*pi  && velocity_pout.steering_angle <23/12.0 *pi && velPlanIn.adcx!=0)
 	{
 		velocity_pout.runstate = back_left;
 		drivestate = back_left;
 		g_slaveReg[5] = 8;
 	}
 	/*向右后转向 */
-	if (velPlanIn.adcx < 0 && velPlanIn.adcy < 0) 
+if (velocity_pout.steering_angle > 11/12.0 *pi  && velocity_pout.steering_angle <1.5 *pi && velPlanIn.adcx!=0 )
 	{
 		velocity_pout.runstate = back_right;
 		drivestate = back_right;
@@ -630,7 +649,8 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 	}
 	
 	/*原地右转 */
-	if (velPlanIn.adcx > 0 && velPlanIn.adcy == 0) 	
+if ((velocity_pout.steering_angle >=0 &&  velPlanIn.adcx!=0 && velocity_pout.steering_angle < 1/12.0 *pi) \
+	|| (velocity_pout.steering_angle >23/12.0*pi  && velocity_pout.steering_angle <2 *pi))	
 	{
 		velocity_pout.runstate = turnself_right;
 		drivestate = turnself_right;
@@ -638,12 +658,13 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 	}
 
 	/*原地左转 */
-	if (velPlanIn.adcx < 0 && velPlanIn.adcy == 0) 	
+if (velocity_pout.steering_angle >11/12.0*pi && velocity_pout.steering_angle < 13/12.0 *pi)	
 	{
 		velocity_pout.runstate = turnself_left;
 		drivestate = turnself_left;
 		g_slaveReg[5] = 4;
 	}
+	//printf("L:%lf,R:%lf,ADCX:%d,ADCY:%d\r\n",velocity_pout.L_Dutycycle,velocity_pout.R_Dutycycle,velPlanIn.adcx,velPlanIn.adcy);	
 	switch (drivestate)
 	{
 		case idle:

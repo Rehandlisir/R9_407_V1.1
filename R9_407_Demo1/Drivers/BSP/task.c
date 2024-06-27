@@ -27,7 +27,7 @@ void Hard_devInit(void)
 		delay_init(168);                        /*初始化延时时钟频率*/
 		usart_init(115200);                     /* 串口通讯波特率 115200 */
 		led_init();                             /* 转向灯初始化 */
-		key_init();								/*按键初始化*/
+		// key_init();								/*按键初始化*/
 		btim_timx_int_init(10 - 1, 8400 - 1);   /*定时器中断初始化 产生固定 1ms 的定时器中断 */
 		brake_init(200-1,42-1);                           /*抱闸初始化*/   
 		currentproInit();
@@ -164,6 +164,5 @@ void Task_ex_handl(void)
 {
 
 	ex_handl_excute();
-
 
 }

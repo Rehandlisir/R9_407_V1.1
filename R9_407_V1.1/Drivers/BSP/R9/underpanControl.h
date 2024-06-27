@@ -6,7 +6,7 @@
 /* ???? */
 #define underpan_H 0.55 /*???*/
 
-#define PI 3.1415926 /*????PI*/
+#define pi 3.1415926 /*????PI*/
 
 #define GEAR_RATIO 29.5		 /* 减速比 */
 #define Diameter 0.354		 /* 轮子直径354mm  */
@@ -35,6 +35,8 @@ typedef struct /**/
 {
 	int16_t adcx;
 	int16_t adcy;
+	int16_t adcx_handl;
+	int16_t adcy_handl;
 	double max_underpanVelocity;
 	double set_Maximum_Strspeed;
 	double set_Maximum_Steespeed;

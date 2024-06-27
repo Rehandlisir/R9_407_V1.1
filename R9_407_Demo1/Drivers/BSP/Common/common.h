@@ -79,7 +79,10 @@ extern  AverageFilter filter_R;
 int32_t Value_limit(int32_t min_value ,int32_t current_value ,int32_t max_value);
 int32_t  Value_Resetzero(int32_t min_value ,int32_t current_value ,int32_t max_value);
 int32_t slopelimitx( int32_t value,int32_t increvalue) ;   
-int32_t slopelimity( int32_t value,int32_t increvalue) ;   
+int32_t slopelimity( int32_t value,int32_t increvalue) ; 
+
+double slopelimitLDuty(double value, double increvalue,double decreasvalue);
+double slopelimitRDuty(double value, double increvalue,double decreasvalue);	
 float Value_limitf(float min_value ,float current_value ,float max_value);
 void initializeFilter(AverageFilter* filter);
 double filterValue(AverageFilter* filter, double input);

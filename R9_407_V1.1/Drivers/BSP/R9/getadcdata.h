@@ -22,7 +22,7 @@
 #define xadc_Dim      200
 
 /*define class of joystic*/
-#define SMC35B2G 
+#define SMC25B2G 
 
 #if defined SMC35B2G
 #define X_BASEreturn	0
