@@ -29,7 +29,7 @@ void Hard_devInit(void)
 		led_init();                             /* 转向灯初始化 */
 		// key_init();								/*按键初始化*/
 		btim_timx_int_init(10 - 1, 8400 - 1);   /*定时器中断初始化 产生固定 1ms 的定时器中断 */
-		brake_init(200-1,42-1);                           /*抱闸初始化*/   
+		brake_init(2000-1,84-1);                           /*抱闸初始化*/   
 		currentproInit();
 		getadcDataInit();                      /*ADC数据采集初始化*/
 		MPU_Init();                            /*陀螺仪初始化*/

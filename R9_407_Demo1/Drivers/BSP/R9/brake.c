@@ -4,7 +4,7 @@
  * @Author       : lisir
  * @Version      : V1.1
  * @LastEditors  : lisir lisir@rehand.com
- * @LastEditTime : 2024-06-21 15:45:45
+ * @LastEditTime : 2024-06-29 10:31:34
  * @Copyright (c) 2024 by Rehand Medical Technology Co., LTD, All Rights Reserved. 
 **/
 #include "./BSP/R9/brake.h"
@@ -87,11 +87,11 @@ void brake(uint8_t flage)
 {
     if (flage)
     {
-        brake_pwm_set(20 ,20);
+        brake_pwm_set(1 ,1);
     }
     else
     {
-        brake_pwm_set(200 ,200); 
+        brake_pwm_set(2000 ,2000); 
     }
 }
 

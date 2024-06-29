@@ -4,7 +4,7 @@
  * @Author       : lisir lisir@rehand.com
  * @Version      : 0.0.1
  * @LastEditors  : lisir lisir@rehand.com
- * @LastEditTime : 2024-06-24 10:48:24
+ * @LastEditTime : 2024-06-29 09:03:53
  * @2024 by Rehand Medical Technology Co., LTD, All Rights Reserved.
 **/
 /**
@@ -134,11 +134,11 @@ void LeftMoterMove(uint8_t dir,double duty_cycle)
     LEFT_SOFTBRAKE(0); // ¹Ø±ÕÈíÉ²³µ
     if (dir==1)
     {
-        atim_tim1_cplm_pwm_set((uint16_t)duty_cycle*100,0);
+        atim_tim1_cplm_pwm_set((uint16_t)(duty_cycle*100),0);
     }
     else if(dir==0)
     {
-        atim_tim1_cplm_pwm_set(0,(uint16_t)duty_cycle*100);
+        atim_tim1_cplm_pwm_set(0,(uint16_t)(duty_cycle*100));
     }
     else
     {
@@ -148,7 +148,8 @@ void LeftMoterMove(uint8_t dir,double duty_cycle)
 
 void LeftMoterStop(void)
 {
-    LEFT_SOFTBRAKE(1);
+    atim_tim1_cplm_pwm_set(0,0);
+    // LEFT_SOFTBRAKE(1);
 }
 /**********************************µ×ÅÌR µç»ú2Çý¶¯Êä³ö TIME8 CH1 CH2 CH1N CH2N*************************************/
 TIM_HandleTypeDef g_tim8_cplm_pwm_handle;                              /* ¶¨Ê±Æ÷1¾ä±ú */
@@ -231,11 +232,11 @@ void RightMoterMove(uint8_t dir,double duty_cycle)
     RIGHT_SOFTBRAKE(0);
     if (dir==1)
     {
-        atim_tim8_cplm_pwm_set((uint16_t)duty_cycle*100,0);
+        atim_tim8_cplm_pwm_set((uint16_t)(duty_cycle*100),0);
     }
     else if(dir==0)
     {
-        atim_tim8_cplm_pwm_set(0,(uint16_t)duty_cycle*100);
+        atim_tim8_cplm_pwm_set(0,(uint16_t)(duty_cycle*100));
     }
     else
     {
@@ -245,7 +246,8 @@ void RightMoterMove(uint8_t dir,double duty_cycle)
 
 void RightMoterStop(void)
 {
-    RIGHT_SOFTBRAKE(1);
+    atim_tim8_cplm_pwm_set(0,0);
+    // RIGHT_SOFTBRAKE(1);
 }
 
 /**********************************¿¿±³½Ç¶È³Å¸ËA1*************************************/

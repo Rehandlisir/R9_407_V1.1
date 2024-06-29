@@ -4,7 +4,7 @@
  * @Author       : lisir
  * @Version      : V1.1
  * @LastEditors  : lisir lisir@rehand.com
- * @LastEditTime : 2024-06-27 14:36:47
+ * @LastEditTime : 2024-06-29 10:53:13
  * @Copyright (c) 2024 by Rehand Medical Technology Co., LTD, All Rights Reserved. 
 **/
 #include "./BSP/R9/underpanControl.h"
@@ -573,27 +573,12 @@ void velocity_maping(VELOCITY_PIn velPlanIn)
 	velocity_pout.R_Dutycycle = filterValue(&filter_R,velocity_pout.R_Dutycycle);
 
 	/* 占空比约束*/
-	if (fabs(velocity_pout.L_Dutycycle) < 0.51)
-	{
-		velocity_pout.L_Dutycycle = 0;
-		
-	}
-	
-	if (fabs(velocity_pout.R_Dutycycle) < 0.51)
-	{
-		velocity_pout.R_Dutycycle = 0;
-	}
 	velocity_pout.L_Dutycycle = slopelimitLDuty(velocity_pout.L_Dutycycle,0.08,0.2);
 	velocity_pout.R_Dutycycle = slopelimitRDuty(velocity_pout.R_Dutycycle,0.08,0.2);
 	
-//	velocity_pout.L_Dutycycle = fabs(velocity_pout.L_Dutycycle);
-//	velocity_pout.R_Dutycycle = fabs(velocity_pout.R_Dutycycle);
-	
 	velocity_pout.L_Dutycycle = Value_limitf(0, velocity_pout.L_Dutycycle, 1);
 	velocity_pout.R_Dutycycle = Value_limitf(0, velocity_pout.R_Dutycycle, 1);	
-	
-	
-	
+
 	/* 静止  */
 	if (velPlanIn.adcx == 0 && velPlanIn.adcy  == 0)
 	{
@@ -672,36 +657,36 @@ if (velocity_pout.steering_angle >11/12.0*pi && velocity_pout.steering_angle < 1
 			RightMoterStop();
 			break;
 		case forward:
-			LeftMoterMove(1,velocity_pout.L_Dutycycle);
-			RightMoterMove(0,velocity_pout.R_Dutycycle);
+			LeftMoterMove(0,velocity_pout.L_Dutycycle);
+			RightMoterMove(1,velocity_pout.R_Dutycycle);
 			break;
 		case front_right:
-			LeftMoterMove(1,velocity_pout.L_Dutycycle);
-			RightMoterMove(0,velocity_pout.R_Dutycycle);
+			LeftMoterMove(0,velocity_pout.L_Dutycycle);
+			RightMoterMove(1,velocity_pout.R_Dutycycle);
 			break;
 		case front_left:
-			LeftMoterMove(1,velocity_pout.L_Dutycycle);
-			RightMoterMove(0,velocity_pout.R_Dutycycle);
+			LeftMoterMove(0,velocity_pout.L_Dutycycle);
+			RightMoterMove(1,velocity_pout.R_Dutycycle);
 			break;
 		case backward : /*backward velocity is half of set_Maximum_Strspeed*/
-			LeftMoterMove(0,velocity_pout.L_Dutycycle);
-			RightMoterMove(1,velocity_pout.R_Dutycycle);
+			LeftMoterMove(1,velocity_pout.L_Dutycycle);
+			RightMoterMove(0,velocity_pout.R_Dutycycle);
 			break;
 		case back_left:
-			LeftMoterMove(0,velocity_pout.L_Dutycycle);
-			RightMoterMove(1,velocity_pout.R_Dutycycle);
+			LeftMoterMove(1,velocity_pout.L_Dutycycle);
+			RightMoterMove(0,velocity_pout.R_Dutycycle);
 			break;
 		case back_right:
-			LeftMoterMove(0,velocity_pout.L_Dutycycle);
-			RightMoterMove(1,velocity_pout.R_Dutycycle);
+			LeftMoterMove(1,velocity_pout.L_Dutycycle);
+			RightMoterMove(0,velocity_pout.R_Dutycycle);
 			break;
 		case turnself_right:
-			LeftMoterMove(1,velocity_pout.L_Dutycycle);
-			RightMoterMove(1,velocity_pout.R_Dutycycle);
-			break;
-		case turnself_left:
 			LeftMoterMove(0,velocity_pout.L_Dutycycle);
 			RightMoterMove(0,velocity_pout.R_Dutycycle);
+			break;
+		case turnself_left:
+			LeftMoterMove(1,velocity_pout.L_Dutycycle);
+			RightMoterMove(1,velocity_pout.R_Dutycycle);
 			break;
 		default:
 			break;
@@ -726,7 +711,7 @@ if (velocity_pout.steering_angle >11/12.0*pi && velocity_pout.steering_angle < 1
 	{
 			brake(0);
 	}
-	// printf("adcx:%d,adcy:%d\r\n",velPlanIn.adcx,velPlanIn.adcy);//,velocity_pout.L_Dutycycle,velocity_pout.R_Dutycycle);
+	printf("adcx:%d,adcy:%d,Lduty:%f,Rduty:%f\r\n",velPlanIn.adcx,velPlanIn.adcy,velocity_pout.L_Dutycycle,velocity_pout.R_Dutycycle);
 }
 
 /**
